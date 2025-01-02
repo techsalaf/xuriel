@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Laptop -->
+  <path d="M4 16h16V6H4v10zM2 18h20" fill="none" stroke="currentColor" stroke-width="2"/>
+  <!-- Work Symbol -->
+  <path d="M8 10l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
