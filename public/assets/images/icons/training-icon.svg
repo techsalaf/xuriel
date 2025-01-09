@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Graduation Cap -->
+  <path d="M2 10l10-5 10 5-10 5z" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M8 12v5c0 1 4 2 4 2s4-1 4-2v-5" fill="none" stroke="currentColor" stroke-width="2"/>
+  <!-- Growth Arrow -->
+  <path d="M16 14l2-2l2 2M18 12v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

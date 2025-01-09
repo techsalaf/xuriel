@@ -1,0 +1,88 @@
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout repository code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: npm install
+
+    # Step 4: Clear npm cache
+    - name: Clear Cache
+      run: npm cache clean --force
+
+    # Step 5: Build the project
+    - name: Build the Project
+      run: npm run build
+
+    # Step 6: Sync build folder using rsync
+    - name: Sync Build Folder
+      run: |
+        rsync -avz --delete public/build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/xurislrm/public_html/public/build
+
+    # Step 7: Transfer the compressed build to the server via SSH
+    - name: Transfer Build File via SSH
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 21098
+        script: |
+          echo "Transferring the build.tar.gz to the server..."
+          echo "Transferring the build.tar.gz to the server using appleboy/ssh-action..."
+    # Step 8: Deploy the build to the server via SSH
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 21098
+
+        script: |
+          cd /home/xurislrm/public_html
+          echo "Checking if build.tar.gz exists..."
+          if [ ! -f build.tar.gz ]; then
+            echo "Error: build.tar.gz not found!" && exit 1
+          fi
+          rm -rf public/build/* # Clean old assets
+          if [ -d "public/build" ]; then
+            rm -rf public/build/* # Clean old assets
+          else
+            echo "Error: Directory public/build does not exist!" && exit 1
+          fi
+          tar --strip-components=2 -xzvf build.tar.gz -C public/build
+    # Step 9: Clean up
+    - name: Clean up
+      run: rm build.tar.gz
+    # Step 9: Clean up
+    # Step 9: Clean up
+    - name: Clean up
+      if: success()
+      run: echo "Clean up step executed"
+
+    # Step 10: Notify the deployment status
+    - name: Notify Deployment Status
+      run: echo "Deployment Successful"
+
+    # Step 11: Finish
+    - name: Finish
+      run: echo "Deployment Finished"
