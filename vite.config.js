@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import vue from '@vitejs/plugin-vue'
@@ -23,9 +22,24 @@ export default defineConfig({
   ],
   build: {
     sourcemap: true,
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+      },
+    },
   },
   server: {
-    sourcemap: true,
-    host: 'localhost',  // Force binding to localhost (IPv4)
+    host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost',
+    port: 5173,
+    proxy: {
+      '/api': 'http://localhost',
+    },
+  },
+  define: {
+    'process.env': {
+      NODE_ENV: process.env.NODE_ENV || 'development',
+    },
   },
 })
