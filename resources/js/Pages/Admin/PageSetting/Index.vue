@@ -92,25 +92,22 @@ const updateContactPage = (...data) => {
 
             <ul class="tabs-list w-72">
               <li class="tabs-item">
-
-              <li class="tabs-item">
                 <button class="tabs-btn active" data-panel-id="#homepage" type="button">
                   <span>{{ trans("Home Page") }}</span>
                 </button>
               </li>
 
-              <button class="tabs-btn" data-panel-id="#primary" type="button">
-                <span>{{ trans("Primary") }}</span>
-              </button>
+              <li class="tabs-item">
+                <button class="tabs-btn" data-panel-id="#primary" type="button">
+                  <span>{{ trans("Primary") }}</span>
+                </button>
               </li>
-
 
               <li class="tabs-item">
                 <button class="tabs-btn" data-panel-id="#contact" type="button">
                   <span>{{ trans("Contact Page") }}</span>
                 </button>
               </li>
-
             </ul>
 
             <div class="tabs-content">

@@ -1,6 +1,6 @@
 var _a, _b;
 import { ref, reactive, computed, onMounted, resolveDirective, mergeProps, unref, withCtx, createVNode, toDisplayString, createTextVNode, useSSRContext, resolveComponent, onUpdated, defineComponent, onBeforeMount, withDirectives, shallowRef, watch, resolveDynamicComponent, defineAsyncComponent, openBlock, createBlock, Fragment, onUnmounted, onBeforeUnmount, renderList, createCommentVNode, toValue, createSSRApp, h } from "vue";
-import { ssrRenderAttrs, ssrGetDirectiveProps, ssrRenderList, ssrInterpolate, ssrRenderComponent, ssrRenderAttr, ssrRenderClass, ssrRenderSlot, ssrRenderStyle, ssrIncludeBooleanAttr, ssrLooseContain, ssrRenderVNode, ssrRenderDynamicModel, ssrLooseEqual } from "vue/server-renderer";
+import { ssrRenderAttrs, ssrGetDirectiveProps, ssrInterpolate, ssrRenderList, ssrRenderComponent, ssrRenderAttr, ssrRenderClass, ssrRenderSlot, ssrRenderStyle, ssrIncludeBooleanAttr, ssrLooseContain, ssrLooseEqual, ssrRenderVNode, ssrRenderDynamicModel } from "vue/server-renderer";
 import { router, usePage, Link, Head, useForm, createInertiaApp } from "@inertiajs/vue3";
 import SimpleBar from "simplebar";
 import Toastify from "toastify-js";
@@ -916,13 +916,14 @@ const _sfc_main$52 = {
     };
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<aside${ssrRenderAttrs(mergeProps({ class: "sidebar" }, _attrs))}><a href="/"><div class="sidebar-header"><div class="sidebar-logo-icon"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1;
+      _push(`<aside${ssrRenderAttrs(mergeProps({ class: "sidebar" }, _attrs))}><a href="/"><div class="sidebar-header"><div class="sidebar-logo-icon"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "logo",
         class: "block h-[30px] dark:hidden"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "logo",
         class: "hidden h-[30px] dark:block"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}></div></div></a><ul class="sidebar-content"><!--[-->`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div></div></a><ul class="sidebar-content"><!--[-->`);
       ssrRenderList(unref(navMenuItems), (menu2, parentMenuKey) => {
         _push(`<!--[-->`);
         if (canAccess(menu2)) {
@@ -1618,11 +1619,13 @@ const _sfc_main$4$ = {
   __ssrInlineRender: true,
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
+      _push(`<template>`);
       if (unref(modal).state) {
         _push(`<div${ssrRenderAttrs(mergeProps({ class: "c-modal-container" }, _attrs))}><div class="c-modal-content rounded bg-white p-5 dark:bg-dark-800"><div class="exclamation"><span>!</span></div><h6 class="mt-4 text-center">${ssrInterpolate(unref(modal).confirm_text)}</h6><p class="mb-4 mt-4 text-center">${ssrInterpolate(unref(modal).message)}</p><div class="c-model-btn-container"><button class="btn btn-primary">${ssrInterpolate(unref(modal).accept_btn_text)}</button><button class="btn btn-danger">${ssrInterpolate(unref(modal).reject_btn_text)}</button></div></div></div>`);
       } else {
         _push(`<!---->`);
       }
+      _push(`</template>`);
     };
   }
 };
@@ -1697,7 +1700,7 @@ const _sfc_main$4Z = {
             }, {
               default: withCtx((_, _push2, _parent2, _scopeId) => {
                 if (_push2) {
-                  _push2(`<div${_scopeId}>${button.name}</div>`);
+                  _push2(`<div${_scopeId}>${button.name ?? ""}</div>`);
                 } else {
                   return [
                     createVNode("div", {
@@ -1709,7 +1712,7 @@ const _sfc_main$4Z = {
               _: 2
             }, _parent));
           } else {
-            _push(`<button data-toggle="drawer"${ssrRenderAttr("data-target", button.target)} class="btn btn-sm btn-primary mx-2 text-center"><div>${button.name}</div></button>`);
+            _push(`<button data-toggle="drawer"${ssrRenderAttr("data-target", button.target)} class="btn btn-sm btn-primary mx-2 text-center"><div>${button.name ?? ""}</div></button>`);
           }
           _push(`<!--]-->`);
         });
@@ -1748,16 +1751,16 @@ const _sfc_main$4Y = {
     }
   },
   setup(__props) {
-    const props = __props;
     const defaultClasses = computed(() => {
       return location.pathname.startsWith("/admin") ? "btn btn-primary" : "btn-one d-flex align-items-center";
     });
+    const props = __props;
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<button${ssrRenderAttrs(mergeProps({
         type: "submit",
         class: __props.classes == "" ? defaultClasses.value : __props.classes,
         disabled: props.processing
-      }, _attrs))}><img style="${ssrRenderStyle(props.processing ?? false ? null : { display: "none" })}" src="/assets/images/ajax_loading_white.svg" class="spinner_btn_img"><span>${props.btnText}</span></button>`);
+      }, _attrs))}><img style="${ssrRenderStyle(props.processing ?? false ? null : { display: "none" })}" src="/assets/images/ajax_loading_white.svg" class="spinner_btn_img"><span>${props.btnText ?? ""}</span></button>`);
     };
   }
 };
@@ -1867,7 +1870,7 @@ const _sfc_main$4W = /* @__PURE__ */ Object.assign(__default__$2U, {
       }
       _push(`</div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Assign Roles"))}</label><select required id="roles" class="select"><!--[-->`);
       ssrRenderList(__props.roles, (role) => {
-        _push(`<option${ssrRenderAttr("value", role.name)}>${ssrInterpolate(role.name)}</option>`);
+        _push(`<option${ssrRenderAttr("value", role.name)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).roles) ? ssrLooseContain(unref(form).roles, role.name) : ssrLooseEqual(unref(form).roles, role.name)) ? " selected" : ""}>${ssrInterpolate(role.name)}</option>`);
       });
       _push(`<!--]--></select>`);
       if (unref(form).errors.roles) {
@@ -1942,7 +1945,7 @@ const _sfc_main$4V = /* @__PURE__ */ Object.assign(__default__$2T, {
       }
       _push(`</div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Assign Roles"))}</label><select required id="roles" class="select"><!--[-->`);
       ssrRenderList(__props.roles, (role) => {
-        _push(`<option${ssrRenderAttr("value", role.name)}>${ssrInterpolate(role.name)}</option>`);
+        _push(`<option${ssrRenderAttr("value", role.name)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).roles) ? ssrLooseContain(unref(form).roles, role.name) : ssrLooseEqual(unref(form).roles, role.name)) ? " selected" : ""}>${ssrInterpolate(role.name)}</option>`);
       });
       _push(`<!--]--></select>`);
       if (unref(form).errors.roles) {
@@ -1950,7 +1953,7 @@ const _sfc_main$4V = /* @__PURE__ */ Object.assign(__default__$2T, {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select name="status" class="select"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mt-3 mb-2"><div class="col-lg-12">`);
+      _push(`</div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select name="status" class="select"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mt-3 mb-2"><div class="col-lg-12">`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         processing: unref(form).processing,
         "btn-text": unref(trans)("Update Profile")
@@ -2274,10 +2277,10 @@ const _sfc_main$4R = /* @__PURE__ */ Object.assign(__default__$2Q, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const form = useForm({
       key: "",
       value: "",
@@ -2397,7 +2400,7 @@ const _sfc_main$4P = /* @__PURE__ */ Object.assign(__default__$2P, {
       }, null, _parent));
       _push(`</div></div><div class="flex gap-1"><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("Template for"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
       ssrRenderList(["candidate", "employer"], (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).type) ? ssrLooseContain(unref(form).type, t) : ssrLooseEqual(unref(form).type, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2405,7 +2408,7 @@ const _sfc_main$4P = /* @__PURE__ */ Object.assign(__default__$2P, {
       }, null, _parent));
       _push(`</div><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
       ssrRenderList(["active", "draft"], (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, t) : ssrLooseEqual(unref(form).status, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2413,7 +2416,7 @@ const _sfc_main$4P = /* @__PURE__ */ Object.assign(__default__$2P, {
       }, null, _parent));
       _push(`</div><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("AI Model"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
       ssrRenderList(__props.aiModels, (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).ai_model) ? ssrLooseContain(unref(form).ai_model, t) : ssrLooseEqual(unref(form).ai_model, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2423,7 +2426,7 @@ const _sfc_main$4P = /* @__PURE__ */ Object.assign(__default__$2P, {
       ssrRenderList(unref(form).fields, (field, index) => {
         _push(`<div class="flex items-center gap-3 gap-y-5"><div class="mb-2 space-y-1"><label>${ssrInterpolate(unref(trans)("Field Type"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
         ssrRenderList(["input", "textarea"], (t) => {
-          _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+          _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(field.type) ? ssrLooseContain(field.type, t) : ssrLooseEqual(field.type, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
         });
         _push(`<!--]--></select>`);
         _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2518,7 +2521,7 @@ const _sfc_main$4O = /* @__PURE__ */ Object.assign(__default__$2O, {
       }, null, _parent));
       _push(`</div></div><div class="grid grid-cols-3 gap-1"><div class="mb-3"><label>${ssrInterpolate(unref(trans)("Template for"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
       ssrRenderList(["candidate", "employer"], (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).type) ? ssrLooseContain(unref(form).type, t) : ssrLooseEqual(unref(form).type, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2526,7 +2529,7 @@ const _sfc_main$4O = /* @__PURE__ */ Object.assign(__default__$2O, {
       }, null, _parent));
       _push(`</div><div class="mb-3"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
       ssrRenderList(["active", "draft"], (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, t) : ssrLooseEqual(unref(form).status, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2534,7 +2537,7 @@ const _sfc_main$4O = /* @__PURE__ */ Object.assign(__default__$2O, {
       }, null, _parent));
       _push(`</div><div class="mb-3"><label>${ssrInterpolate(unref(trans)("AI Model"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
       ssrRenderList(__props.aiModels, (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).ai_model) ? ssrLooseContain(unref(form).ai_model, t) : ssrLooseEqual(unref(form).ai_model, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2544,7 +2547,7 @@ const _sfc_main$4O = /* @__PURE__ */ Object.assign(__default__$2O, {
       ssrRenderList(unref(form).fields, (field, index) => {
         _push(`<div class="flex items-center gap-3 gap-y-5"><div class="mb-2 space-y-1"><label>${ssrInterpolate(unref(trans)("Field Type"))}</label><select class="select"><option value="" disabled selected>SELECT</option><!--[-->`);
         ssrRenderList(["input", "textarea"], (t) => {
-          _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+          _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(field.type) ? ssrLooseContain(field.type, t) : ssrLooseEqual(field.type, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
         });
         _push(`<!--]--></select>`);
         _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -2623,7 +2626,7 @@ const _sfc_main$4M = {
         ssrRenderList(__props.links, (link, key) => {
           _push(`<!--[-->`);
           if (link.url === null) {
-            _push(`<div class="paginate-link paginate-link-null border border-gray-200 dark:border-gray-600">${link.label}</div>`);
+            _push(`<div class="paginate-link paginate-link-null border border-gray-200 dark:border-gray-600">${link.label ?? ""}</div>`);
           } else {
             _push(ssrRenderComponent(_component_Link, {
               key: `link-${key}`,
@@ -2632,7 +2635,7 @@ const _sfc_main$4M = {
             }, {
               default: withCtx((_, _push2, _parent2, _scopeId) => {
                 if (_push2) {
-                  _push2(`<span${_scopeId}>${link.label}</span>`);
+                  _push2(`<span${_scopeId}>${link.label ?? ""}</span>`);
                 } else {
                   return [
                     createVNode("span", {
@@ -2672,8 +2675,8 @@ const _sfc_main$4L = /* @__PURE__ */ Object.assign(__default__$2N, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
+    const props = __props;
     const stats = [
       {
         value: props.totalTemplates,
@@ -2837,7 +2840,7 @@ const _sfc_main$4K = /* @__PURE__ */ Object.assign(__default__$2M, {
       }, null, _parent));
       _push(`</div><div><label>${ssrInterpolate(_ctx.trans("Select Language"))}</label><select name="language" class="select"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).language) ? ssrLooseContain(unref(form).language, key) : ssrLooseEqual(unref(form).language, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div><hr><div><label>${ssrInterpolate(_ctx.trans("SEO Meta Title"))}</label><input${ssrRenderAttr("value", unref(form).meta_title)} type="text" name="meta_title" required class="input"></div><div><label>${ssrInterpolate(_ctx.trans("SEO Meta Image"))}</label><input type="file" class="input" name="meta_image" required accept="image/*"></div><div><label>${ssrInterpolate(_ctx.trans("SEO Meta Description"))}</label><textarea name="meta_description" required class="input h-100">${ssrInterpolate(unref(form).meta_description)}</textarea></div><div><label>${ssrInterpolate(_ctx.trans("SEO Meta Tags"))}</label><input${ssrRenderAttr("value", unref(form).meta_tags)} type="text" name="meta_tags" required class="input"></div><div><div><label for="toggle-status" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, null) : unref(form).status) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-status" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Make it publish?"))}</span></label></div></div><div>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -2875,8 +2878,8 @@ const _sfc_main$4J = /* @__PURE__ */ Object.assign(__default__$2L, {
     "tagsArr"
   ],
   setup(__props) {
-    const props = __props;
     const { cke, ClassicEditor: ClassicEditor2 } = ckeEditor();
+    const props = __props;
     const editForm = useForm({
       title: props.info.title,
       short_description: props.info.short_description.value,
@@ -2906,7 +2909,7 @@ const _sfc_main$4J = /* @__PURE__ */ Object.assign(__default__$2L, {
       }, null, _parent));
       _push(`</div></div><div><label class="label">${ssrInterpolate(_ctx.trans("Select Language"))}</label><select name="language" class="select"><!--[-->`);
       ssrRenderList(__props.languages, (language, languagesKey) => {
-        _push(`<option${ssrRenderAttr("value", languagesKey)}${ssrIncludeBooleanAttr(languagesKey == __props.info.lang) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", languagesKey)}${ssrIncludeBooleanAttr(languagesKey == __props.info.lang) ? " selected" : ""}${ssrIncludeBooleanAttr(Array.isArray(unref(editForm).language) ? ssrLooseContain(unref(editForm).language, languagesKey) : ssrLooseEqual(unref(editForm).language, languagesKey)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div><div><label class="label">${ssrInterpolate(_ctx.trans("Select Category"))}</label>`);
       _push(ssrRenderComponent(unref(Multiselect), {
@@ -2993,9 +2996,9 @@ const _sfc_main$4H = {
         ssrRenderList(__props.buttons, (button) => {
           _push(`<!--[-->`);
           if (button.as == "button") {
-            _push(`<button type="button" data-toggle="modal"${ssrRenderAttr("data-target", button.target)} class="btn btn-primary btn-sm"><div>${button.name}</div></button>`);
+            _push(`<button type="button" data-toggle="modal"${ssrRenderAttr("data-target", button.target)} class="btn btn-primary btn-sm"><div>${button.name ?? ""}</div></button>`);
           } else if (button.as == "a") {
-            _push(`<a${ssrRenderAttr("href", button.url)}${ssrRenderAttr("download", button.download ? "true" : "false")} class="btn btn-primary btn-sm">${button.name}</a>`);
+            _push(`<a${ssrRenderAttr("href", button.url)}${ssrRenderAttr("download", button.download ? "true" : "false")} class="btn btn-primary btn-sm">${button.name ?? ""}</a>`);
           } else if (button.as != "button" || button.as != "a") {
             _push(ssrRenderComponent(unref(Link), {
               href: button.url,
@@ -3013,24 +3016,24 @@ const _sfc_main$4H = {
       if (props.hidden != "filter") {
         _push(`<div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="btn bg-white font-medium shadow-sm dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="dropdown-list space-y-4 p-4"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterForm).search)} class="input" placeholder="Search......"></div></li>`);
         if (((_b3 = props.hidden) == null ? void 0 : _b3.type) != "type") {
-          _push(`<li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email">${ssrInterpolate(unref(trans)("User Email"))}</option>`);
+          _push(`<li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "email") : ssrLooseEqual(unref(filterForm).type, "email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("User Email"))}</option>`);
           if (props.filterType != "support" && props.filterType != "notification") {
-            _push(`<option value="name">${ssrInterpolate(unref(trans)("Name"))}</option>`);
+            _push(`<option value="name"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "name") : ssrLooseEqual(unref(filterForm).type, "name")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Name"))}</option>`);
           } else {
             _push(`<!---->`);
           }
           if (props.filterType == "support") {
-            _push(`<option value="ticket_no">${ssrInterpolate(unref(trans)("Ticket No"))}</option>`);
+            _push(`<option value="ticket_no"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "ticket_no") : ssrLooseEqual(unref(filterForm).type, "ticket_no")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Ticket No"))}</option>`);
           } else {
             _push(`<!---->`);
           }
           if (props.filterType == "support") {
-            _push(`<option value="subject">${ssrInterpolate(unref(trans)("Subject"))}</option>`);
+            _push(`<option value="subject"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "subject") : ssrLooseEqual(unref(filterForm).type, "subject")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Subject"))}</option>`);
           } else {
             _push(`<!---->`);
           }
           if (props.filterType == "notification") {
-            _push(`<option value="title">${ssrInterpolate(unref(trans)("Title"))}</option>`);
+            _push(`<option value="title"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "title") : ssrLooseEqual(unref(filterForm).type, "title")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Title"))}</option>`);
           } else {
             _push(`<!---->`);
           }
@@ -3067,7 +3070,6 @@ const _sfc_main$4G = /* @__PURE__ */ Object.assign(__default__$2K, {
     "request"
   ],
   setup(__props) {
-    const props = __props;
     const blogsStats = [
       {
         value: props.totalPosts,
@@ -3086,6 +3088,7 @@ const _sfc_main$4G = /* @__PURE__ */ Object.assign(__default__$2K, {
       }
     ];
     const { textExcerpt, deleteRow } = sharedComposable();
+    const props = __props;
     const filterData = useForm({
       search: props.request.search
     });
@@ -3166,11 +3169,11 @@ const _sfc_main$4F = /* @__PURE__ */ Object.assign(__default__$2J, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const brandsOverviews = [
       {
         value: props.totalBrands,
@@ -3225,13 +3228,13 @@ const _sfc_main$4F = /* @__PURE__ */ Object.assign(__default__$2J, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.brands.links
       }, null, _parent));
-      _push(`</div></div></div></div></main><div id="addNewPartnerDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Partner"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Url"))}</label><input type="text" name="url"${ssrRenderAttr("value", unref(form).url)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand image"))}</label><input type="file" accept="image/*" name="image" required class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Type"))}</label><select class="select" name="type"><option value="partner">${ssrInterpolate(unref(trans)("Partner / Brand"))}</option><option value="integration">${ssrInterpolate(unref(trans)("Integration Partner"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></div></div></div></main><div id="addNewPartnerDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Partner"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Url"))}</label><input type="text" name="url"${ssrRenderAttr("value", unref(form).url)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand image"))}</label><input type="file" accept="image/*" name="image" required class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Type"))}</label><select class="select" name="type"><option value="partner"${ssrIncludeBooleanAttr(Array.isArray(unref(form).type) ? ssrLooseContain(unref(form).type, "partner") : ssrLooseEqual(unref(form).type, "partner")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Partner / Brand"))}</option><option value="integration"${ssrIncludeBooleanAttr(Array.isArray(unref(form).type) ? ssrLooseContain(unref(form).type, "integration") : ssrLooseEqual(unref(form).type, "integration")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Integration Partner"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: unref(form).processing,
         "btn-text": unref(trans)("Create")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editPartnerDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Partner"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Url"))}</label><input type="text" name="url"${ssrRenderAttr("value", editPartnerForm.value.title)} class="input" id="url"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand image"))}</label><input type="file" name="image" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Type"))}</label><select class="select" name="type" id="type" required><option value="partner">${ssrInterpolate(unref(trans)("Partner / Brand"))}</option><option value="integration">${ssrInterpolate(unref(trans)("Integration Partner"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status" id="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></div></form></div><div id="editPartnerDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Partner"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Url"))}</label><input type="text" name="url"${ssrRenderAttr("value", editPartnerForm.value.title)} class="input" id="url"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand image"))}</label><input type="file" name="image" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Type"))}</label><select class="select" name="type" id="type" required><option value="partner"${ssrIncludeBooleanAttr(Array.isArray(editPartnerForm.value.lang) ? ssrLooseContain(editPartnerForm.value.lang, "partner") : ssrLooseEqual(editPartnerForm.value.lang, "partner")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Partner / Brand"))}</option><option value="integration"${ssrIncludeBooleanAttr(Array.isArray(editPartnerForm.value.lang) ? ssrLooseContain(editPartnerForm.value.lang, "integration") : ssrLooseEqual(editPartnerForm.value.lang, "integration")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Integration Partner"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status" id="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editPartnerForm.value.status) ? ssrLooseContain(editPartnerForm.value.status, "1") : ssrLooseEqual(editPartnerForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editPartnerForm.value.status) ? ssrLooseContain(editPartnerForm.value.status, "0") : ssrLooseEqual(editPartnerForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: isProcessing.value,
@@ -3271,7 +3274,7 @@ const _sfc_main$4E = /* @__PURE__ */ Object.assign(__default__$2I, {
       }, null, _parent));
       _push(`<div class="space-y-6"><form class="ajaxform_instant_reload" enctype="multipart/form-data"><div class="grid lg:grid-cols-5"><div class="lg:col-span-2"><strong>${ssrInterpolate(unref(trans)("Edit candidate reviews"))}</strong><p>${ssrInterpolate(unref(trans)("modify the necessary information from here"))}</p></div><div class="lg:col-span-3"><div class="card"><div class="card-body"><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Select Ratting"))}</label><div class=""><select class="select"><!--[-->`);
       ssrRenderList(5, (i, key) => {
-        _push(`<option${ssrRenderAttr("value", i)}>${ssrInterpolate(i)}</option>`);
+        _push(`<option${ssrRenderAttr("value", i)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).ratting) ? ssrLooseContain(unref(form).ratting, i) : ssrLooseEqual(unref(form).ratting, i)) ? " selected" : ""}>${ssrInterpolate(i)}</option>`);
       });
       _push(`<!--]--></select>`);
       if (unref(form).errors.ratting) {
@@ -3347,6 +3350,7 @@ const _sfc_main$4D = /* @__PURE__ */ Object.assign(__default__$2H, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))}>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: unref(trans)("Candidate Reviews"),
@@ -3358,18 +3362,18 @@ const _sfc_main$4D = /* @__PURE__ */ Object.assign(__default__$2H, {
         items: reviewStats.value,
         grid: "3"
       }, null, _parent));
-      _push(`<div class="flex flex-col items-center justify-between gap-y-4 md:flex-row md:gap-y-0"><div class="flex items-center justify-between w-full gap-x-4 md:w-auto">${ssrInterpolate(props.title ?? "")}</div><div class="flex items-center justify-between w-full gap-x-4 md:w-auto"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterForm).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="candidate_email">${ssrInterpolate(unref(trans)("Candidate Email"))}</option><option value="company_email">${ssrInterpolate(unref(trans)("Company Email"))}</option></select></div></li><li class="dropdown-list-item"><button class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div></div><div class="whitespace-normal table-responsive rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Reviewer"))}</th><th>${ssrInterpolate(unref(trans)("Candidate"))}</th><th>${ssrInterpolate(unref(trans)("Job"))}</th><th>${ssrInterpolate(unref(trans)("Ratting"))}</th><th>${ssrInterpolate(unref(trans)("Comment"))}</th><th class="flex justify-end">${ssrInterpolate(unref(trans)("Action"))}</th></tr></thead>`);
+      _push(`<div class="flex flex-col items-center justify-between gap-y-4 md:flex-row md:gap-y-0"><div class="flex items-center justify-between w-full gap-x-4 md:w-auto">${ssrInterpolate(props.title ?? "")}</div><div class="flex items-center justify-between w-full gap-x-4 md:w-auto"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterForm).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="candidate_email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "candidate_email") : ssrLooseEqual(unref(filterForm).type, "candidate_email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Candidate Email"))}</option><option value="company_email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "company_email") : ssrLooseEqual(unref(filterForm).type, "company_email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Company Email"))}</option></select></div></li><li class="dropdown-list-item"><button class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div></div><div class="whitespace-normal table-responsive rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Reviewer"))}</th><th>${ssrInterpolate(unref(trans)("Candidate"))}</th><th>${ssrInterpolate(unref(trans)("Job"))}</th><th>${ssrInterpolate(unref(trans)("Ratting"))}</th><th>${ssrInterpolate(unref(trans)("Comment"))}</th><th class="flex justify-end">${ssrInterpolate(unref(trans)("Action"))}</th></tr></thead>`);
       if (__props.reviews.total > 0) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.reviews.data, (review) => {
           var _a3;
           _push(`<tr><td>`);
           if (review.company) {
-            _push(`<div class="flex items-center gap-2"><img${ssrRenderAttrs(mergeProps({ class: "w-10 avatar-img" }, ssrGetDirectiveProps(
+            _push(`<div class="flex items-center gap-2"><img${ssrRenderAttrs(_temp0 = mergeProps({ class: "w-10 avatar-img" }, ssrGetDirectiveProps(
               _ctx,
               _directive_lazy,
               review.company.avatar == null ? `https://ui-avatars.com/api/?name=${review.company.name}` : `${review.company.avatar}`
-            )))}>`);
+            )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             _push(ssrRenderComponent(_component_Link, {
               href: _ctx.route("admin.companies.show", review.company.id)
             }, {
@@ -3391,11 +3395,11 @@ const _sfc_main$4D = /* @__PURE__ */ Object.assign(__default__$2H, {
           }
           _push(`</td><td>`);
           if (review.candidate) {
-            _push(`<div class="flex items-center gap-2"><img${ssrRenderAttrs(mergeProps({ class: "w-10 avatar-img" }, ssrGetDirectiveProps(
+            _push(`<div class="flex items-center gap-2"><img${ssrRenderAttrs(_temp1 = mergeProps({ class: "w-10 avatar-img" }, ssrGetDirectiveProps(
               _ctx,
               _directive_lazy,
               review.candidate.avatar == null ? `https://ui-avatars.com/api/?name=${review.candidate.name}` : `${review.candidate.avatar}`
-            )))}>`);
+            )))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             _push(ssrRenderComponent(_component_Link, {
               href: _ctx.route("admin.candidates.show", review.candidate.id)
             }, {
@@ -3555,8 +3559,8 @@ const _sfc_main$4B = /* @__PURE__ */ Object.assign(__default__$2F, {
     "verified_candidates"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
+    const props = __props;
     const candidateStats = [
       { value: props.total_candidates, title: trans("Total Candidates"), iconClass: "bx bx-list-ul" },
       { value: props.active_candidates, title: trans("Active Candidates"), iconClass: "bx bx-check-shield" },
@@ -3570,6 +3574,7 @@ const _sfc_main$4B = /* @__PURE__ */ Object.assign(__default__$2F, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))}>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: unref(trans)("Candidates"),
@@ -3591,11 +3596,11 @@ const _sfc_main$4B = /* @__PURE__ */ Object.assign(__default__$2F, {
         _push(`<tbody class="list"><!--[-->`);
         ssrRenderList(__props.candidates.data, (candidate) => {
           var _a2;
-          _push(`<tr><td><div class="flex items-center gap-3"><div class="avatar avatar-circle"><img${ssrRenderAttrs(mergeProps({ class: "avatar-img" }, ssrGetDirectiveProps(
+          _push(`<tr><td><div class="flex items-center gap-3"><div class="avatar avatar-circle"><img${ssrRenderAttrs(_temp0 = mergeProps({ class: "avatar-img" }, ssrGetDirectiveProps(
             _ctx,
             _directive_lazy,
             (candidate == null ? void 0 : candidate.avatar) == null ? `https://ui-avatars.com/api/?name=${candidate.name}` : `${candidate == null ? void 0 : candidate.avatar}`
-          )))}></div><div><h6 class="whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-100">`);
+          )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div><h6 class="whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-100">`);
           _push(ssrRenderComponent(_component_Link, {
             href: _ctx.route("admin.candidates.show", candidate),
             class: "text-dark"
@@ -3772,11 +3777,11 @@ const _sfc_main$4z = /* @__PURE__ */ Object.assign(__default__$2D, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     const { deleteRow } = sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const categorieStats = [
       {
         value: props.totalCategories,
@@ -3850,9 +3855,9 @@ const _sfc_main$4z = /* @__PURE__ */ Object.assign(__default__$2D, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.categories.links
       }, null, _parent));
-      _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(categoryForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select required class="select" name="language"><!--[-->`);
+      _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(categoryForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).status) ? ssrLooseContain(unref(categoryForm).status, "1") : ssrLooseEqual(unref(categoryForm).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).status) ? ssrLooseContain(unref(categoryForm).status, "0") : ssrLooseEqual(unref(categoryForm).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select required class="select" name="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).language) ? ssrLooseContain(unref(categoryForm).language, key) : ssrLooseEqual(unref(categoryForm).language, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -3860,9 +3865,9 @@ const _sfc_main$4z = /* @__PURE__ */ Object.assign(__default__$2D, {
         processing: unref(categoryForm).processing,
         "btn-text": unref(trans)("Save Changes")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language"><!--[-->`);
+      _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(editForm.value.lang) ? ssrLooseContain(editForm.value.lang, key) : ssrLooseEqual(editForm.value.lang, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -3902,9 +3907,9 @@ const _sfc_main$4y = /* @__PURE__ */ Object.assign(__default__$2C, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6"><div class="grid grid-cols-12"><div class="col-span-5"><strong>${ssrInterpolate(unref(trans)("Edit company"))}</strong><p>${ssrInterpolate(unref(trans)("Edit your company details and necessary information from here"))}</p></div><div class="col-span-7"><div class="card"><form><div class="card-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Name"))}</label><input type="text"${ssrRenderAttr("value", form.value.name)} required class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Profile Picture"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Email"))}</label><input type="email"${ssrRenderAttr("value", form.value.email)} required class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Phone"))}</label><input type="text"${ssrRenderAttr("value", form.value.phone)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Address"))}</label><input type="text"${ssrRenderAttr("value", form.value.address)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Password"))}</label><input type="password"${ssrRenderAttr("value", form.value.password)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Confirm Password"))}</label><input type="password"${ssrRenderAttr("value", form.value.password_confirmation)} class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Will Expire"))}</label><input${ssrRenderAttr("value", form.value.will_expire)} type="date" name="will_expire" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Subscription Plan"))}</label><select class="select" name="status"><option value="null">${ssrInterpolate(unref(trans)("Without subscription plan"))}</option><!--[-->`);
+      _push(`<div class="space-y-6"><div class="grid grid-cols-12"><div class="col-span-5"><strong>${ssrInterpolate(unref(trans)("Edit company"))}</strong><p>${ssrInterpolate(unref(trans)("Edit your company details and necessary information from here"))}</p></div><div class="col-span-7"><div class="card"><form><div class="card-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Name"))}</label><input type="text"${ssrRenderAttr("value", form.value.name)} required class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Profile Picture"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Email"))}</label><input type="email"${ssrRenderAttr("value", form.value.email)} required class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Phone"))}</label><input type="text"${ssrRenderAttr("value", form.value.phone)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Address"))}</label><input type="text"${ssrRenderAttr("value", form.value.address)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Password"))}</label><input type="password"${ssrRenderAttr("value", form.value.password)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Confirm Password"))}</label><input type="password"${ssrRenderAttr("value", form.value.password_confirmation)} class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Will Expire"))}</label><input${ssrRenderAttr("value", form.value.will_expire)} type="date" name="will_expire" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Subscription Plan"))}</label><select class="select" name="status"><option value="null"${ssrIncludeBooleanAttr(Array.isArray(form.value.plan_id) ? ssrLooseContain(form.value.plan_id, "null") : ssrLooseEqual(form.value.plan_id, "null")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Without subscription plan"))}</option><!--[-->`);
       ssrRenderList(__props.plans, (plan) => {
-        _push(`<option${ssrRenderAttr("value", plan.id)}>${ssrInterpolate(plan.title)}</option>`);
+        _push(`<option${ssrRenderAttr("value", plan.id)}${ssrIncludeBooleanAttr(Array.isArray(form.value.plan_id) ? ssrLooseContain(form.value.plan_id, plan.id) : ssrLooseEqual(form.value.plan_id, plan.id)) ? " selected" : ""}>${ssrInterpolate(plan.title)}</option>`);
       });
       _push(`<!--]--></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Credits"))}</label><input type="number"${ssrRenderAttr("value", form.value.credits)} min="0" class="input"></div><div class="mb-2"><label for="toggle-status" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(form.value.status) ? ssrLooseContain(form.value.status, null) : form.value.status) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-status" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Is Active?"))}</span></label></div><div class="mb-2"><label for="toggle-email-verified-status" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(form.value.email_verified) ? ssrLooseContain(form.value.email_verified, null) : form.value.email_verified) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-email-verified-status" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Email Verified?"))}</span></label></div><div class="mb-2"><label for="toggle-kyc-verified-status" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(form.value.kyc_verified) ? ssrLooseContain(form.value.kyc_verified, null) : form.value.kyc_verified) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-kyc-verified-status" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("KYC Verified?"))}</span></label></div><div class="mb-2"><label for="toggle-starred-status" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(form.value.is_star) ? ssrLooseContain(form.value.is_star, null) : form.value.is_star) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-starred-status" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Make Star?"))}</span></label></div><div class="mt-2">`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -3942,8 +3947,8 @@ const _sfc_main$4x = /* @__PURE__ */ Object.assign(__default__$2B, {
     "verified_companies"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
+    const props = __props;
     const companyStats = [
       { value: props.total_companies, title: trans("Total Companies"), iconClass: "bx bx-list-ul" },
       { value: props.active_companies, title: trans("Active Companies"), iconClass: "bx bx-check-shield" },
@@ -4092,8 +4097,8 @@ const _sfc_main$4w = /* @__PURE__ */ Object.assign(__default__$2A, {
     "saved_candidate"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
+    const props = __props;
     const companyStats = [
       { value: props.job_posted, title: trans("Job Posted"), iconClass: "bx bx-box" },
       {
@@ -4231,7 +4236,7 @@ const _sfc_main$4v = /* @__PURE__ */ Object.assign(__default__$2z, {
       }, null, _parent));
       _push(`<div class="space-y-6"><form class="ajaxform_instant_reload" enctype="multipart/form-data"><div class="grid lg:grid-cols-5"><div class="lg:col-span-2"><strong>${ssrInterpolate(unref(trans)("Edit company reviews"))}</strong><p>${ssrInterpolate(unref(trans)("modify the necessary information from here"))}</p></div><div class="lg:col-span-3"><div class="card"><div class="card-body"><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Select Ratting"))}</label><div class=""><select class="select"><!--[-->`);
       ssrRenderList(5, (i, key) => {
-        _push(`<option${ssrRenderAttr("value", i)}>${ssrInterpolate(i)}</option>`);
+        _push(`<option${ssrRenderAttr("value", i)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).ratting) ? ssrLooseContain(unref(form).ratting, i) : ssrLooseEqual(unref(form).ratting, i)) ? " selected" : ""}>${ssrInterpolate(i)}</option>`);
       });
       _push(`<!--]--></select>`);
       if (unref(form).errors.ratting) {
@@ -4307,6 +4312,7 @@ const _sfc_main$4u = /* @__PURE__ */ Object.assign(__default__$2y, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))}>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: unref(trans)("Company Reviews"),
@@ -4318,18 +4324,18 @@ const _sfc_main$4u = /* @__PURE__ */ Object.assign(__default__$2y, {
         items: reviewStats.value,
         grid: "3"
       }, null, _parent));
-      _push(`<div class="flex flex-col items-center justify-between gap-y-4 md:flex-row md:gap-y-0"><div class="flex items-center justify-between w-full gap-x-4 md:w-auto">${ssrInterpolate(props.title ?? "")}</div><div class="flex items-center justify-between w-full gap-x-4 md:w-auto"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterForm).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="company_email">${ssrInterpolate(unref(trans)("Company Email"))}</option><option value="reviewer_email">${ssrInterpolate(unref(trans)("Reviewer Email"))}</option></select></div></li><li class="dropdown-list-item"><button class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div></div><div class="whitespace-normal table-responsive rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Reviewer"))}</th><th>${ssrInterpolate(unref(trans)("Company"))}</th><th>${ssrInterpolate(unref(trans)("Job"))}</th><th>${ssrInterpolate(unref(trans)("Ratting"))}</th><th>${ssrInterpolate(unref(trans)("Comment"))}</th><th class="flex justify-end">${ssrInterpolate(unref(trans)("Action"))}</th></tr></thead>`);
+      _push(`<div class="flex flex-col items-center justify-between gap-y-4 md:flex-row md:gap-y-0"><div class="flex items-center justify-between w-full gap-x-4 md:w-auto">${ssrInterpolate(props.title ?? "")}</div><div class="flex items-center justify-between w-full gap-x-4 md:w-auto"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterForm).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="company_email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "company_email") : ssrLooseEqual(unref(filterForm).type, "company_email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Company Email"))}</option><option value="reviewer_email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterForm).type) ? ssrLooseContain(unref(filterForm).type, "reviewer_email") : ssrLooseEqual(unref(filterForm).type, "reviewer_email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Reviewer Email"))}</option></select></div></li><li class="dropdown-list-item"><button class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div></div><div class="whitespace-normal table-responsive rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Reviewer"))}</th><th>${ssrInterpolate(unref(trans)("Company"))}</th><th>${ssrInterpolate(unref(trans)("Job"))}</th><th>${ssrInterpolate(unref(trans)("Ratting"))}</th><th>${ssrInterpolate(unref(trans)("Comment"))}</th><th class="flex justify-end">${ssrInterpolate(unref(trans)("Action"))}</th></tr></thead>`);
       if (__props.reviews.total > 0) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.reviews.data, (review) => {
           var _a3, _b3;
           _push(`<tr><td>`);
           if (review.author) {
-            _push(`<div class="flex items-center gap-2"><img${ssrRenderAttrs(mergeProps({ class: "h-12 avatar-img" }, ssrGetDirectiveProps(
+            _push(`<div class="flex items-center gap-2"><img${ssrRenderAttrs(_temp0 = mergeProps({ class: "h-12 avatar-img" }, ssrGetDirectiveProps(
               _ctx,
               _directive_lazy,
               review.author.avatar == null ? `https://ui-avatars.com/api/?name=${review.author.name}` : `${review.author.avatar}`
-            )))}>`);
+            )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             _push(ssrRenderComponent(_component_Link, {
               href: _ctx.route("admin.candidates.show", review.author.id)
             }, {
@@ -4474,11 +4480,11 @@ const _sfc_main$4t = /* @__PURE__ */ Object.assign(__default__$2x, {
     "type"
   ],
   setup(__props) {
-    const props = __props;
     onMounted(() => {
       drawer.init();
     });
     const { formatCurrency, textExcerpt } = sharedComposable();
+    const props = __props;
     const filterData = useForm({
       search: props.request.search,
       type: props.type
@@ -4522,7 +4528,7 @@ const _sfc_main$4t = /* @__PURE__ */ Object.assign(__default__$2x, {
         items: stats.value,
         grid: "3"
       }, null, _parent));
-      _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email">${ssrInterpolate(unref(trans)("User Email"))}</option><option value="invoice_no">${ssrInterpolate(unref(trans)("Invoice No"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Invoice"))}</th><th>${ssrInterpolate(unref(trans)("User Name"))}</th><th>${ssrInterpolate(unref(trans)("Credits"))}</th><th>${ssrInterpolate(unref(trans)("Price"))}</th><th>${ssrInterpolate(unref(trans)("Status"))}</th><th>${ssrInterpolate(unref(trans)("Gateway"))}</th><th>${ssrInterpolate(unref(trans)("Comment"))}</th><th>${ssrInterpolate(unref(trans)("Attachment"))}</th><th>${ssrInterpolate(unref(trans)("Date"))}</th><th class="flex justify-end">${ssrInterpolate(unref(trans)("Action"))}</th></tr></thead>`);
+      _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "email") : ssrLooseEqual(unref(filterData).type, "email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("User Email"))}</option><option value="invoice_no"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "invoice_no") : ssrLooseEqual(unref(filterData).type, "invoice_no")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Invoice No"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Invoice"))}</th><th>${ssrInterpolate(unref(trans)("User Name"))}</th><th>${ssrInterpolate(unref(trans)("Credits"))}</th><th>${ssrInterpolate(unref(trans)("Price"))}</th><th>${ssrInterpolate(unref(trans)("Status"))}</th><th>${ssrInterpolate(unref(trans)("Gateway"))}</th><th>${ssrInterpolate(unref(trans)("Comment"))}</th><th>${ssrInterpolate(unref(trans)("Attachment"))}</th><th>${ssrInterpolate(unref(trans)("Date"))}</th><th class="flex justify-end">${ssrInterpolate(unref(trans)("Action"))}</th></tr></thead>`);
       if (__props.creditLogs.total > 0) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.creditLogs.data, (creditLog) => {
@@ -4597,7 +4603,7 @@ const _sfc_main$4t = /* @__PURE__ */ Object.assign(__default__$2x, {
         processing: unref(creditWordForm).processing,
         "btn-text": unref(trans)("Save Changes")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editCreditDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Order"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Approved"))}</option><option value="0">${ssrInterpolate(unref(trans)("Pending"))}</option></select></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Credits"))}</label><input${ssrRenderAttr("value", editCreditLogForm.value.credits)} type="number" maxlength="500" class="input" required></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Payment ID"))}</label><input${ssrRenderAttr("value", editCreditLogForm.value.payment_id)} type="text" class="input read-only:cursor-not-allowed" readonly></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></div></form></div><div id="editCreditDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Order"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editCreditLogForm.value.status) ? ssrLooseContain(editCreditLogForm.value.status, "1") : ssrLooseEqual(editCreditLogForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Approved"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editCreditLogForm.value.status) ? ssrLooseContain(editCreditLogForm.value.status, "0") : ssrLooseEqual(editCreditLogForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Pending"))}</option></select></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Credits"))}</label><input${ssrRenderAttr("value", editCreditLogForm.value.credits)} type="number" maxlength="500" class="input" required></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Payment ID"))}</label><input${ssrRenderAttr("value", editCreditLogForm.value.payment_id)} type="text" class="input read-only:cursor-not-allowed" readonly></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary w-full",
         processing: editCreditLogForm.value.processing,
@@ -4723,10 +4729,10 @@ const _sfc_main$4q = /* @__PURE__ */ Object.assign(__default__$2u, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const form = useForm({
       key: "",
       value: "",
@@ -4824,8 +4830,8 @@ const _sfc_main$4o = /* @__PURE__ */ Object.assign(__default__$2s, {
     "totalExpiredCustomers"
   ],
   setup(__props) {
-    const props = __props;
     const { deleteRow } = sharedComposable();
+    const props = __props;
     const customerStats = [
       { value: props.totalCustomers, title: trans("Total Customers"), iconClass: "bx bx-box" },
       {
@@ -5197,6 +5203,7 @@ const _sfc_main$4m = /* @__PURE__ */ Object.assign(__default__$2q, {
       var _a2, _b2;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))}>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: _ctx.trans("Dashboard")
@@ -5236,7 +5243,7 @@ const _sfc_main$4m = /* @__PURE__ */ Object.assign(__default__$2q, {
       });
       _push(`<!--]--></section><section class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"><div class="card order-2 col-span-1 md:col-span-2 xl:order-3"><div class="card-body flex h-full flex-col justify-between gap-4"><div class="flex flex-wrap justify-between gap-2"><h6>${ssrInterpolate(_ctx.trans("Overview Of Sales"))}</h6><select class="select select-xl w-full capitalize md:w-40"><option value="" selected>${ssrInterpolate(_ctx.trans("Filter By"))}</option><!--[-->`);
       ssrRenderList(["day", "week", "month", "year"], (item) => {
-        _push(`<option${ssrRenderAttr("value", item)}${ssrIncludeBooleanAttr(filterForm.value.sales === item) ? " selected" : ""}>${ssrInterpolate(item)}</option>`);
+        _push(`<option${ssrRenderAttr("value", item)}${ssrIncludeBooleanAttr(filterForm.value.sales === item) ? " selected" : ""}${ssrIncludeBooleanAttr(Array.isArray(filterForm.value.sales) ? ssrLooseContain(filterForm.value.sales, item) : ssrLooseEqual(filterForm.value.sales, item)) ? " selected" : ""}>${ssrInterpolate(item)}</option>`);
       });
       _push(`<!--]--></select></div><div class="min-h-min">`);
       _push(ssrRenderComponent(unref(VueApexCharts), {
@@ -5301,14 +5308,14 @@ const _sfc_main$4m = /* @__PURE__ */ Object.assign(__default__$2q, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a3, _b3, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
             if (_push2) {
-              _push2(`<div class="flex items-center gap-4 rounded-primary bg-slate-50 p-2 dark:bg-slate-900"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="flex items-center gap-4 rounded-primary bg-slate-50 p-2 dark:bg-slate-900"${_scopeId}><img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "product-img",
                 class: "w-16 rounded-primary bg-white p-1 dark:bg-slate-800"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 ((_b3 = (_a3 = __props.mostViewedJob) == null ? void 0 : _a3.user) == null ? void 0 : _b3.avatar) == null ? `https://ui-avatars.com/api/?name=${(_d = (_c = __props.mostViewedJob) == null ? void 0 : _c.user) == null ? void 0 : _d.name}` : `${(_f = (_e = __props.mostViewedJob) == null ? void 0 : _e.user) == null ? void 0 : _f.avatar}`
-              )))}${_scopeId}><div class="flex flex-1 flex-col gap-1"${_scopeId}><h3 class="text-sm font-semibold"${_scopeId}>${ssrInterpolate(__props.mostViewedJob ? unref(textExcerpt)((_g = __props.mostViewedJob) == null ? void 0 : _g.title) : "")}</h3><p class="text-sm text-slate-500 dark:text-slate-400"${_scopeId}>${ssrInterpolate((_i = (_h = __props.mostViewedJob) == null ? void 0 : _h.service) == null ? void 0 : _i.title)}, ${ssrInterpolate((_j = __props.mostViewedJob) == null ? void 0 : _j.type)}</p><p class="text-xs text-slate-700 dark:text-slate-200"${_scopeId}>${ssrInterpolate(_ctx.trans("By"))} ${ssrInterpolate((_l = (_k = __props.mostViewedJob) == null ? void 0 : _k.user) == null ? void 0 : _l.name)}</p></div></div>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="flex flex-1 flex-col gap-1"${_scopeId}><h3 class="text-sm font-semibold"${_scopeId}>${ssrInterpolate(__props.mostViewedJob ? unref(textExcerpt)((_g = __props.mostViewedJob) == null ? void 0 : _g.title) : "")}</h3><p class="text-sm text-slate-500 dark:text-slate-400"${_scopeId}>${ssrInterpolate((_i = (_h = __props.mostViewedJob) == null ? void 0 : _h.service) == null ? void 0 : _i.title)}, ${ssrInterpolate((_j = __props.mostViewedJob) == null ? void 0 : _j.type)}</p><p class="text-xs text-slate-700 dark:text-slate-200"${_scopeId}>${ssrInterpolate(_ctx.trans("By"))} ${ssrInterpolate((_l = (_k = __props.mostViewedJob) == null ? void 0 : _k.user) == null ? void 0 : _l.name)}</p></div></div>`);
             } else {
               return [
                 createVNode("div", { class: "flex items-center gap-4 rounded-primary bg-slate-50 p-2 dark:bg-slate-900" }, [
@@ -5364,7 +5371,7 @@ const _sfc_main$4m = /* @__PURE__ */ Object.assign(__default__$2q, {
       if (((_b2 = __props.recentOrders) == null ? void 0 : _b2.length) > 0) {
         _push(`<div class="mt-auto divide-y dark:divide-slate-600"><!--[-->`);
         ssrRenderList(__props.recentOrders, (order) => {
-          _push(`<div class="flex items-center gap-4 py-2"><div class="min-w-12 flex h-12 w-12 items-center justify-center"><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="flex items-center gap-4 py-2"><div class="min-w-12 flex h-12 w-12 items-center justify-center"><img${ssrRenderAttrs(_temp1 = mergeProps({
             src: order.avatar,
             class: "rounded-primary",
             alt: "avatar"
@@ -5372,7 +5379,7 @@ const _sfc_main$4m = /* @__PURE__ */ Object.assign(__default__$2q, {
             _ctx,
             _directive_lazy,
             order.avatar == null ? `https://ui-avatars.com/api/?name=${order == null ? void 0 : order.name}` : `${order.avatar}`
-          )))}></div><div class="flex w-full items-center justify-between">`);
+          )))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="flex w-full items-center justify-between">`);
           _push(ssrRenderComponent(_component_Link, {
             href: "/admin/order/" + order.id
           }, {
@@ -5439,14 +5446,14 @@ const _sfc_main$4m = /* @__PURE__ */ Object.assign(__default__$2q, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a3, _b3, _c, _d;
             if (_push2) {
-              _push2(`<div class="flex gap-2"${_scopeId}><div class="avatar avatar-circle"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="flex gap-2"${_scopeId}><div class="avatar avatar-circle"${_scopeId}><img${ssrRenderAttrs(_temp2 = mergeProps({
                 alt: "avatar-img",
                 class: "avatar-img"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 job.user.avatar == null ? `https://ui-avatars.com/api/?name=${(_a3 = job.user) == null ? void 0 : _a3.name}` : `${job.user.avatar}`
-              )))}${_scopeId}></div><div${_scopeId}><p class="text-sm font-medium"${_scopeId}>${ssrInterpolate(job.title)}</p><p class="text-xs font-normal text-slate-500"${_scopeId}>${ssrInterpolate((_b3 = job.service) == null ? void 0 : _b3.title)}</p></div></div>`);
+              )))}${_scopeId}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div${_scopeId}><p class="text-sm font-medium"${_scopeId}>${ssrInterpolate(job.title)}</p><p class="text-xs font-normal text-slate-500"${_scopeId}>${ssrInterpolate((_b3 = job.service) == null ? void 0 : _b3.title)}</p></div></div>`);
             } else {
               return [
                 createVNode("div", { class: "flex gap-2" }, [
@@ -5523,11 +5530,11 @@ const _sfc_main$4l = /* @__PURE__ */ Object.assign(__default__$2p, {
       }, null, _parent));
       _push(`<div class="w-2/3 mx-auto card"><div class="card-body"><h3 class="mb-3 card-title">${ssrInterpolate(unref(trans)("Create New Description Template"))}</h3><form><div class="flex gap-1"><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("Description Type"))}</label><select class="select"><!--[-->`);
       ssrRenderList(types, (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).type) ? ssrLooseContain(unref(form).type, t) : ssrLooseEqual(unref(form).type, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select></div><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select"><!--[-->`);
       ssrRenderList(["active", "inactive"], (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, t) : ssrLooseEqual(unref(form).status, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="w-full mb-3"><label>${ssrInterpolate(unref(trans)("Categories"))}</label>`);
       _push(ssrRenderComponent(unref(Multiselect), {
@@ -5607,11 +5614,11 @@ const _sfc_main$4k = /* @__PURE__ */ Object.assign(__default__$2o, {
       }, null, _parent));
       _push(`<div class="w-2/3 mx-auto card"><div class="card-body"><h3 class="mb-3 card-title">${ssrInterpolate(unref(trans)("Create New Description Template"))}</h3><form><div class="flex gap-1"><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("Description Type"))}</label><select class="select"><!--[-->`);
       ssrRenderList(types, (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).type) ? ssrLooseContain(unref(form).type, t) : ssrLooseEqual(unref(form).type, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select></div><div class="w-1/2 mb-3"><label>${ssrInterpolate(unref(trans)("Categories"))}</label><select class="select"><!--[-->`);
       ssrRenderList(["active", "inactive"], (t) => {
-        _push(`<option${ssrRenderAttr("value", t)}>${ssrInterpolate(t.toUpperCase())}</option>`);
+        _push(`<option${ssrRenderAttr("value", t)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, t) : ssrLooseEqual(unref(form).status, t)) ? " selected" : ""}>${ssrInterpolate(t.toUpperCase())}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="w-full mb-3"><label>${ssrInterpolate(unref(trans)("Status"))}</label>`);
       _push(ssrRenderComponent(unref(Multiselect), {
@@ -5786,13 +5793,13 @@ const _sfc_main$4i = /* @__PURE__ */ Object.assign(__default__$2m, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("Application Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you application global settings"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Application Name"))}</label><input type="text" name="name"${ssrRenderAttr("value", unref(form).APP_NAME)} required="" class="input"></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Visibility Of Site Error"))}</label><select class="select" name="app_debug"><option value="true">${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false">${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Application Time Zone"))}</label><select class="select" name="timezone"><!--[-->`);
+      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("Application Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you application global settings"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Application Name"))}</label><input type="text" name="name"${ssrRenderAttr("value", unref(form).APP_NAME)} required="" class="input"></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Visibility Of Site Error"))}</label><select class="select" name="app_debug"><option value="true"${ssrIncludeBooleanAttr(Array.isArray(unref(form).APP_DEBUG) ? ssrLooseContain(unref(form).APP_DEBUG, "true") : ssrLooseEqual(unref(form).APP_DEBUG, "true")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false"${ssrIncludeBooleanAttr(Array.isArray(unref(form).APP_DEBUG) ? ssrLooseContain(unref(form).APP_DEBUG, "false") : ssrLooseEqual(unref(form).APP_DEBUG, "false")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Application Time Zone"))}</label><select class="select" name="timezone"><!--[-->`);
       ssrRenderList(__props.tzlist, (timezone, index) => {
-        _push(`<option${ssrRenderAttr("value", timezone)}>${ssrInterpolate(timezone)}</option>`);
+        _push(`<option${ssrRenderAttr("value", timezone)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).TIME_ZONE) ? ssrLooseContain(unref(form).TIME_ZONE, timezone) : ssrLooseEqual(unref(form).TIME_ZONE, timezone)) ? " selected" : ""}>${ssrInterpolate(timezone)}</option>`);
       });
       _push(`<!--]--></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Application Default Language"))}</label><select class="select" name="default_lang"><!--[-->`);
       ssrRenderList(__props.languages, (langauge, langKey) => {
-        _push(`<option${ssrRenderAttr("value", langKey)}>${ssrInterpolate(langauge)}</option>`);
+        _push(`<option${ssrRenderAttr("value", langKey)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).DEFAULT_LANG) ? ssrLooseContain(unref(form).DEFAULT_LANG, langKey) : ssrLooseEqual(unref(form).DEFAULT_LANG, langKey)) ? " selected" : ""}>${ssrInterpolate(langauge)}</option>`);
       });
       _push(`<!--]--></select></div><div class="mt-3">`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -5986,7 +5993,7 @@ const _sfc_main$4e = /* @__PURE__ */ Object.assign(__default__$2i, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("SMTP mail Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you smtp settings for mail transaction"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Use Queue Job For Mail Transaction?"))}</label><select name="QUEUE_MAIL" class="select"><option value="true">${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false">${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="from-group row"><label class="label">${ssrInterpolate(unref(trans)("Mail driver type"))}</label><select name="MAIL_DRIVER_TYPE" class="select"><option value="MAIL_MAILER">${ssrInterpolate(unref(trans)("MAIL MAILER"))}</option><option value="MAIL_DRIVER">${ssrInterpolate(unref(trans)("MAIL DRIVER"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Driver"))}</label><select name="MAIL_DRIVER" class="select"><option value="sendmail">${ssrInterpolate(unref(trans)("sendmail"))}</option><option value="smtp">${ssrInterpolate(unref(trans)("smtp"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Host"))}</label><input type="text" name="MAIL_HOST"${ssrRenderAttr("value", unref(form).MAIL_HOST)} class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Port"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_PORT)} name="MAIL_PORT" class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Username"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_USERNAME)} name="MAIL_USERNAME" class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Password"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_PASSWORD)} name="MAIL_PASSWORD" class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Encryption"))}</label><select name="MAIL_ENCRYPTION" class="select"><option value="ssl">${ssrInterpolate(unref(trans)("SSL"))}</option><option value="tls">${ssrInterpolate(unref(trans)("TLS"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail From Address"))}</label><input type="email"${ssrRenderAttr("value", unref(form).MAIL_FROM_ADDRESS)} name="MAIL_FROM_ADDRESS" class="input" placeholder="email" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail From Name"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_FROM_NAME)} name="MAIL_FROM_NAME" class="input" placeholder="Website Name" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Incoming Mail"))}</label><input type="email"${ssrRenderAttr("value", unref(form).MAIL_TO)} name="MAIL_TO" class="input" placeholder="email" required=""></div><div class="mb-2">`);
+      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("SMTP mail Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you smtp settings for mail transaction"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Use Queue Job For Mail Transaction?"))}</label><select name="QUEUE_MAIL" class="select"><option value="true"${ssrIncludeBooleanAttr(Array.isArray(unref(form).QUEUE_MAIL) ? ssrLooseContain(unref(form).QUEUE_MAIL, "true") : ssrLooseEqual(unref(form).QUEUE_MAIL, "true")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false"${ssrIncludeBooleanAttr(Array.isArray(unref(form).QUEUE_MAIL) ? ssrLooseContain(unref(form).QUEUE_MAIL, "false") : ssrLooseEqual(unref(form).QUEUE_MAIL, "false")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="from-group row"><label class="label">${ssrInterpolate(unref(trans)("Mail driver type"))}</label><select name="MAIL_DRIVER_TYPE" class="select"><option value="MAIL_MAILER"${ssrIncludeBooleanAttr(Array.isArray(unref(form).MAIL_DRIVER_TYPE) ? ssrLooseContain(unref(form).MAIL_DRIVER_TYPE, "MAIL_MAILER") : ssrLooseEqual(unref(form).MAIL_DRIVER_TYPE, "MAIL_MAILER")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("MAIL MAILER"))}</option><option value="MAIL_DRIVER"${ssrIncludeBooleanAttr(Array.isArray(unref(form).MAIL_DRIVER_TYPE) ? ssrLooseContain(unref(form).MAIL_DRIVER_TYPE, "MAIL_DRIVER") : ssrLooseEqual(unref(form).MAIL_DRIVER_TYPE, "MAIL_DRIVER")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("MAIL DRIVER"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Driver"))}</label><select name="MAIL_DRIVER" class="select"><option value="sendmail"${ssrIncludeBooleanAttr(Array.isArray(unref(form).MAIL_DRIVER) ? ssrLooseContain(unref(form).MAIL_DRIVER, "sendmail") : ssrLooseEqual(unref(form).MAIL_DRIVER, "sendmail")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("sendmail"))}</option><option value="smtp"${ssrIncludeBooleanAttr(Array.isArray(unref(form).MAIL_DRIVER) ? ssrLooseContain(unref(form).MAIL_DRIVER, "smtp") : ssrLooseEqual(unref(form).MAIL_DRIVER, "smtp")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("smtp"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Host"))}</label><input type="text" name="MAIL_HOST"${ssrRenderAttr("value", unref(form).MAIL_HOST)} class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Port"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_PORT)} name="MAIL_PORT" class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Username"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_USERNAME)} name="MAIL_USERNAME" class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Password"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_PASSWORD)} name="MAIL_PASSWORD" class="input" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail Encryption"))}</label><select name="MAIL_ENCRYPTION" class="select"><option value="ssl"${ssrIncludeBooleanAttr(Array.isArray(unref(form).MAIL_ENCRYPTION) ? ssrLooseContain(unref(form).MAIL_ENCRYPTION, "ssl") : ssrLooseEqual(unref(form).MAIL_ENCRYPTION, "ssl")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("SSL"))}</option><option value="tls"${ssrIncludeBooleanAttr(Array.isArray(unref(form).MAIL_ENCRYPTION) ? ssrLooseContain(unref(form).MAIL_ENCRYPTION, "tls") : ssrLooseEqual(unref(form).MAIL_ENCRYPTION, "tls")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("TLS"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail From Address"))}</label><input type="email"${ssrRenderAttr("value", unref(form).MAIL_FROM_ADDRESS)} name="MAIL_FROM_ADDRESS" class="input" placeholder="email" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Mail From Name"))}</label><input type="text"${ssrRenderAttr("value", unref(form).MAIL_FROM_NAME)} name="MAIL_FROM_NAME" class="input" placeholder="Website Name" required=""></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Incoming Mail"))}</label><input type="email"${ssrRenderAttr("value", unref(form).MAIL_TO)} name="MAIL_TO" class="input" placeholder="email" required=""></div><div class="mb-2">`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         processing: unref(form).processing,
         "btn-text": unref(trans)("Save Changes")
@@ -6098,7 +6105,7 @@ const _sfc_main$4c = /* @__PURE__ */ Object.assign(__default__$2g, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("Application Storage Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you storage settings for store uploaded files"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Storage Upload Mode"))}</label><select class="select" name="FILESYSTEM_DISK" id="disk-method"><option value="public">${ssrInterpolate(unref(trans)("Own server (Uploads folder)"))}</option><option value="wasabi">${ssrInterpolate(unref(trans)("Wasabi"))}</option></select></div>`);
+      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("Application Storage Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you storage settings for store uploaded files"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Storage Upload Mode"))}</label><select class="select" name="FILESYSTEM_DISK" id="disk-method"><option value="public"${ssrIncludeBooleanAttr(Array.isArray(unref(form).FILESYSTEM_DISK) ? ssrLooseContain(unref(form).FILESYSTEM_DISK, "public") : ssrLooseEqual(unref(form).FILESYSTEM_DISK, "public")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Own server (Uploads folder)"))}</option><option value="wasabi"${ssrIncludeBooleanAttr(Array.isArray(unref(form).FILESYSTEM_DISK) ? ssrLooseContain(unref(form).FILESYSTEM_DISK, "wasabi") : ssrLooseEqual(unref(form).FILESYSTEM_DISK, "wasabi")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Wasabi"))}</option></select></div>`);
       if (unref(form).FILESYSTEM_DISK != "public") {
         _push(`<div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Wasabi Access Key Id"))}</label><input type="text" name="WAS_ACCESS_KEY_ID" class="input"${ssrRenderAttr("value", unref(form).WAS_ACCESS_KEY_ID)}></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Wasabi Secret Access Key"))}</label><input type="text" name="SECRET_ACCESS_KEY" class="input"${ssrRenderAttr("value", unref(form).SECRET_ACCESS_KEY)}></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Wasabi Default Region"))}</label><input type="text" name="WAS_DEFAULT_REGION" class="input"${ssrRenderAttr("value", unref(form).WAS_DEFAULT_REGION)}></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Wasabi Bucket Name"))}</label><input type="text" name="WAS_BUCKET" class="input"${ssrRenderAttr("value", unref(form).WAS_BUCKET)}></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Wasabi Endpoint"))}</label><input type="text" name="WAS_ENDPOINT" class="input"${ssrRenderAttr("value", unref(form).WAS_ENDPOINT)}></div></div>`);
       } else {
@@ -6149,7 +6156,7 @@ const _sfc_main$4b = /* @__PURE__ */ Object.assign(__default__$2f, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("Verification Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you application user verification settings"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("KYC Verification"))}</label><select class="select"><option value="true">${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false">${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Email Verification"))}</label><select class="select"><option value="true">${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false">${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="mt-3">`);
+      _push(`<div class="space-y-6"><div class="grid grid-cols-1 lg:grid-cols-12"><div class="lg:col-span-5"><strong>${ssrInterpolate(unref(trans)("Verification Settings"))}</strong><p>${ssrInterpolate(unref(trans)("Edit you application user verification settings"))}</p></div><div class="lg:col-span-7"><form><div class="card"><div class="card-body"><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("KYC Verification"))}</label><select class="select"><option value="true"${ssrIncludeBooleanAttr(Array.isArray(unref(form).KYC_MUST_VERIFIED) ? ssrLooseContain(unref(form).KYC_MUST_VERIFIED, "true") : ssrLooseEqual(unref(form).KYC_MUST_VERIFIED, "true")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false"${ssrIncludeBooleanAttr(Array.isArray(unref(form).KYC_MUST_VERIFIED) ? ssrLooseContain(unref(form).KYC_MUST_VERIFIED, "false") : ssrLooseEqual(unref(form).KYC_MUST_VERIFIED, "false")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="mb-2"><label class="label">${ssrInterpolate(unref(trans)("Email Verification"))}</label><select class="select"><option value="true"${ssrIncludeBooleanAttr(Array.isArray(unref(form).EMAIL_MUST_VERIFIED) ? ssrLooseContain(unref(form).EMAIL_MUST_VERIFIED, "true") : ssrLooseEqual(unref(form).EMAIL_MUST_VERIFIED, "true")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Enable"))}</option><option value="false"${ssrIncludeBooleanAttr(Array.isArray(unref(form).EMAIL_MUST_VERIFIED) ? ssrLooseContain(unref(form).EMAIL_MUST_VERIFIED, "false") : ssrLooseEqual(unref(form).EMAIL_MUST_VERIFIED, "false")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Disable"))}</option></select></div><div class="mt-3">`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         processing: unref(form).processing,
         "btn-text": unref(trans)("Save Changes")
@@ -6277,11 +6284,11 @@ const _sfc_main$49 = /* @__PURE__ */ Object.assign(__default__$2d, {
       }, null, _parent));
       _push(`</div></div></main><div id="addNewFaqDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Faq"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Question"))}</label><input type="text"${ssrRenderAttr("value", unref(createFrom).question)} maxlength="150" class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Answer"))}</label><textarea class="textarea h-100" maxlength="500" required="">${ssrInterpolate(unref(createFrom).answer)}</textarea></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Select Category"))}</label><select class="select" name="category" required><!--[-->`);
       ssrRenderList(__props.categories, (category) => {
-        _push(`<option${ssrRenderAttr("value", category.id)}>${ssrInterpolate(category.title)}</option>`);
+        _push(`<option${ssrRenderAttr("value", category.id)}${ssrIncludeBooleanAttr(Array.isArray(unref(createFrom).categories) ? ssrLooseContain(unref(createFrom).categories, category.id) : ssrLooseEqual(unref(createFrom).categories, category.id)) ? " selected" : ""}>${ssrInterpolate(category.title)}</option>`);
       });
       _push(`<!--]--></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Select Language"))}</label><select class="select" name="language" required=""><!--[-->`);
       ssrRenderList(__props.languages, (language, languageKey) => {
-        _push(`<option${ssrRenderAttr("value", languageKey)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", languageKey)}${ssrIncludeBooleanAttr(Array.isArray(unref(createFrom).language) ? ssrLooseContain(unref(createFrom).language, languageKey) : ssrLooseEqual(unref(createFrom).language, languageKey)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -6291,11 +6298,11 @@ const _sfc_main$49 = /* @__PURE__ */ Object.assign(__default__$2d, {
       }, null, _parent));
       _push(`</div></div></form></div><div id="editFaqDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Faq"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Question"))}</label><input type="text" name="question"${ssrRenderAttr("value", unref(editForm).question)} maxlength="150" class="input" id="question" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Answer"))}</label><textarea class="textarea h-100" maxlength="500" name="answer" required="" id="answer">${ssrInterpolate(unref(editForm).answer)}</textarea></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Select Categories"))}</label><select class="select" name="position" id="position" required><!--[-->`);
       ssrRenderList(__props.categories, (category) => {
-        _push(`<option${ssrRenderAttr("value", category.id)}${ssrIncludeBooleanAttr(category.id == unref(editForm).categories) ? " selected" : ""}>${ssrInterpolate(category.title)}</option>`);
+        _push(`<option${ssrRenderAttr("value", category.id)}${ssrIncludeBooleanAttr(category.id == unref(editForm).categories) ? " selected" : ""}${ssrIncludeBooleanAttr(Array.isArray(unref(editForm).categories) ? ssrLooseContain(unref(editForm).categories, category.id) : ssrLooseEqual(unref(editForm).categories, category.id)) ? " selected" : ""}>${ssrInterpolate(category.title)}</option>`);
       });
       _push(`<!--]--></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Select Language"))}</label><select class="select" name="language" required=""><!--[-->`);
       ssrRenderList(__props.languages, (language, languageKey) => {
-        _push(`<option${ssrRenderAttr("value", languageKey)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", languageKey)}${ssrIncludeBooleanAttr(Array.isArray(unref(editForm).language) ? ssrLooseContain(unref(editForm).language, languageKey) : ssrLooseEqual(unref(editForm).language, languageKey)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -6331,11 +6338,11 @@ const _sfc_main$48 = /* @__PURE__ */ Object.assign(__default__$2c, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     const { deleteRow } = sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const stats = computed(() => {
       return [
         {
@@ -6408,9 +6415,9 @@ const _sfc_main$48 = /* @__PURE__ */ Object.assign(__default__$2c, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.categories.links
       }, null, _parent));
-      _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(categoryForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select required class="select" name="language"><!--[-->`);
+      _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(categoryForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).status) ? ssrLooseContain(unref(categoryForm).status, "1") : ssrLooseEqual(unref(categoryForm).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).status) ? ssrLooseContain(unref(categoryForm).status, "0") : ssrLooseEqual(unref(categoryForm).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select required class="select" name="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).language) ? ssrLooseContain(unref(categoryForm).language, key) : ssrLooseEqual(unref(categoryForm).language, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -6418,9 +6425,9 @@ const _sfc_main$48 = /* @__PURE__ */ Object.assign(__default__$2c, {
         processing: unref(categoryForm).processing,
         "btn-text": unref(trans)("Save Changes")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language"><!--[-->`);
+      _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(editForm.value.lang) ? ssrLooseContain(editForm.value.lang, key) : ssrLooseEqual(editForm.value.lang, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -6499,7 +6506,7 @@ const _sfc_main$47 = /* @__PURE__ */ Object.assign(__default__$2b, {
       }
       _push(`</div></div><div class="mt-2"><label class="">${ssrInterpolate(unref(trans)("Select Langauge"))}</label><div class=""><select name="language" class="select"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).language) ? ssrLooseContain(unref(form).language, key) : ssrLooseEqual(unref(form).language, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select>`);
       if (unref(form).errors.language) {
@@ -6579,7 +6586,7 @@ const _sfc_main$46 = /* @__PURE__ */ Object.assign(__default__$2a, {
       }
       _push(`</div></div><div class="mb-2 mt-2"><label class="">${ssrInterpolate(unref(trans)("Select Langauge"))}</label><div class=""><select name="language" class="select"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).language) ? ssrLooseContain(unref(form).language, key) : ssrLooseEqual(unref(form).language, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select>`);
       if (unref(form).errors.language) {
@@ -6763,7 +6770,7 @@ const _sfc_main$44 = /* @__PURE__ */ Object.assign(__default__$28, {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div><div class="mb-4"><label class="required" for="status">${ssrInterpolate(unref(trans)("Status"))}</label><select class="input selectric" name="status" id="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactivate"))}</option></select>`);
+      _push(`</div><div class="mb-4"><label class="required" for="status">${ssrInterpolate(unref(trans)("Status"))}</label><select class="input selectric" name="status" id="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactivate"))}</option></select>`);
       if (unref(form).errors.status) {
         _push(`<div class="invalid-feedback">${ssrInterpolate(unref(form).errors.status)}</div>`);
       } else {
@@ -6829,7 +6836,7 @@ const _sfc_main$43 = /* @__PURE__ */ Object.assign(__default__$27, {
       }
       _push(`</div></div></div><div class="mb-4"><label class="" for="currency">${ssrInterpolate(unref(trans)("Currency"))}</label><input type="text" class="input" name="currency" id="currency"${ssrRenderAttr("value", unref(form).currency)} required></div>`);
       if (__props.gateway.is_auto == 1) {
-        _push(`<div class="mb-4"><label class="" for="sandbox">${ssrInterpolate(unref(trans)("Sandbox Mode"))}</label><select class="select flex-1" name="test_mode" id="sandbox"><option value="1">${ssrInterpolate(unref(trans)("Enable"))}</option><option value="0">${ssrInterpolate(unref(trans)("Disable"))}</option></select></div>`);
+        _push(`<div class="mb-4"><label class="" for="sandbox">${ssrInterpolate(unref(trans)("Sandbox Mode"))}</label><select class="select flex-1" name="test_mode" id="sandbox"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).test_mode) ? ssrLooseContain(unref(form).test_mode, "1") : ssrLooseEqual(unref(form).test_mode, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Enable"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).test_mode) ? ssrLooseContain(unref(form).test_mode, "0") : ssrLooseEqual(unref(form).test_mode, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Disable"))}</option></select></div>`);
       } else {
         _push(`<!---->`);
       }
@@ -6843,7 +6850,7 @@ const _sfc_main$43 = /* @__PURE__ */ Object.assign(__default__$27, {
       } else {
         _push(`<!---->`);
       }
-      _push(`<div class="mb-4"><label class="required block" for="status">${ssrInterpolate(unref(trans)("Payment Instruction"))}</label><textarea class="textarea" maxlength="1000" name="comment">${ssrInterpolate(unref(form).comment)}</textarea></div><div class="mb-4"><label class="" for="status">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select flex-1" name="status" id="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactivate"))}</option></select></div><div class="mb-4">`);
+      _push(`<div class="mb-4"><label class="required block" for="status">${ssrInterpolate(unref(trans)("Payment Instruction"))}</label><textarea class="textarea" maxlength="1000" name="comment">${ssrInterpolate(unref(form).comment)}</textarea></div><div class="mb-4"><label class="" for="status">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select flex-1" name="status" id="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactivate"))}</option></select></div><div class="mb-4">`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         processing: unref(form).processing
       }, null, _parent));
@@ -6991,9 +6998,9 @@ const _sfc_main$41 = /* @__PURE__ */ Object.assign(__default__$25, {
     "type"
   ],
   setup(__props) {
-    const props = __props;
     const { formatCurrency, textExcerpt } = sharedComposable();
     onMounted(() => drawer.init());
+    const props = __props;
     const filterData = useForm({
       search: props.request.search,
       type: props.type
@@ -7033,7 +7040,7 @@ const _sfc_main$41 = /* @__PURE__ */ Object.assign(__default__$25, {
         items: stats,
         grid: "3"
       }, null, _parent));
-      _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="btn bg-white font-medium shadow-sm dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="dropdown-list space-y-4 p-4"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email">${ssrInterpolate(unref(trans)("User Email"))}</option><option value="invoice_no">${ssrInterpolate(unref(trans)("Invoice No"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="btn btn-primary w-full">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Template"))}</th><th>${ssrInterpolate(unref(trans)("User Name"))}</th><th>${ssrInterpolate(unref(trans)("Charge"))}</th><th>${ssrInterpolate(unref(trans)("Result"))}</th><th>${ssrInterpolate(unref(trans)("Length"))}</th><th>${ssrInterpolate(unref(trans)("Prompt"))}</th><th>${ssrInterpolate(unref(trans)("Content"))}</th><th>${ssrInterpolate(unref(trans)("Date"))}</th><th><p class="text-end">${ssrInterpolate(unref(trans)("Action"))}</p></th></tr></thead>`);
+      _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="btn bg-white font-medium shadow-sm dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="dropdown-list space-y-4 p-4"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "email") : ssrLooseEqual(unref(filterData).type, "email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("User Email"))}</option><option value="invoice_no"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "invoice_no") : ssrLooseEqual(unref(filterData).type, "invoice_no")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Invoice No"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="btn btn-primary w-full">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th>${ssrInterpolate(unref(trans)("Template"))}</th><th>${ssrInterpolate(unref(trans)("User Name"))}</th><th>${ssrInterpolate(unref(trans)("Charge"))}</th><th>${ssrInterpolate(unref(trans)("Result"))}</th><th>${ssrInterpolate(unref(trans)("Length"))}</th><th>${ssrInterpolate(unref(trans)("Prompt"))}</th><th>${ssrInterpolate(unref(trans)("Content"))}</th><th>${ssrInterpolate(unref(trans)("Date"))}</th><th><p class="text-end">${ssrInterpolate(unref(trans)("Action"))}</p></th></tr></thead>`);
       if (__props.aiGenerated.total > 0) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.aiGenerated.data, (generated) => {
@@ -7084,7 +7091,7 @@ const _sfc_main$41 = /* @__PURE__ */ Object.assign(__default__$25, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.aiGenerated.links
       }, null, _parent));
-      _push(`</div></main><div id="promptDrawer" class="drawer drawer-right max-h-screen overflow-y-auto"><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Content Details"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body space-y-4"><div class="rounded-md bg-secondary-200 p-3 dark:bg-secondary-900"><label class="label mb-1">Prompt</label><p>${ssrInterpolate((_a2 = promptData.value) == null ? void 0 : _a2.prompt)}</p></div><div class="rounded-md bg-secondary-200 p-3 dark:bg-secondary-900"><label class="label mb-1">Content</label><div class="">${(_b2 = promptData.value) == null ? void 0 : _b2.content}</div></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-dark w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button></div></div></div><!--]-->`);
+      _push(`</div></main><div id="promptDrawer" class="drawer drawer-right max-h-screen overflow-y-auto"><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Content Details"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body space-y-4"><div class="rounded-md bg-secondary-200 p-3 dark:bg-secondary-900"><label class="label mb-1">Prompt</label><p>${ssrInterpolate((_a2 = promptData.value) == null ? void 0 : _a2.prompt)}</p></div><div class="rounded-md bg-secondary-200 p-3 dark:bg-secondary-900"><label class="label mb-1">Content</label><div class="">${((_b2 = promptData.value) == null ? void 0 : _b2.content) ?? ""}</div></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-dark w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button></div></div></div><!--]-->`);
     };
   }
 });
@@ -7116,11 +7123,11 @@ const _sfc_main$40 = /* @__PURE__ */ Object.assign(__default__$24, {
     "type"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const jobStats = computed(() => {
       return [
         {
@@ -7166,11 +7173,11 @@ const _sfc_main$40 = /* @__PURE__ */ Object.assign(__default__$24, {
       }, null, _parent));
       _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Search"))}</h2><div class="mb-2">`);
       if (unref(filterData).type && unref(filterData).type === "status") {
-        _push(`<select class="select" name="type"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="2">${ssrInterpolate(unref(trans)("Pending"))}</option><option value="0">${ssrInterpolate(unref(trans)("Inactive"))}</option></select>`);
+        _push(`<select class="select" name="type"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).search) ? ssrLooseContain(unref(filterData).search, "1") : ssrLooseEqual(unref(filterData).search, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).search) ? ssrLooseContain(unref(filterData).search, "2") : ssrLooseEqual(unref(filterData).search, "2")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Pending"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).search) ? ssrLooseContain(unref(filterData).search, "0") : ssrLooseEqual(unref(filterData).search, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Inactive"))}</option></select>`);
       } else {
         _push(`<input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......">`);
       }
-      _push(`</div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email">${ssrInterpolate(unref(trans)("Company Email"))}</option><option value="name">${ssrInterpolate(unref(trans)("Company Name"))}</option><option value="title">${ssrInterpolate(unref(trans)("Title"))}</option><option value="status">${ssrInterpolate(unref(trans)("Status"))}</option><option value="service">${ssrInterpolate(unref(trans)("Service"))}</option><option value="category">${ssrInterpolate(unref(trans)("Category"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th class="">${ssrInterpolate(unref(trans)("Name"))}</th><th class="">${ssrInterpolate(unref(trans)("Company Name"))}</th><th class="">${ssrInterpolate(unref(trans)("Service"))}</th><th class="">${ssrInterpolate(unref(trans)("Category"))}</th><th class="">${ssrInterpolate(unref(trans)("Created Date"))}</th><th class="">${ssrInterpolate(unref(trans)("Status"))}</th><th><div class="text-right">${ssrInterpolate(unref(trans)("Action"))}</div></th></tr></thead>`);
+      _push(`</div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "email") : ssrLooseEqual(unref(filterData).type, "email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Company Email"))}</option><option value="name"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "name") : ssrLooseEqual(unref(filterData).type, "name")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Company Name"))}</option><option value="title"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "title") : ssrLooseEqual(unref(filterData).type, "title")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Title"))}</option><option value="status"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "status") : ssrLooseEqual(unref(filterData).type, "status")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Status"))}</option><option value="service"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "service") : ssrLooseEqual(unref(filterData).type, "service")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Service"))}</option><option value="category"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "category") : ssrLooseEqual(unref(filterData).type, "category")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Category"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th class="">${ssrInterpolate(unref(trans)("Name"))}</th><th class="">${ssrInterpolate(unref(trans)("Company Name"))}</th><th class="">${ssrInterpolate(unref(trans)("Service"))}</th><th class="">${ssrInterpolate(unref(trans)("Category"))}</th><th class="">${ssrInterpolate(unref(trans)("Created Date"))}</th><th class="">${ssrInterpolate(unref(trans)("Status"))}</th><th><div class="text-right">${ssrInterpolate(unref(trans)("Action"))}</div></th></tr></thead>`);
       if (__props.jobs.total > 0) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.jobs.data, (job) => {
@@ -7226,7 +7233,7 @@ const _sfc_main$40 = /* @__PURE__ */ Object.assign(__default__$24, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.jobs.links
       }, null, _parent));
-      _push(`<div id="editJobDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Job"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Job Live Days"))}</label><input${ssrRenderAttr("value", editForm.value.live_expire_at)} type="date" name="live_expire_at" class="input"></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Featured Expire Date"))}</label><input${ssrRenderAttr("value", editForm.value.featured_expire_at)} type="date" name="featured_expire_at" class="input"></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="2">${ssrInterpolate(unref(trans)("Pending"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<div id="editJobDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Job"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Job Live Days"))}</label><input${ssrRenderAttr("value", editForm.value.live_expire_at)} type="date" name="live_expire_at" class="input"></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Featured Expire Date"))}</label><input${ssrRenderAttr("value", editForm.value.featured_expire_at)} type="date" name="featured_expire_at" class="input"></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "2") : ssrLooseEqual(editForm.value.status, "2")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Pending"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: isProcessing.value,
@@ -7293,7 +7300,7 @@ const _sfc_main$3$ = /* @__PURE__ */ Object.assign(__default__$23, {
         }
         _push(`</li>`);
       });
-      _push(`<!--]--></ul></div></div></div></section><section class="col-span-3"><div class="flex h-full flex-wrap gap-4"><div class="flex-grow"><div class="card h-full"><div class="card-body space-y-4"><h4 class="font-bold">${ssrInterpolate(_ctx.trans("Details"))}</h4><div><h6>${ssrInterpolate(_ctx.trans("Overview"))}</h6><div class="mt-px">${__props.job.short_description}</div></div><div><h6>${ssrInterpolate(_ctx.trans("Description"))}</h6><div class="mt-px">${__props.job.description}</div></div><div><h6>${ssrInterpolate(_ctx.trans("Required Skills"))}</h6><ul class="ml-5"><!--[-->`);
+      _push(`<!--]--></ul></div></div></div></section><section class="col-span-3"><div class="flex h-full flex-wrap gap-4"><div class="flex-grow"><div class="card h-full"><div class="card-body space-y-4"><h4 class="font-bold">${ssrInterpolate(_ctx.trans("Details"))}</h4><div><h6>${ssrInterpolate(_ctx.trans("Overview"))}</h6><div class="mt-px">${__props.job.short_description ?? ""}</div></div><div><h6>${ssrInterpolate(_ctx.trans("Description"))}</h6><div class="mt-px">${__props.job.description ?? ""}</div></div><div><h6>${ssrInterpolate(_ctx.trans("Required Skills"))}</h6><ul class="ml-5"><!--[-->`);
       ssrRenderList(__props.job.tags, (tag) => {
         _push(`<li class="list-disc">${ssrInterpolate(tag.title)}</li>`);
       });
@@ -7346,11 +7353,11 @@ const _sfc_main$3_ = /* @__PURE__ */ Object.assign(__default__$22, {
     "allServices"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const stats = computed(() => {
       return [
         {
@@ -7409,9 +7416,9 @@ const _sfc_main$3_ = /* @__PURE__ */ Object.assign(__default__$22, {
       }, null, _parent));
       _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(categoryForm).title)} type="text" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Icon"))}</label><input type="file" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Service"))}</label><select required class="select" name="category_id"><option value="" selected disabled>SELECT SERVICE</option><!--[-->`);
       ssrRenderList(__props.allServices, (service) => {
-        _push(`<option${ssrRenderAttr("value", service.id)}>${ssrInterpolate(service.title)}</option>`);
+        _push(`<option${ssrRenderAttr("value", service.id)}${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).category_id) ? ssrLooseContain(unref(categoryForm).category_id, service.id) : ssrLooseEqual(unref(categoryForm).category_id, service.id)) ? " selected" : ""}>${ssrInterpolate(service.title)}</option>`);
       });
-      _push(`<!--]--></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured ?"))}</label><select required class="select" name="IsFeatured"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu ?"))}</label><select required class="select" name="is_menu_item"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<!--]--></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).status) ? ssrLooseContain(unref(categoryForm).status, "1") : ssrLooseEqual(unref(categoryForm).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).status) ? ssrLooseContain(unref(categoryForm).status, "0") : ssrLooseEqual(unref(categoryForm).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured ?"))}</label><select required class="select" name="IsFeatured"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).is_featured) ? ssrLooseContain(unref(categoryForm).is_featured, "1") : ssrLooseEqual(unref(categoryForm).is_featured, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).is_featured) ? ssrLooseContain(unref(categoryForm).is_featured, "0") : ssrLooseEqual(unref(categoryForm).is_featured, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu ?"))}</label><select required class="select" name="is_menu_item"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).is_menu_item) ? ssrLooseContain(unref(categoryForm).is_menu_item, "1") : ssrLooseEqual(unref(categoryForm).is_menu_item, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(categoryForm).is_menu_item) ? ssrLooseContain(unref(categoryForm).is_menu_item, "0") : ssrLooseEqual(unref(categoryForm).is_menu_item, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary w-full",
         processing: unref(categoryForm).processing,
@@ -7419,9 +7426,9 @@ const _sfc_main$3_ = /* @__PURE__ */ Object.assign(__default__$22, {
       }, null, _parent));
       _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Service"))}</label><select required class="select"><!--[-->`);
       ssrRenderList(__props.allServices, (service) => {
-        _push(`<option${ssrIncludeBooleanAttr(editForm.value.category_id == service.id) ? " selected" : ""}${ssrRenderAttr("value", service.id)}>${ssrInterpolate(service.title)}</option>`);
+        _push(`<option${ssrIncludeBooleanAttr(editForm.value.category_id == service.id) ? " selected" : ""}${ssrRenderAttr("value", service.id)}${ssrIncludeBooleanAttr(Array.isArray(editForm.value.category_id) ? ssrLooseContain(editForm.value.category_id, service.id) : ssrLooseEqual(editForm.value.category_id, service.id)) ? " selected" : ""}>${ssrInterpolate(service.title)}</option>`);
       });
-      _push(`<!--]--></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Inactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured?"))}</label><select class="select" name="is_featured"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Inactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu ?"))}</label><select required class="select" name="is_menu_item"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<!--]--></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Inactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured?"))}</label><select class="select" name="is_featured"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_featured) ? ssrLooseContain(editForm.value.is_featured, "1") : ssrLooseEqual(editForm.value.is_featured, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_featured) ? ssrLooseContain(editForm.value.is_featured, "0") : ssrLooseEqual(editForm.value.is_featured, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Inactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu ?"))}</label><select required class="select" name="is_menu_item"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_menu_item) ? ssrLooseContain(editForm.value.is_menu_item, "1") : ssrLooseEqual(editForm.value.is_menu_item, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_menu_item) ? ssrLooseContain(editForm.value.is_menu_item, "0") : ssrLooseEqual(editForm.value.is_menu_item, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary w-full",
         processing: editForm.value.processing,
@@ -7455,11 +7462,11 @@ const _sfc_main$3Z = /* @__PURE__ */ Object.assign(__default__$21, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const serviceStats = computed(() => {
       return [
         {
@@ -7514,13 +7521,13 @@ const _sfc_main$3Z = /* @__PURE__ */ Object.assign(__default__$21, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.categories.links
       }, null, _parent));
-      _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Service"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(serviceForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Icon"))}</label><input type="file" name="icon" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" name="preview" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured"))}</label><select required class="select" name="IsFeatured"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu"))}</label><select required class="select" name="IsFeatured"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Service"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(serviceForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Icon"))}</label><input type="file" name="icon" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" name="preview" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(serviceForm).status) ? ssrLooseContain(unref(serviceForm).status, "1") : ssrLooseEqual(unref(serviceForm).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(serviceForm).status) ? ssrLooseContain(unref(serviceForm).status, "0") : ssrLooseEqual(unref(serviceForm).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured"))}</label><select required class="select" name="IsFeatured"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(serviceForm).is_featured) ? ssrLooseContain(unref(serviceForm).is_featured, "1") : ssrLooseEqual(unref(serviceForm).is_featured, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(serviceForm).is_featured) ? ssrLooseContain(unref(serviceForm).is_featured, "0") : ssrLooseEqual(unref(serviceForm).is_featured, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu"))}</label><select required class="select" name="IsFeatured"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(serviceForm).is_menu_item) ? ssrLooseContain(unref(serviceForm).is_menu_item, "1") : ssrLooseEqual(unref(serviceForm).is_menu_item, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(serviceForm).is_menu_item) ? ssrLooseContain(unref(serviceForm).is_menu_item, "0") : ssrLooseEqual(unref(serviceForm).is_menu_item, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary w-full",
         processing: unref(serviceForm).processing,
         "btn-text": unref(trans)("Save Now")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Icon"))}</label><input type="file" name="icon" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" name="preview" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured"))}</label><select class="select" name="is_featured"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu"))}</label><select class="select" name="is_menu_item"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Category"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Icon"))}</label><input type="file" name="icon" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Preview"))}</label><input type="file" name="preview" class="input"></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Is Featured"))}</label><select class="select" name="is_featured"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_featured) ? ssrLooseContain(editForm.value.is_featured, "1") : ssrLooseEqual(editForm.value.is_featured, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_featured) ? ssrLooseContain(editForm.value.is_featured, "0") : ssrLooseEqual(editForm.value.is_featured, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label class="label mb-2">${ssrInterpolate(unref(trans)("Add to menu"))}</label><select class="select" name="is_menu_item"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_menu_item) ? ssrLooseContain(editForm.value.is_menu_item, "1") : ssrLooseEqual(editForm.value.is_menu_item, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.is_menu_item) ? ssrLooseContain(editForm.value.is_menu_item, "0") : ssrLooseEqual(editForm.value.is_menu_item, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary w-full",
         processing: editForm.value.processing,
@@ -7555,11 +7562,11 @@ const _sfc_main$3Y = /* @__PURE__ */ Object.assign(__default__$20, {
     "allCategory"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const tagsStats = computed(() => {
       return [
         {
@@ -7614,9 +7621,9 @@ const _sfc_main$3Y = /* @__PURE__ */ Object.assign(__default__$20, {
       }, null, _parent));
       _push(`</div></main><div id="addNewCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Skill"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(tagForm).title)} type="text" name="title" class="input" required></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Category"))}</label><select required class="select" name="category_id"><!--[-->`);
       ssrRenderList(__props.allCategory, (category) => {
-        _push(`<option${ssrRenderAttr("value", category.id)}>${ssrInterpolate(category.title)}</option>`);
+        _push(`<option${ssrRenderAttr("value", category.id)}${ssrIncludeBooleanAttr(Array.isArray(unref(tagForm).category_id) ? ssrLooseContain(unref(tagForm).category_id, category.id) : ssrLooseEqual(unref(tagForm).category_id, category.id)) ? " selected" : ""}>${ssrInterpolate(category.title)}</option>`);
       });
-      _push(`<!--]--></select></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<!--]--></select></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select required class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(tagForm).status) ? ssrLooseContain(unref(tagForm).status, "1") : ssrLooseEqual(unref(tagForm).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(tagForm).status) ? ssrLooseContain(unref(tagForm).status, "0") : ssrLooseEqual(unref(tagForm).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: unref(tagForm).processing,
@@ -7624,9 +7631,9 @@ const _sfc_main$3Y = /* @__PURE__ */ Object.assign(__default__$20, {
       }, null, _parent));
       _push(`</div></div></form></div><div id="editCategoryDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Skill"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" class="input" required></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Category"))}</label><select required class="select" name="category_id"><!--[-->`);
       ssrRenderList(__props.allCategory, (category) => {
-        _push(`<option${ssrIncludeBooleanAttr(editForm.value.category_id == category.id) ? " selected" : ""}${ssrRenderAttr("value", category.id)}>${ssrInterpolate(category.title)}</option>`);
+        _push(`<option${ssrIncludeBooleanAttr(editForm.value.category_id == category.id) ? " selected" : ""}${ssrRenderAttr("value", category.id)}${ssrIncludeBooleanAttr(Array.isArray(editForm.value.category_id) ? ssrLooseContain(editForm.value.category_id, category.id) : ssrLooseEqual(editForm.value.category_id, category.id)) ? " selected" : ""}>${ssrInterpolate(category.title)}</option>`);
       });
-      _push(`<!--]--></select></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<!--]--></select></div><div class="mb-2"><label class="mb-2 label">${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: editForm.value.processing,
@@ -7679,7 +7686,7 @@ const _sfc_main$3X = /* @__PURE__ */ Object.assign(__default__$1$, {
       _push(ssrRenderComponent(_sfc_main$4Q, {
         message: unref(form).errors.title
       }, null, _parent));
-      _push(`</div><div class="mb-2"><label for="image_accept" class="required">${ssrInterpolate(_ctx.trans("Accept Attachments"))}</label><select id="image_accept" class="select" data-control="select2" required><option value="1">${ssrInterpolate(_ctx.trans("Yes"))}</option><option value="0">${ssrInterpolate(_ctx.trans("No"))}</option></select></div><div class="mb-2"><label for="status" class="required">${ssrInterpolate(_ctx.trans("Status:"))}</label><select id="status" class="select" data-control="select2" required><option value="1">${ssrInterpolate(_ctx.trans("Active"))}</option><option value="0">${ssrInterpolate(_ctx.trans("Inactive"))}</option></select></div>`);
+      _push(`</div><div class="mb-2"><label for="image_accept" class="required">${ssrInterpolate(_ctx.trans("Accept Attachments"))}</label><select id="image_accept" class="select" data-control="select2" required><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).image_accept) ? ssrLooseContain(unref(form).image_accept, "1") : ssrLooseEqual(unref(form).image_accept, "1")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Yes"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).image_accept) ? ssrLooseContain(unref(form).image_accept, "0") : ssrLooseEqual(unref(form).image_accept, "0")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("No"))}</option></select></div><div class="mb-2"><label for="status" class="required">${ssrInterpolate(_ctx.trans("Status:"))}</label><select id="status" class="select" data-control="select2" required><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Inactive"))}</option></select></div>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary",
         processing: unref(form).processing,
@@ -7689,7 +7696,7 @@ const _sfc_main$3X = /* @__PURE__ */ Object.assign(__default__$1$, {
       ssrRenderList(unref(form).fields, (field, index) => {
         _push(`<div class="input-group mb-5"><input type="text"${ssrRenderAttr("value", field.label)} class="input"${ssrRenderAttr("placeholder", _ctx.trans("Enter input label"))} aria-label="" required><select class="input" required><!--[-->`);
         ssrRenderList(__props.types, (item) => {
-          _push(`<option${ssrRenderAttr("value", item)}>${ssrInterpolate(item)}</option>`);
+          _push(`<option${ssrRenderAttr("value", item)}${ssrIncludeBooleanAttr(Array.isArray(field.type) ? ssrLooseContain(field.type, item) : ssrLooseEqual(field.type, item)) ? " selected" : ""}>${ssrInterpolate(item)}</option>`);
         });
         _push(`<!--]--></select><button type="button" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></div>`);
       });
@@ -7718,8 +7725,7 @@ const _sfc_main$3W = /* @__PURE__ */ Object.assign(__default__$1_, {
     "buttons"
   ],
   setup(__props) {
-    const { kycMethod, types, segments, buttons } = __props;
-    const form = useForm({ ...kycMethod, _method: "put" });
+    const form = useForm({ ...__props.kycMethod, _method: "put" });
     form.image = null;
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container p-4 sm:p-6" }, _attrs))}>`);
@@ -7736,7 +7742,7 @@ const _sfc_main$3W = /* @__PURE__ */ Object.assign(__default__$1_, {
       _push(ssrRenderComponent(_sfc_main$4Q, {
         message: unref(form).errors.title
       }, null, _parent));
-      _push(`</div><div class="mb-2"><label for="image_accept" class="required">${ssrInterpolate(_ctx.trans("Accept Attachments"))}</label><select id="image_accept" class="select" data-control="select2" required><option value="1">${ssrInterpolate(_ctx.trans("Yes"))}</option><option value="0">${ssrInterpolate(_ctx.trans("No"))}</option></select></div><div class="mb-2"><label for="status" class="required">${ssrInterpolate(_ctx.trans("Status:"))}</label><select id="status" class="select" data-control="select2" required><option value="1">${ssrInterpolate(_ctx.trans("Active"))}</option><option value="0">${ssrInterpolate(_ctx.trans("Inactive"))}</option></select></div>`);
+      _push(`</div><div class="mb-2"><label for="image_accept" class="required">${ssrInterpolate(_ctx.trans("Accept Attachments"))}</label><select id="image_accept" class="select" data-control="select2" required><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).image_accept) ? ssrLooseContain(unref(form).image_accept, "1") : ssrLooseEqual(unref(form).image_accept, "1")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Yes"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).image_accept) ? ssrLooseContain(unref(form).image_accept, "0") : ssrLooseEqual(unref(form).image_accept, "0")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("No"))}</option></select></div><div class="mb-2"><label for="status" class="required">${ssrInterpolate(_ctx.trans("Status:"))}</label><select id="status" class="select" data-control="select2" required><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Inactive"))}</option></select></div>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary",
         processing: unref(form).processing,
@@ -7746,7 +7752,7 @@ const _sfc_main$3W = /* @__PURE__ */ Object.assign(__default__$1_, {
       ssrRenderList(unref(form).fields, (field, index) => {
         _push(`<div class="input-group mb-5"><input type="text"${ssrRenderAttr("value", field.label)} class="input"${ssrRenderAttr("placeholder", _ctx.trans("Enter input label"))} aria-label="" required><select class="input" required><!--[-->`);
         ssrRenderList(__props.types, (item) => {
-          _push(`<option${ssrRenderAttr("value", item)}>${ssrInterpolate(item)}</option>`);
+          _push(`<option${ssrRenderAttr("value", item)}${ssrIncludeBooleanAttr(Array.isArray(field.type) ? ssrLooseContain(field.type, item) : ssrLooseEqual(field.type, item)) ? " selected" : ""}>${ssrInterpolate(item)}</option>`);
         });
         _push(`<!--]--></select><button type="button" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></div>`);
       });
@@ -7801,7 +7807,7 @@ const _sfc_main$3V = /* @__PURE__ */ Object.assign(__default__$1Z, {
         items: overviewItems,
         grid: "3"
       }, null, _parent));
-      _push(`<form><div class="mb-3 w-72"><div class="input-group"><select class="select"><option value="">${ssrInterpolate(unref(trans)("Select Action"))}</option><option value="delete">${ssrInterpolate(unref(trans)("Delete Permanently"))}</option></select><button class="btn btn-primary" type="submit"${ssrIncludeBooleanAttr(!unref(form).ids.length) ? " disabled" : ""}>${ssrInterpolate(unref(trans)("Submit"))}</button></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th><input type="checkbox" class="checkbox"></th><th>${ssrInterpolate(unref(trans)("Method"))}</th><th>${ssrInterpolate(unref(trans)("Total Used"))}</th><th>${ssrInterpolate(unref(trans)("Accept Attach."))}</th><th>${ssrInterpolate(unref(trans)("Created At"))}</th><th>${ssrInterpolate(unref(trans)("Status"))}</th><th><p class="text-end">${ssrInterpolate(unref(trans)("Action"))}</p></th></tr></thead>`);
+      _push(`<form><div class="mb-3 w-72"><div class="input-group"><select class="select"><option value=""${ssrIncludeBooleanAttr(Array.isArray(unref(form).method) ? ssrLooseContain(unref(form).method, "") : ssrLooseEqual(unref(form).method, "")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Select Action"))}</option><option value="delete"${ssrIncludeBooleanAttr(Array.isArray(unref(form).method) ? ssrLooseContain(unref(form).method, "delete") : ssrLooseEqual(unref(form).method, "delete")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Delete Permanently"))}</option></select><button class="btn btn-primary" type="submit"${ssrIncludeBooleanAttr(!unref(form).ids.length) ? " disabled" : ""}>${ssrInterpolate(unref(trans)("Submit"))}</button></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th><input type="checkbox" class="checkbox"></th><th>${ssrInterpolate(unref(trans)("Method"))}</th><th>${ssrInterpolate(unref(trans)("Total Used"))}</th><th>${ssrInterpolate(unref(trans)("Accept Attach."))}</th><th>${ssrInterpolate(unref(trans)("Created At"))}</th><th>${ssrInterpolate(unref(trans)("Status"))}</th><th><p class="text-end">${ssrInterpolate(unref(trans)("Action"))}</p></th></tr></thead>`);
       if (__props.kycMethods.total) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.kycMethods.data, (item) => {
@@ -7986,9 +7992,9 @@ const _sfc_main$3T = /* @__PURE__ */ Object.assign(__default__$1Y, {
     "request"
   ],
   setup(__props) {
-    const props = __props;
     const { getQueryParams: getQueryParams2 } = sharedComposable();
     const request = getQueryParams2();
+    const props = __props;
     const orderOverviews = [
       {
         value: props.all,
@@ -8035,7 +8041,7 @@ const _sfc_main$3T = /* @__PURE__ */ Object.assign(__default__$1Y, {
       }, null, _parent));
       _push(`<div class="card"><div class="card-header"><form><div class="flex justify-between"><h4>${ssrInterpolate(unref(trans)("KYC Requests"))}</h4><div class="input-group w-72"><input type="text"${ssrRenderAttr("value", unref(filterForm).keyword)} class="input"${ssrRenderAttr("placeholder", unref(trans)("Search by invoice or user"))}><button type="submit" class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button></div></div></form></div><div class="card-body">`);
       if (__props.requests.data) {
-        _push(`<div><div class="input-group w-72"><select${ssrIncludeBooleanAttr(!ids.value.length) ? " disabled" : ""} class="select"><option value="">${ssrInterpolate(unref(trans)("Action"))}</option><option value="delete">${ssrInterpolate(unref(trans)("Delete"))}</option></select><button${ssrIncludeBooleanAttr(!ids.value.length || selectedAction.value == "") ? " disabled" : ""} class="btn btn-outline-secondary">${ssrInterpolate(unref(trans)("Go"))}</button></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th class="pt-2 text-center"><input type="checkbox" class="checkbox"></th><th>${ssrInterpolate(unref(trans)("Request ID"))}</th><th>${ssrInterpolate(unref(trans)("Method"))}</th><th>${ssrInterpolate(unref(trans)("Company"))}</th><th>${ssrInterpolate(unref(trans)("Status"))}</th><th>${ssrInterpolate(unref(trans)("Documents"))}</th><th>${ssrInterpolate(unref(trans)("Created At"))}</th><th><p class="text-end">${ssrInterpolate(unref(trans)("Action"))}</p></th></tr></thead>`);
+        _push(`<div><div class="input-group w-72"><select${ssrIncludeBooleanAttr(!ids.value.length) ? " disabled" : ""} class="select"><option value=""${ssrIncludeBooleanAttr(Array.isArray(selectedAction.value) ? ssrLooseContain(selectedAction.value, "") : ssrLooseEqual(selectedAction.value, "")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Action"))}</option><option value="delete"${ssrIncludeBooleanAttr(Array.isArray(selectedAction.value) ? ssrLooseContain(selectedAction.value, "delete") : ssrLooseEqual(selectedAction.value, "delete")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Delete"))}</option></select><button${ssrIncludeBooleanAttr(!ids.value.length || selectedAction.value == "") ? " disabled" : ""} class="btn btn-outline-secondary">${ssrInterpolate(unref(trans)("Go"))}</button></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th class="pt-2 text-center"><input type="checkbox" class="checkbox"></th><th>${ssrInterpolate(unref(trans)("Request ID"))}</th><th>${ssrInterpolate(unref(trans)("Method"))}</th><th>${ssrInterpolate(unref(trans)("Company"))}</th><th>${ssrInterpolate(unref(trans)("Status"))}</th><th>${ssrInterpolate(unref(trans)("Documents"))}</th><th>${ssrInterpolate(unref(trans)("Created At"))}</th><th><p class="text-end">${ssrInterpolate(unref(trans)("Action"))}</p></th></tr></thead>`);
         if (__props.requests.total) {
           _push(`<tbody><!--[-->`);
           ssrRenderList(__props.requests.data, (item) => {
@@ -8129,7 +8135,7 @@ const _sfc_main$3S = /* @__PURE__ */ Object.assign(__default__$1X, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-4"><div class="grid grid-cols-3 gap-3"><div class="col-span-1 rounded bg-white p-5 shadow dark:bg-dark-800"><table class="table shadow-none"><tr><td colspan="3"><img${ssrRenderAttr("src", (_a2 = __props.kycRequest.user) == null ? void 0 : _a2.avatar)} alt="" class="card-img"></td></tr><tr><th>${ssrInterpolate(unref(trans)("Name"))}</th><td>:</td><td>${ssrInterpolate((_b2 = __props.kycRequest.user) == null ? void 0 : _b2.name)}</td></tr><tr><th>${ssrInterpolate(unref(trans)("Email"))}</th><td>:</td><td>${ssrInterpolate((_c = __props.kycRequest.user) == null ? void 0 : _c.email)}</td></tr><tr><th>${ssrInterpolate(unref(trans)("Phone"))}</th><td>:</td><td>${ssrInterpolate(((_d = __props.kycRequest.user) == null ? void 0 : _d.phone) ?? "-")}</td></tr></table></div><div class="col-span-2 rounded bg-white p-5 shadow dark:bg-dark-800"><table class="table-borderless table shadow-none"><tbody><tr><th>${ssrInterpolate(unref(trans)("KYC Verified At"))}</th><td>`);
+      _push(`<div class="space-y-4"><div class="grid grid-cols-3 gap-3"><div class="col-span-1 rounded bg-white p-5 shadow dark:bg-dark-800"><table class="table shadow-none"><tbody><tr><td colspan="3"><img${ssrRenderAttr("src", (_a2 = __props.kycRequest.user) == null ? void 0 : _a2.avatar)} alt="" class="card-img"></td></tr><tr><th>${ssrInterpolate(unref(trans)("Name"))}</th><td>:</td><td>${ssrInterpolate((_b2 = __props.kycRequest.user) == null ? void 0 : _b2.name)}</td></tr><tr><th>${ssrInterpolate(unref(trans)("Email"))}</th><td>:</td><td>${ssrInterpolate((_c = __props.kycRequest.user) == null ? void 0 : _c.email)}</td></tr><tr><th>${ssrInterpolate(unref(trans)("Phone"))}</th><td>:</td><td>${ssrInterpolate(((_d = __props.kycRequest.user) == null ? void 0 : _d.phone) ?? "-")}</td></tr></tbody></table></div><div class="col-span-2 rounded bg-white p-5 shadow dark:bg-dark-800"><table class="table-borderless table shadow-none"><tbody><tr><th>${ssrInterpolate(unref(trans)("KYC Verified At"))}</th><td>`);
       if ((_e = __props.kycRequest.user) == null ? void 0 : _e.kyc_verified_at) {
         _push(`<div>${ssrInterpolate(unref(moment)((_f = __props.kycRequest.user) == null ? void 0 : _f.kyc_verified_at).format("DD MMM, Y"))}</div>`);
       } else {
@@ -8226,7 +8232,7 @@ const _sfc_main$3R = /* @__PURE__ */ Object.assign(__default__$1W, {
       });
       _push(`<!--]--></tbody></table></div></div></main><div id="addNewLanguageDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Language"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language Name"))}</label><input${ssrRenderAttr("value", unref(form).name)} type="text" name="name" class="input" required placeholder="English"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Select Language"))}</label><select class="select" name="language_code"><!--[-->`);
       ssrRenderList(__props.countries, (country) => {
-        _push(`<option${ssrRenderAttr("value", country.code)}>${ssrInterpolate(country.name)}</option>`);
+        _push(`<option${ssrRenderAttr("value", country.code)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).language_code) ? ssrLooseContain(unref(form).language_code, country.code) : ssrLooseEqual(unref(form).language_code, country.code)) ? " selected" : ""}>${ssrInterpolate(country.name)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -8259,10 +8265,10 @@ const _sfc_main$3Q = /* @__PURE__ */ Object.assign(__default__$1V, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const form = useForm({
       key: "",
       value: "",
@@ -8395,7 +8401,6 @@ const _sfc_main$3O = /* @__PURE__ */ Object.assign(__default__$1T, {
   __ssrInlineRender: true,
   props: ["country", "states", "buttons", "segments"],
   setup(__props) {
-    const props = __props;
     sharedComposable();
     onMounted(() => {
       drawer.init();
@@ -8403,6 +8408,7 @@ const _sfc_main$3O = /* @__PURE__ */ Object.assign(__default__$1T, {
     onUpdated(() => {
       drawer.init();
     });
+    const props = __props;
     const form = useForm({
       country_id: props.country.id,
       name: ""
@@ -8473,11 +8479,11 @@ const _sfc_main$3N = /* @__PURE__ */ Object.assign(__default__$1S, {
     "type"
   ],
   setup(__props) {
-    const props = __props;
     const { textExcerpt, deleteRow } = sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const notificatoinOverviews = [
       {
         value: props.totalNotifications,
@@ -8592,10 +8598,10 @@ const _sfc_main$3M = /* @__PURE__ */ Object.assign(__default__$1R, {
     "buttons"
   ],
   setup(__props) {
-    const props = __props;
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     sharedComposable();
     const form = useForm({
       name: null,
@@ -8679,21 +8685,21 @@ const _sfc_main$3M = /* @__PURE__ */ Object.assign(__default__$1R, {
         }, _parent));
         _push(`</li><li class="dropdown-list-item"><button class="dropdown-link"><i class="h-5 text-slate-400" data-feather="edit"></i><span>${ssrInterpolate(unref(trans)("Edit"))}</span></button></li><li class="dropdown-list-item"><button class="dropdown-link"><i class="h-5 text-slate-400" data-feather="trash-2">${ssrInterpolate(unref(trans)("Remove"))}&gt;</i><span>${ssrInterpolate(unref(trans)("Delete"))}</span></button></li></ul></div></div></td></tr>`);
       });
-      _push(`<!--]--></tbody></table></div></div></main><div id="addNewMenuDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Menu"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Menu Name"))}</label><input type="text"${ssrRenderAttr("value", unref(form).name)} name="name" class="input" required placeholder="Example"></div><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Select Menu Position"))}</label><select class="input" name="position"><option value="main-menu">${ssrInterpolate(unref(trans)("Main Menu"))}</option><option value="footer-left">${ssrInterpolate(unref(trans)("Footer Left"))}</option><option value="footer-right">${ssrInterpolate(unref(trans)("Footer right"))}</option><option value="footer-center">${ssrInterpolate(unref(trans)("Footer Center"))}</option></select></div><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Select Language"))}</label><select class="input" name="language"><!--[-->`);
+      _push(`<!--]--></tbody></table></div></div></main><div id="addNewMenuDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Menu"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Menu Name"))}</label><input type="text"${ssrRenderAttr("value", unref(form).name)} name="name" class="input" required placeholder="Example"></div><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Select Menu Position"))}</label><select class="input" name="position"><option value="main-menu"${ssrIncludeBooleanAttr(Array.isArray(unref(form).position) ? ssrLooseContain(unref(form).position, "main-menu") : ssrLooseEqual(unref(form).position, "main-menu")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Main Menu"))}</option><option value="footer-left"${ssrIncludeBooleanAttr(Array.isArray(unref(form).position) ? ssrLooseContain(unref(form).position, "footer-left") : ssrLooseEqual(unref(form).position, "footer-left")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Footer Left"))}</option><option value="footer-right"${ssrIncludeBooleanAttr(Array.isArray(unref(form).position) ? ssrLooseContain(unref(form).position, "footer-right") : ssrLooseEqual(unref(form).position, "footer-right")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Footer right"))}</option><option value="footer-center"${ssrIncludeBooleanAttr(Array.isArray(unref(form).position) ? ssrLooseContain(unref(form).position, "footer-center") : ssrLooseEqual(unref(form).position, "footer-center")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Footer Center"))}</option></select></div><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Select Language"))}</label><select class="input" name="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, languageKey) => {
-        _push(`<option${ssrRenderAttr("value", languageKey)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", languageKey)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).language) ? ssrLooseContain(unref(form).language, languageKey) : ssrLooseEqual(unref(form).language, languageKey)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
-      _push(`<!--]--></select></div><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Menu Status"))}</label><select class="input" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Draft"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<!--]--></select></div><div><label class="label label-required mb-1">${ssrInterpolate(unref(trans)("Menu Status"))}</label><select class="input" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Draft"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: unref(form).processing,
         "btn-text": unref(trans)("Create")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editMenuDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Menu"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div><label class="label label-required">${ssrInterpolate(unref(trans)("Menu Name"))}</label><input${ssrRenderAttr("value", unref(edit).name)} type="text" name="name" class="input" required placeholder="Name"></div><div><label class="label label-required">${ssrInterpolate(unref(trans)("Select Menu Position"))}</label><select class="input" name="position"><option value="main-menu">${ssrInterpolate(unref(trans)("Main Menu"))}</option><option value="footer-left">${ssrInterpolate(unref(trans)("Footer Left"))}</option><option value="footer-right">${ssrInterpolate(unref(trans)("Footer right"))}</option><option value="footer-center">${ssrInterpolate(unref(trans)("Footer Center"))}</option></select></div><div><label class="label label-required">${ssrInterpolate(unref(trans)("Select Language"))}</label><select name="language" class="input" required><!--[-->`);
+      _push(`</div></div></form></div><div id="editMenuDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Menu"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div><label class="label label-required">${ssrInterpolate(unref(trans)("Menu Name"))}</label><input${ssrRenderAttr("value", unref(edit).name)} type="text" name="name" class="input" required placeholder="Name"></div><div><label class="label label-required">${ssrInterpolate(unref(trans)("Select Menu Position"))}</label><select class="input" name="position"><option value="main-menu"${ssrIncludeBooleanAttr(Array.isArray(unref(edit).position) ? ssrLooseContain(unref(edit).position, "main-menu") : ssrLooseEqual(unref(edit).position, "main-menu")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Main Menu"))}</option><option value="footer-left"${ssrIncludeBooleanAttr(Array.isArray(unref(edit).position) ? ssrLooseContain(unref(edit).position, "footer-left") : ssrLooseEqual(unref(edit).position, "footer-left")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Footer Left"))}</option><option value="footer-right"${ssrIncludeBooleanAttr(Array.isArray(unref(edit).position) ? ssrLooseContain(unref(edit).position, "footer-right") : ssrLooseEqual(unref(edit).position, "footer-right")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Footer right"))}</option><option value="footer-center"${ssrIncludeBooleanAttr(Array.isArray(unref(edit).position) ? ssrLooseContain(unref(edit).position, "footer-center") : ssrLooseEqual(unref(edit).position, "footer-center")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Footer Center"))}</option></select></div><div><label class="label label-required">${ssrInterpolate(unref(trans)("Select Language"))}</label><select name="language" class="input" required><!--[-->`);
       ssrRenderList(__props.languages, (language, languageKey) => {
-        _push(`<option${ssrRenderAttr("value", languageKey)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", languageKey)}${ssrIncludeBooleanAttr(Array.isArray(unref(edit).language) ? ssrLooseContain(unref(edit).language, languageKey) : ssrLooseEqual(unref(edit).language, languageKey)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
-      _push(`<!--]--></select></div><div c><label class="label label-required">${ssrInterpolate(unref(trans)("Menu Status"))}</label><select class="input" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Draft"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`<!--]--></select></div><div c><label class="label label-required">${ssrInterpolate(unref(trans)("Menu Status"))}</label><select class="input" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(edit).status) ? ssrLooseContain(unref(edit).status, "1") : ssrLooseEqual(unref(edit).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(edit).status) ? ssrLooseContain(unref(edit).status, "0") : ssrLooseEqual(unref(edit).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Draft"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: unref(edit).processing,
@@ -8790,7 +8796,7 @@ const menu = reactive({
     return null;
   }
 });
-const NestedDraggable_vue_vue_type_style_index_0_scoped_38e05e99_lang = "";
+const NestedDraggable_vue_vue_type_style_index_0_scoped_dbe2f1f5_lang = "";
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -8829,7 +8835,7 @@ const _sfc_main$3L = {
       }, _attrs), {
         item: withCtx(({ element }, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<li data-v-38e05e99${_scopeId}><div class="flex items-center justify-between rounded border p-2" data-v-38e05e99${_scopeId}><p data-v-38e05e99${_scopeId}><i class="fa fa-arrows-alt" aria-hidden="true" data-v-38e05e99${_scopeId}></i> ${ssrInterpolate(element.text)}</p><div data-v-38e05e99${_scopeId}><button class="btn" data-v-38e05e99${_scopeId}><i class="fas fa-pen" data-v-38e05e99${_scopeId}></i></button><button class="btn" data-v-38e05e99${_scopeId}><i class="fas fa-trash" data-v-38e05e99${_scopeId}></i></button></div></div>`);
+            _push2(`<li data-v-dbe2f1f5${_scopeId}><div class="flex items-center justify-between rounded border p-2" data-v-dbe2f1f5${_scopeId}><p data-v-dbe2f1f5${_scopeId}><i class="fa fa-arrows-alt" aria-hidden="true" data-v-dbe2f1f5${_scopeId}></i> ${ssrInterpolate(element.text)}</p><div data-v-dbe2f1f5${_scopeId}><button class="btn" data-v-dbe2f1f5${_scopeId}><i class="fas fa-pen" data-v-dbe2f1f5${_scopeId}></i></button><button class="btn" data-v-dbe2f1f5${_scopeId}><i class="fas fa-trash" data-v-dbe2f1f5${_scopeId}></i></button></div></div>`);
             _push2(ssrRenderComponent(_component_nested_draggable, {
               tasks: element.children
             }, null, _parent2, _scopeId));
@@ -8878,7 +8884,7 @@ _sfc_main$3L.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Components/NestedDraggable.vue");
   return _sfc_setup$3L ? _sfc_setup$3L(props, ctx) : void 0;
 };
-const NestedDraggable = /* @__PURE__ */ _export_sfc(_sfc_main$3L, [["__scopeId", "data-v-38e05e99"]]);
+const NestedDraggable = /* @__PURE__ */ _export_sfc(_sfc_main$3L, [["__scopeId", "data-v-dbe2f1f5"]]);
 const __default__$1Q = defineComponent({ layout: _sfc_main$4_ });
 const _sfc_main$3K = /* @__PURE__ */ Object.assign(__default__$1Q, {
   __name: "Show",
@@ -8904,7 +8910,7 @@ const _sfc_main$3K = /* @__PURE__ */ Object.assign(__default__$1Q, {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div></div></div><div class="col-span-4"><div class="card fixed w-[380px]"><div class="card-body"><h4 class="mb-5">${ssrInterpolate(unref(trans)("Create Menu Items"))}</h4><form class="space-y-6"><div><label for="text" class="label label-required">${ssrInterpolate(unref(trans)("Text"))}</label><input type="text" class="input" name="text" id="text" placeholder="Text" autocomplete="off"${ssrRenderAttr("value", unref(menu).newItem.text)}></div><div><label for="href" class="label label-required">${ssrInterpolate(unref(trans)("URL"))}</label><input type="text" class="input" id="href" name="href" placeholder="URL" required autocomplete="off"${ssrRenderAttr("value", unref(menu).newItem.href)}></div><div><label for="target" class="label label-required">${ssrInterpolate(unref(trans)("Target"))}</label><select name="target" class="input"><option value="_self">${ssrInterpolate(unref(trans)("Self"))}</option><option value="_blank">${ssrInterpolate(unref(trans)("Blank"))}</option><option value="_top">${ssrInterpolate(unref(trans)("Top"))}</option></select></div></form><div class="menu-add-update mt-6 flex"><button type="button" id="btnUpdate" class="btn btn-update btn-warning mr-2 flex-1 text-white"${ssrIncludeBooleanAttr(!unref(menu).isEdit) ? " disabled" : ""}><i class="w-4" data-feather="refresh-cw"></i> ${ssrInterpolate(unref(trans)("Update"))}</button><button type="button" id="btnAdd" class="btn btn-success flex-1"${ssrIncludeBooleanAttr(unref(menu).isEdit) ? " disabled" : ""}><i class="w-5" data-feather="plus"></i> ${ssrInterpolate(unref(trans)("Add"))}</button></div></div></div></div></div></main>`);
+      _push(`</div></div></div><div class="col-span-4"><div class="card fixed w-[380px]"><div class="card-body"><h4 class="mb-5">${ssrInterpolate(unref(trans)("Create Menu Items"))}</h4><form class="space-y-6"><div><label for="text" class="label label-required">${ssrInterpolate(unref(trans)("Text"))}</label><input type="text" class="input" name="text" id="text" placeholder="Text" autocomplete="off"${ssrRenderAttr("value", unref(menu).newItem.text)}></div><div><label for="href" class="label label-required">${ssrInterpolate(unref(trans)("URL"))}</label><input type="text" class="input" id="href" name="href" placeholder="URL" required autocomplete="off"${ssrRenderAttr("value", unref(menu).newItem.href)}></div><div><label for="target" class="label label-required">${ssrInterpolate(unref(trans)("Target"))}</label><select name="target" class="input"><option value="_self"${ssrIncludeBooleanAttr(Array.isArray(unref(menu).newItem.target) ? ssrLooseContain(unref(menu).newItem.target, "_self") : ssrLooseEqual(unref(menu).newItem.target, "_self")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Self"))}</option><option value="_blank"${ssrIncludeBooleanAttr(Array.isArray(unref(menu).newItem.target) ? ssrLooseContain(unref(menu).newItem.target, "_blank") : ssrLooseEqual(unref(menu).newItem.target, "_blank")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Blank"))}</option><option value="_top"${ssrIncludeBooleanAttr(Array.isArray(unref(menu).newItem.target) ? ssrLooseContain(unref(menu).newItem.target, "_top") : ssrLooseEqual(unref(menu).newItem.target, "_top")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Top"))}</option></select></div></form><div class="menu-add-update mt-6 flex"><button type="button" id="btnUpdate" class="btn btn-update btn-warning mr-2 flex-1 text-white"${ssrIncludeBooleanAttr(!unref(menu).isEdit) ? " disabled" : ""}><i class="w-4" data-feather="refresh-cw"></i> ${ssrInterpolate(unref(trans)("Update"))}</button><button type="button" id="btnAdd" class="btn btn-success flex-1"${ssrIncludeBooleanAttr(unref(menu).isEdit) ? " disabled" : ""}><i class="w-5" data-feather="plus"></i> ${ssrInterpolate(unref(trans)("Add"))}</button></div></div></div></div></div></main>`);
     };
   }
 });
@@ -8933,8 +8939,8 @@ const _sfc_main$3J = /* @__PURE__ */ Object.assign(__default__$1P, {
     "totalBlocked"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
+    const props = __props;
     const conversationStats = [
       {
         value: props.totalConversation,
@@ -9125,8 +9131,8 @@ const _sfc_main$3I = /* @__PURE__ */ Object.assign(__default__$1O, {
     "totalReplies"
   ],
   setup(__props) {
-    const props = __props;
     const { textExcerpt } = sharedComposable();
+    const props = __props;
     const ReplyStats = [
       {
         value: props.totalReplies,
@@ -9214,11 +9220,11 @@ const _sfc_main$3H = /* @__PURE__ */ Object.assign(__default__$1N, {
     "tax"
   ],
   setup(__props) {
-    const props = __props;
     onMounted(() => {
       drawer.init();
     });
     const { formatCurrency } = sharedComposable();
+    const props = __props;
     const orderOverviews = [
       {
         value: props.totalOrders,
@@ -9270,7 +9276,7 @@ const _sfc_main$3H = /* @__PURE__ */ Object.assign(__default__$1N, {
       }, null, _parent));
       _push(`<div class="space-y-4">`);
       _push(ssrRenderComponent(_sfc_main$4N, { items: orderOverviews }, null, _parent));
-      _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email">${ssrInterpolate(unref(trans)("User Email"))}</option><option value="invoice_no">${ssrInterpolate(unref(trans)("Invoice No"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th class="w-[5%] uppercase">${ssrInterpolate(unref(trans)("Order No"))}</th><th class="w-[15%] uppercase">${ssrInterpolate(unref(trans)("Plan Name"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Payment Mode"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Amount"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Status"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Created At"))}</th><th class="w-[5%] !text-right uppercase">${ssrInterpolate(unref(trans)("Actions"))}</th></tr></thead>`);
+      _push(`<div class="flex items-center justify-end gap-x-2"><div class="dropdown" data-placement="bottom-end"><div class="dropdown-toggle"><button type="button" class="font-medium bg-white shadow-sm btn dark:bg-slate-800"><i class="w-4" data-feather="filter"></i><span>${ssrInterpolate(unref(trans)("Filter"))}</span><i class="w-4" data-feather="chevron-down"></i></button></div><div class="dropdown-content w-72 !overflow-visible"><form><ul class="p-4 space-y-4 dropdown-list"><li class="dropdown-list-item"><h2 class="my-1 text-sm font-medium">${ssrInterpolate(unref(trans)("Status"))}</h2><div class="mb-2"><input type="text" name="search"${ssrRenderAttr("value", unref(filterData).search)} class="input" placeholder="Search......"></div></li><li class="dropdown-list-item"><div class="mb-2"><select class="select" name="type"><option value="email"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "email") : ssrLooseEqual(unref(filterData).type, "email")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("User Email"))}</option><option value="invoice_no"${ssrIncludeBooleanAttr(Array.isArray(unref(filterData).type) ? ssrLooseContain(unref(filterData).type, "invoice_no") : ssrLooseEqual(unref(filterData).type, "invoice_no")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Invoice No"))}</option></select></div></li><li class="dropdown-list-item"><button type="submit" class="w-full btn btn-primary">${ssrInterpolate(unref(trans)("Filter"))}</button></li></ul></form></div></div></div><div class="table-responsive whitespace-nowrap rounded-primary"><table class="table"><thead><tr><th class="w-[5%] uppercase">${ssrInterpolate(unref(trans)("Order No"))}</th><th class="w-[15%] uppercase">${ssrInterpolate(unref(trans)("Plan Name"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Payment Mode"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Amount"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Status"))}</th><th class="w-[10%] uppercase">${ssrInterpolate(unref(trans)("Created At"))}</th><th class="w-[5%] !text-right uppercase">${ssrInterpolate(unref(trans)("Actions"))}</th></tr></thead>`);
       if (__props.orders.total) {
         _push(`<tbody><!--[-->`);
         ssrRenderList(__props.orders.data, (order) => {
@@ -9332,7 +9338,7 @@ const _sfc_main$3H = /* @__PURE__ */ Object.assign(__default__$1N, {
         processing: unref(invoiceFrom).processing,
         "btn-text": unref(trans)("Save Changes")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="currencySettingDrawer" class="drawer drawer-right"><form method="POST"><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Currency Settings"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Currency Name"))}</label><input type="text" name="data[name]"${ssrRenderAttr("value", unref(currencyFrom).name)} class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Currency Icon"))}</label><input type="text" name="data[icon]"${ssrRenderAttr("value", unref(currencyFrom).icon)} class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Currency Icon"))}</label><select class="select" name="data[position]"><option value="left">${ssrInterpolate(unref(trans)("Left"))}</option><option value="right">${ssrInterpolate(unref(trans)("Right"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></div></form></div><div id="currencySettingDrawer" class="drawer drawer-right"><form method="POST"><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Currency Settings"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Currency Name"))}</label><input type="text" name="data[name]"${ssrRenderAttr("value", unref(currencyFrom).name)} class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Currency Icon"))}</label><input type="text" name="data[icon]"${ssrRenderAttr("value", unref(currencyFrom).icon)} class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Currency Icon"))}</label><select class="select" name="data[position]"><option value="left"${ssrIncludeBooleanAttr(Array.isArray(unref(currencyFrom).position) ? ssrLooseContain(unref(currencyFrom).position, "left") : ssrLooseEqual(unref(currencyFrom).position, "left")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Left"))}</option><option value="right"${ssrIncludeBooleanAttr(Array.isArray(unref(currencyFrom).position) ? ssrLooseContain(unref(currencyFrom).position, "right") : ssrLooseEqual(unref(currencyFrom).position, "right")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Right"))}</option></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "btn btn-primary w-full",
         processing: unref(currencyFrom).processing,
@@ -9372,25 +9378,26 @@ const _sfc_main$3G = /* @__PURE__ */ Object.assign(__default__$1M, {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))}>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: "Invoice details",
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="card"><div class="space-y-6 card-body"><div class="flex flex-col justify-between p-1 space-y-4 md:flex-row"><div class="flex items-center justify-center md:justify-start"><div class="flex items-center w-full h-16 gap-4 pr-4"><img${ssrRenderAttrs(mergeProps({
+      _push(`<div class="card"><div class="space-y-6 card-body"><div class="flex flex-col justify-between p-1 space-y-4 md:flex-row"><div class="flex items-center justify-center md:justify-start"><div class="flex items-center w-full h-16 gap-4 pr-4"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "logo",
         class: "block h-[45px] dark:hidden"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "logo",
         class: "hidden h-[45px] dark:block"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}></div></div><div class="flex flex-col items-start justify-center md:items-end"><h4>Invoice #${ssrInterpolate(__props.order.invoice_no)}</h4><p class="py-0 my-0 text-sm font-medium text-slate-700 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Order Date"))}: <span class="font-normal text-slate-600 dark:text-slate-300">${ssrInterpolate(unref(moment)(__props.order.created_at).format("DD-MM-YYYY"))}</span></p><p class="py-0 my-0 text-sm font-medium text-slate-700 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Expire Date"))}: <span class="font-normal text-slate-600 dark:text-slate-300">${ssrInterpolate(unref(moment)(__props.order.will_expire).format("DD-MM-YYYY"))}</span></p><p class="py-0 my-0 text-sm font-medium text-slate-700 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Status"))}: <span class="font-normal text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.status == 2 ? "pending" : __props.order.status == 1 ? "approved" : "declined")}</span></p></div></div><div class="flex flex-col justify-between p-1 space-y-6 md:flex-row md:space-y-0"><div class="flex flex-col items-start justify-center w-full md:mb-0 md:w-2/3 md:justify-center"><p class="text-xs font-medium uppercase text-slate-400">BILLED FROM</p><h6 class="my-1">${ssrInterpolate(__props.invoice_data.company_name)}</h6><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.address)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.city)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.post_code)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.country)}</p></div><div class="flex flex-col items-start justify-center w-full md:w-1/3 md:items-end"><p class="text-xs font-medium uppercase text-slate-400">BILLED TO</p><h6 class="my-1">${ssrInterpolate(__props.order.user.name)}</h6><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.user.address)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.user.email)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.user.phone)}</p></div></div><div class="w-full p-1 overflow-auto"><div class="min-w-[38rem]"><div class="border table-responsive whitespace-nowrap rounded-primary border-slate-200 dark:border-slate-600"><table class="table table-striped table-hover table-md"><tbody><tr><td>${ssrInterpolate(_ctx.trans("Subscription Plan Name"))}</td><td><p class="text-end">${ssrInterpolate(_ctx.trans("Amount"))}</p></td></tr><tr><td>${ssrInterpolate(__props.order.plan.title)}</td><td><p class="text-end">${ssrInterpolate(unref(formatCurrency)(__props.order.amount))}</p></td></tr></tbody></table></div><div class="flex items-stretch justify-between mt-4"><div class="w-2/5"><p class="py-0 my-2 text-sm font-semibold">${ssrInterpolate(_ctx.trans("Payment Method"))}: <span class="font-normal">${ssrInterpolate(__props.order.gateway.name)}</span></p><p class="py-0 my-2 text-sm font-semibold">${ssrInterpolate(_ctx.trans("Payment Id"))}: <span class="font-normal">${ssrInterpolate(__props.order.payment_id)}</span></p><div class="">`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div></div><div class="flex flex-col items-start justify-center md:items-end"><h4>Invoice #${ssrInterpolate(__props.order.invoice_no)}</h4><p class="py-0 my-0 text-sm font-medium text-slate-700 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Order Date"))}: <span class="font-normal text-slate-600 dark:text-slate-300">${ssrInterpolate(unref(moment)(__props.order.created_at).format("DD-MM-YYYY"))}</span></p><p class="py-0 my-0 text-sm font-medium text-slate-700 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Expire Date"))}: <span class="font-normal text-slate-600 dark:text-slate-300">${ssrInterpolate(unref(moment)(__props.order.will_expire).format("DD-MM-YYYY"))}</span></p><p class="py-0 my-0 text-sm font-medium text-slate-700 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Status"))}: <span class="font-normal text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.status == 2 ? "pending" : __props.order.status == 1 ? "approved" : "declined")}</span></p></div></div><div class="flex flex-col justify-between p-1 space-y-6 md:flex-row md:space-y-0"><div class="flex flex-col items-start justify-center w-full md:mb-0 md:w-2/3 md:justify-center"><p class="text-xs font-medium uppercase text-slate-400">BILLED FROM</p><h6 class="my-1">${ssrInterpolate(__props.invoice_data.company_name)}</h6><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.address)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.city)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.post_code)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.invoice_data.country)}</p></div><div class="flex flex-col items-start justify-center w-full md:w-1/3 md:items-end"><p class="text-xs font-medium uppercase text-slate-400">BILLED TO</p><h6 class="my-1">${ssrInterpolate(__props.order.user.name)}</h6><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.user.address)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.user.email)}</p><p class="text-sm font-normal whitespace-nowrap text-slate-600 dark:text-slate-300">${ssrInterpolate(__props.order.user.phone)}</p></div></div><div class="w-full p-1 overflow-auto"><div class="min-w-[38rem]"><div class="border table-responsive whitespace-nowrap rounded-primary border-slate-200 dark:border-slate-600"><table class="table table-striped table-hover table-md"><tbody><tr><td>${ssrInterpolate(_ctx.trans("Subscription Plan Name"))}</td><td><p class="text-end">${ssrInterpolate(_ctx.trans("Amount"))}</p></td></tr><tr><td>${ssrInterpolate(__props.order.plan.title)}</td><td><p class="text-end">${ssrInterpolate(unref(formatCurrency)(__props.order.amount))}</p></td></tr></tbody></table></div><div class="flex items-stretch justify-between mt-4"><div class="w-2/5"><p class="py-0 my-2 text-sm font-semibold">${ssrInterpolate(_ctx.trans("Payment Method"))}: <span class="font-normal">${ssrInterpolate(__props.order.gateway.name)}</span></p><p class="py-0 my-2 text-sm font-semibold">${ssrInterpolate(_ctx.trans("Payment Id"))}: <span class="font-normal">${ssrInterpolate(__props.order.payment_id)}</span></p><div class="">`);
       if (__props.meta != null) {
         _push(`<!--[--><div class="font-semibold">${ssrInterpolate(_ctx.trans("Payment Info:"))}</div><br><p class="section-lead">${ssrInterpolate(__props.meta.comment)}</p><p class="section-lead"><a target="_blank"${ssrRenderAttr("href", __props.meta.screenshot)}>${ssrInterpolate(_ctx.trans("Attachment"))}</a></p><!--]-->`);
       } else {
         _push(`<!---->`);
       }
-      _push(`</div></div><div class="space-y-3"><div class="flex items-center justify-between gap-x-2"><p class="text-sm text-slate-400 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Subtotal"))}: </p><p class="text-sm font-semibold text-slate-700 dark:text-slate-300">${ssrInterpolate(unref(formatCurrency)(__props.order.amount))}</p></div><div class="flex items-center justify-between gap-x-2"><p class="text-sm text-slate-400 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Tax"))}: </p><p class="text-sm font-semibold text-slate-700 dark:text-slate-300">${ssrInterpolate(unref(formatCurrency)(__props.order.tax || 0))}</p></div><hr class="mt-5 mb-1 border-slate-200 dark:border-slate-600"><div class="flex items-center justify-between gap-x-2"><p class="text-sm text-slate-400">${ssrInterpolate(_ctx.trans("Total"))}:</p><p class="text-sm font-semibold text-slate-700 dark:text-slate-300">${ssrInterpolate(unref(formatCurrency)(__props.order.amount + __props.order.tax || 0))}</p></div></div></div></div></div><p class="py-2 text-sm text-center">${ssrInterpolate(_ctx.trans("Thanks for your Business"))}</p></div></div><div class="mt-4 card"><form><div class="flex space-x-2 card-body"><div class="col-span-3 mb-2"><label class="float-left">${ssrInterpolate(_ctx.trans("Order Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(_ctx.trans("Approved"))}</option><option value="2">${ssrInterpolate(_ctx.trans("Pending"))}</option><option value="0">${ssrInterpolate(_ctx.trans("Rejected"))}</option></select></div><div class="col-span-3 mb-2"><label class="float-left">${ssrInterpolate(_ctx.trans("Assign This Plan?"))}</label><select class="select" name="assign_order"><option value="yes">${ssrInterpolate(_ctx.trans("Yes"))}</option><option value="no">${ssrInterpolate(_ctx.trans("No"))}</option></select></div><div class="col-auto mb-2"><br><button type="submit" class="btn btn-primary"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(_ctx.trans("Update"))}</button></div></div></form></div></main>`);
+      _push(`</div></div><div class="space-y-3"><div class="flex items-center justify-between gap-x-2"><p class="text-sm text-slate-400 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Subtotal"))}: </p><p class="text-sm font-semibold text-slate-700 dark:text-slate-300">${ssrInterpolate(unref(formatCurrency)(__props.order.amount))}</p></div><div class="flex items-center justify-between gap-x-2"><p class="text-sm text-slate-400 dark:text-slate-300">${ssrInterpolate(_ctx.trans("Tax"))}: </p><p class="text-sm font-semibold text-slate-700 dark:text-slate-300">${ssrInterpolate(unref(formatCurrency)(__props.order.tax || 0))}</p></div><hr class="mt-5 mb-1 border-slate-200 dark:border-slate-600"><div class="flex items-center justify-between gap-x-2"><p class="text-sm text-slate-400">${ssrInterpolate(_ctx.trans("Total"))}:</p><p class="text-sm font-semibold text-slate-700 dark:text-slate-300">${ssrInterpolate(unref(formatCurrency)(__props.order.amount + __props.order.tax || 0))}</p></div></div></div></div></div><p class="py-2 text-sm text-center">${ssrInterpolate(_ctx.trans("Thanks for your Business"))}</p></div></div><div class="mt-4 card"><form><div class="flex space-x-2 card-body"><div class="col-span-3 mb-2"><label class="float-left">${ssrInterpolate(_ctx.trans("Order Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "1") : ssrLooseEqual(unref(form).status, "1")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Approved"))}</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "2") : ssrLooseEqual(unref(form).status, "2")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Pending"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(form).status) ? ssrLooseContain(unref(form).status, "0") : ssrLooseEqual(unref(form).status, "0")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Rejected"))}</option></select></div><div class="col-span-3 mb-2"><label class="float-left">${ssrInterpolate(_ctx.trans("Assign This Plan?"))}</label><select class="select" name="assign_order"><option value="yes"${ssrIncludeBooleanAttr(Array.isArray(unref(form).assign_order) ? ssrLooseContain(unref(form).assign_order, "yes") : ssrLooseEqual(unref(form).assign_order, "yes")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Yes"))}</option><option value="no"${ssrIncludeBooleanAttr(Array.isArray(unref(form).assign_order) ? ssrLooseContain(unref(form).assign_order, "no") : ssrLooseEqual(unref(form).assign_order, "no")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("No"))}</option></select></div><div class="col-auto mb-2"><br><button type="submit" class="btn btn-primary"${ssrIncludeBooleanAttr(unref(form).processing) ? " disabled" : ""}>${ssrInterpolate(_ctx.trans("Update"))}</button></div></div></form></div></main>`);
     };
   }
 });
@@ -9458,8 +9465,8 @@ const _sfc_main$3E = /* @__PURE__ */ Object.assign(__default__$1K, {
   __ssrInlineRender: true,
   props: ["buttons", "segments", "info", "seo"],
   setup(__props) {
-    const props = __props;
     const { cke, ClassicEditor: ClassicEditor2 } = ckeEditor();
+    const props = __props;
     const isProcessing = ref(false);
     const seoMeta = ref({
       meta_title: "",
@@ -9517,8 +9524,8 @@ const _sfc_main$3D = /* @__PURE__ */ Object.assign(__default__$1J, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     const { textExcerpt, deleteRow } = sharedComposable();
+    const props = __props;
     const pageStats = [
       {
         value: props.totalPosts,
@@ -9596,8 +9603,7 @@ const _sfc_main$3C = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner With Search Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right Image"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Category Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.category_section.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.category_section.title_right)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.category_section.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.category_section.btn_link)}></div></div><h6>${ssrInterpolate(unref(trans)("Call to action"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Features"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.features)}><p>${ssrInterpolate(unref(trans)("use comma (,) for line break"))}</p></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("CTA Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left image 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left image 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left image 3"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left image 4"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left image 5"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left image 6"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 2"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sup Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Main Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("CTA Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Circle image 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Circle image 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Circle image 3"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Circle image 4"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Circle image 5"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Circle image 6"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 3"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s3.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s3.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("CTA Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s3.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s3.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image"))}</label><input type="file" accept="image/*" class="input"></div></div><!--]-->`);
     };
@@ -9618,10 +9624,9 @@ const _sfc_main$3B = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image top overlap"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image center overlap"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image bottom overlap"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Individual Freelancer"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.footer_item1)} placeholder="18k+"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Rating text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.footer_item2)} placeholder="A+ Ratting"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Rating Point"))}</label><select class="select"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Ratting point text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.footer_item4)} placeholder="5 (300k+)"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Features"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.features)}><p>use comma (,) for line break</p></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 3"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Youtube Video ID"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.video_id)} class="input"><small>https://www.youtube.com/watch?v=<code>XJTD3VOIWuw</code></small></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Completed Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item1)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Worldwide Client"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item2)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Applied Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item3)} class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 2"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.title)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("List Items"))}</label><!--[-->`);
+      _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image top overlap"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image center overlap"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image bottom overlap"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Individual Freelancer"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.footer_item1)} placeholder="18k+"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Rating text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.footer_item2)} placeholder="A+ Ratting"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Rating Point"))}</label><select class="select"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(home.value.hero.footer_item3) ? ssrLooseContain(home.value.hero.footer_item3, "1") : ssrLooseEqual(home.value.hero.footer_item3, "1")) ? " selected" : ""}>1</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(home.value.hero.footer_item3) ? ssrLooseContain(home.value.hero.footer_item3, "2") : ssrLooseEqual(home.value.hero.footer_item3, "2")) ? " selected" : ""}>2</option><option value="3"${ssrIncludeBooleanAttr(Array.isArray(home.value.hero.footer_item3) ? ssrLooseContain(home.value.hero.footer_item3, "3") : ssrLooseEqual(home.value.hero.footer_item3, "3")) ? " selected" : ""}>3</option><option value="4"${ssrIncludeBooleanAttr(Array.isArray(home.value.hero.footer_item3) ? ssrLooseContain(home.value.hero.footer_item3, "4") : ssrLooseEqual(home.value.hero.footer_item3, "4")) ? " selected" : ""}>4</option><option value="5"${ssrIncludeBooleanAttr(Array.isArray(home.value.hero.footer_item3) ? ssrLooseContain(home.value.hero.footer_item3, "5") : ssrLooseEqual(home.value.hero.footer_item3, "5")) ? " selected" : ""}>5</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Ratting point text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.footer_item4)} placeholder="5 (300k+)"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Features"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.features)}><p>use comma (,) for line break</p></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 3"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Youtube Video ID"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.video_id)} class="input"><small>https://www.youtube.com/watch?v=<code>XJTD3VOIWuw</code></small></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Completed Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item1)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Worldwide Client"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item2)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Applied Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item3)} class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 2"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.title)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("List Items"))}</label><!--[-->`);
       ssrRenderList(home.value.cta_s2.features, (item, index) => {
         _push(`<div class="flex items-center p-2 mb-2 border gap-x-2"><span class="p-2 py-1 text-center text-white bg-indigo-600 rounded-full">${ssrInterpolate(index + 1)}</span><div class="flex flex-col flex-grow gap-1"><input type="text" class="input" placeholder="item title"${ssrRenderAttr("value", item.title)}><textarea class="textarea">${ssrInterpolate(item.body)}</textarea></div><button type="button" class="btn btn-danger"> X </button></div>`);
       });
@@ -9644,8 +9649,7 @@ const _sfc_main$3A = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Trusted Partner 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Trusted Partner 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Trusted Partner 3"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right Main Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Animation Image (png)"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Bottom Left Image"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("List Items"))}</label><!--[-->`);
       ssrRenderList(home.value.cta_s1.features, (item, index) => {
@@ -9678,8 +9682,7 @@ const _sfc_main$3z = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Bottom Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Top Overlap Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Bottom Overlap Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right Top Overlap Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right Bottom Overlap Image"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Text"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_text)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Button Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.btn_link)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Image 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Completed Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item1)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Worldwide Client"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item2)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Applied Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.cta_s1.item3)} class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 2"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s2.title)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("List Items"))}</label><!--[-->`);
       ssrRenderList(home.value.cta_s2.features, (item, index) => {
@@ -9704,8 +9707,7 @@ const _sfc_main$3y = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Bottom Image"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("List Items"))}</label><!--[-->`);
       ssrRenderList(home.value.cta_s1.features, (item, index) => {
@@ -9730,8 +9732,7 @@ const _sfc_main$3x = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Worldwide Client"))}</label><input type="text"${ssrRenderAttr("value", home.value.hero.item1)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Talents"))}</label><input type="text"${ssrRenderAttr("value", home.value.hero.item2)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Applied Jobs"))}</label><input type="text"${ssrRenderAttr("value", home.value.hero.item3)} class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Slider Image 1"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Slider Image 2"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Slider Image 2"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.subtitle)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("Step Items"))}</label><!--[-->`);
       ssrRenderList(home.value.cta_s1.steps, (item, index) => {
@@ -9760,8 +9761,7 @@ const _sfc_main$3w = {
   __ssrInlineRender: true,
   props: ["data"],
   setup(__props) {
-    const { data } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[--><h6>${ssrInterpolate(unref(trans)("Hero Banner Section"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.hero.subtitle)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Left Image"))}</label><input type="file" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Right Image"))}</label><input type="file" accept="image/*" class="input"></div></div><h6>${ssrInterpolate(unref(trans)("Call to action 1"))}</h6><div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Top Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.top_title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.title)}></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Sub title"))}</label><input type="text" class="input"${ssrRenderAttr("value", home.value.cta_s1.subtitle)}></div><div class="mb-2"><label class="mr-2">${ssrInterpolate(unref(trans)("List Items"))}</label><!--[-->`);
       ssrRenderList(home.value.cta_s1.features, (item, index) => {
@@ -9786,14 +9786,13 @@ const _sfc_main$3v = {
   __ssrInlineRender: true,
   props: ["data", "theme"],
   setup(__props) {
-    const { data, theme } = __props;
-    const home = ref({ ...data });
+    const home = ref({ ...__props.data });
     const isProcessing = ref(false);
     onBeforeMount(() => {
       var _a2, _b2, _c, _d, _e, _f, _g, _h;
       let properties2 = ["hero", "cta_s1", "cta_s2", "cta_s3", "cta_s4", "footer_cats", "category_section", "feedback_section"];
       properties2.forEach((key) => home.value[key] = home.value[key] || {});
-      if (!((_b2 = (_a2 = home.value.cta_s2) == null ? void 0 : _a2.features) == null ? void 0 : _b2.length) && ["themeTwo", "themeFour"].includes(theme)) {
+      if (!((_b2 = (_a2 = home.value.cta_s2) == null ? void 0 : _a2.features) == null ? void 0 : _b2.length) && ["themeTwo", "themeFour"].includes(__props.theme)) {
         home.value.cta_s2.features = [
           {
             title: "",
@@ -9801,7 +9800,7 @@ const _sfc_main$3v = {
           }
         ];
       }
-      if (!((_d = (_c = home.value.cta_s1) == null ? void 0 : _c.features) == null ? void 0 : _d.length) && ["themeThree", "themeFive", "themeSeven"].includes(theme)) {
+      if (!((_d = (_c = home.value.cta_s1) == null ? void 0 : _c.features) == null ? void 0 : _d.length) && ["themeThree", "themeFive", "themeSeven"].includes(__props.theme)) {
         home.value.cta_s1.features = [
           {
             title: "",
@@ -9809,7 +9808,7 @@ const _sfc_main$3v = {
           }
         ];
       }
-      if (!((_f = (_e = home.value.cta_s1) == null ? void 0 : _e.steps) == null ? void 0 : _f.length) && ["themeSix"].includes(theme)) {
+      if (!((_f = (_e = home.value.cta_s1) == null ? void 0 : _e.steps) == null ? void 0 : _f.length) && ["themeSix"].includes(__props.theme)) {
         home.value.cta_s1.steps = [
           {
             title: "",
@@ -9828,7 +9827,7 @@ const _sfc_main$3v = {
           }
         ];
       }
-      if (!((_h = (_g = home.value) == null ? void 0 : _g.footer_cats) == null ? void 0 : _h.length) && ["themeThree"].includes(theme)) {
+      if (!((_h = (_g = home.value) == null ? void 0 : _g.footer_cats) == null ? void 0 : _h.length) && ["themeThree"].includes(__props.theme)) {
         home.value.footer_cats = [
           {
             id: 1,
@@ -9873,14 +9872,14 @@ const _sfc_main$3v = {
         ];
       }
     });
-    useForm({
-      theme: theme ?? "themeOne"
+    const themeForm = useForm({
+      theme: __props.theme ?? "themeOne"
     });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<div${ssrRenderAttrs(mergeProps({
         class: "tabs-panel active",
         id: "homepage"
-      }, _attrs))}><div class="mb-4 text-center"> Active: <span class="px-2 py-1 text-white bg-blue-900 rounded">${ssrInterpolate(__props.theme)}</span></div><select class="mb-4 select"><option value="themeOne">themeOne</option><option value="themeTwo">themeTwo</option><option value="themeThree">themeThree</option><option value="themeFour">themeFour</option><option value="themeFive">themeFive</option><option value="themeSix">themeSix</option><option value="themeSeven">themeSeven</option></select><form>`);
+      }, _attrs))}><div class="mb-4 text-center"> Active: <span class="px-2 py-1 text-white bg-blue-900 rounded">${ssrInterpolate(__props.theme)}</span></div><select class="mb-4 select"><option value="themeOne"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeOne") : ssrLooseEqual(unref(themeForm).theme, "themeOne")) ? " selected" : ""}>themeOne</option><option value="themeTwo"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeTwo") : ssrLooseEqual(unref(themeForm).theme, "themeTwo")) ? " selected" : ""}>themeTwo</option><option value="themeThree"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeThree") : ssrLooseEqual(unref(themeForm).theme, "themeThree")) ? " selected" : ""}>themeThree</option><option value="themeFour"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeFour") : ssrLooseEqual(unref(themeForm).theme, "themeFour")) ? " selected" : ""}>themeFour</option><option value="themeFive"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeFive") : ssrLooseEqual(unref(themeForm).theme, "themeFive")) ? " selected" : ""}>themeFive</option><option value="themeSix"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeSix") : ssrLooseEqual(unref(themeForm).theme, "themeSix")) ? " selected" : ""}>themeSix</option><option value="themeSeven"${ssrIncludeBooleanAttr(Array.isArray(unref(themeForm).theme) ? ssrLooseContain(unref(themeForm).theme, "themeSeven") : ssrLooseEqual(unref(themeForm).theme, "themeSeven")) ? " selected" : ""}>themeSeven</option></select><form>`);
       if (__props.theme == "themeOne") {
         _push(ssrRenderComponent(_sfc_main$3C, { data: home.value }, null, _parent));
       } else {
@@ -9970,7 +9969,7 @@ const tabs = {
     }
   }
 };
-const Index_vue_vue_type_style_index_0_scoped_432c58ae_lang = "";
+const Index_vue_vue_type_style_index_0_scoped_067cb7a0_lang = "";
 const __default__$1I = defineComponent({ layout: _sfc_main$4_ });
 const _sfc_main$3u = /* @__PURE__ */ Object.assign(__default__$1I, {
   __name: "Index",
@@ -9995,23 +9994,23 @@ const _sfc_main$3u = /* @__PURE__ */ Object.assign(__default__$1I, {
     });
     const isProcessing = ref(false);
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))} data-v-432c58ae>`);
+      _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))} data-v-067cb7a0>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: "Page Settings",
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6" data-v-432c58ae><div class="card" data-v-432c58ae><div class="card-body" data-v-432c58ae><div class="tabs tabs-vertical" data-v-432c58ae><ul class="tabs-list w-72" data-v-432c58ae><li class="tabs-item" data-v-432c58ae><li class="tabs-item" data-v-432c58ae><button class="tabs-btn active" data-panel-id="#homepage" type="button" data-v-432c58ae><span data-v-432c58ae>${ssrInterpolate(unref(trans)("Home Page"))}</span></button></li><button class="tabs-btn" data-panel-id="#primary" type="button" data-v-432c58ae><span data-v-432c58ae>${ssrInterpolate(unref(trans)("Primary"))}</span></button></li><li class="tabs-item" data-v-432c58ae><button class="tabs-btn" data-panel-id="#contact" type="button" data-v-432c58ae><span data-v-432c58ae>${ssrInterpolate(unref(trans)("Contact Page"))}</span></button></li></ul><div class="tabs-content" data-v-432c58ae>`);
+      _push(`<div class="space-y-6" data-v-067cb7a0><div class="card" data-v-067cb7a0><div class="card-body" data-v-067cb7a0><div class="tabs tabs-vertical" data-v-067cb7a0><ul class="tabs-list w-72" data-v-067cb7a0><li class="tabs-item" data-v-067cb7a0><button class="tabs-btn active" data-panel-id="#homepage" type="button" data-v-067cb7a0><span data-v-067cb7a0>${ssrInterpolate(unref(trans)("Home Page"))}</span></button></li><li class="tabs-item" data-v-067cb7a0><button class="tabs-btn" data-panel-id="#primary" type="button" data-v-067cb7a0><span data-v-067cb7a0>${ssrInterpolate(unref(trans)("Primary"))}</span></button></li><li class="tabs-item" data-v-067cb7a0><button class="tabs-btn" data-panel-id="#contact" type="button" data-v-067cb7a0><span data-v-067cb7a0>${ssrInterpolate(unref(trans)("Contact Page"))}</span></button></li></ul><div class="tabs-content" data-v-067cb7a0>`);
       _push(ssrRenderComponent(_sfc_main$3v, {
         data: __props.home,
         theme: props.theme
       }, null, _parent));
-      _push(`<div class="tabs-panel" id="primary" data-v-432c58ae><form method="POST" enctype="multipart/form-data" data-v-432c58ae><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Site Logo - light Color"))}</label><input type="file" accept="image/*" name="logo" class="input" data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Site Logo - Deep color"))}</label><input type="file" accept="image/*" name="deep_logo" class="input" data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Favicon"))}</label><input type="file" accept="image/*" name="favicon" class="input" data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Contact Email address"))}</label><input type="email" name="contact_email"${ssrRenderAttr("value", __props.primary_data.contact_email)} class="input" required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Contact Phone"))}</label><input type="number" name="contact_phone" class="input" required${ssrRenderAttr("value", __props.primary_data.contact_phone)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Office Location"))}</label><input type="text" name="address" class="input" required=""${ssrRenderAttr("value", __props.primary_data.address)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Facebook Profile Link"))}</label><input type="url" name="socials[facebook]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.facebook)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Youtube Profile Link"))}</label><input type="url" name="socials[youtube]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.youtube)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Twitter Profile Link"))}</label><input type="url" name="socials[twitter]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.twitter)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Instagram Profile Link"))}</label><input type="url" name="socials[instagram]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.instagram)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Linkedin Profile Link"))}</label><input type="url" name="socials[linkedin]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.linkedin)} data-v-432c58ae></div><div class="mb-2" data-v-432c58ae>`);
+      _push(`<div class="tabs-panel" id="primary" data-v-067cb7a0><form method="POST" enctype="multipart/form-data" data-v-067cb7a0><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Site Logo - light Color"))}</label><input type="file" accept="image/*" name="logo" class="input" data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Site Logo - Deep color"))}</label><input type="file" accept="image/*" name="deep_logo" class="input" data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Favicon"))}</label><input type="file" accept="image/*" name="favicon" class="input" data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Contact Email address"))}</label><input type="email" name="contact_email"${ssrRenderAttr("value", __props.primary_data.contact_email)} class="input" required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Contact Phone"))}</label><input type="number" name="contact_phone" class="input" required${ssrRenderAttr("value", __props.primary_data.contact_phone)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Office Location"))}</label><input type="text" name="address" class="input" required=""${ssrRenderAttr("value", __props.primary_data.address)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Facebook Profile Link"))}</label><input type="url" name="socials[facebook]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.facebook)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Youtube Profile Link"))}</label><input type="url" name="socials[youtube]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.youtube)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Twitter Profile Link"))}</label><input type="url" name="socials[twitter]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.twitter)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Instagram Profile Link"))}</label><input type="url" name="socials[instagram]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.instagram)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Linkedin Profile Link"))}</label><input type="url" name="socials[linkedin]" class="input"${ssrRenderAttr("value", __props.primary_data.socials.linkedin)} data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         processing: isProcessing.value,
         "btn-text": unref(trans)("Save Changes")
       }, null, _parent));
-      _push(`</div></form></div><div class="tabs-panel" id="contact" data-v-432c58ae><form method="POST" enctype="multipart/form-data" data-v-432c58ae><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Office Address"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.address)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Country Name"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.country)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Google Map Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.map_link)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Contact Info subtitle"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.contact_info_text)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Contact Info Number"))}</label><input type="tel" class="input"${ssrRenderAttr("value", __props.contact_page.contact_info_number)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Live Support subtitle"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.live_chat_service_text)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae><label data-v-432c58ae>${ssrInterpolate(unref(trans)("Live Support Website"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.live_chat_service_website)} required data-v-432c58ae></div><div class="mb-2" data-v-432c58ae>`);
+      _push(`</div></form></div><div class="tabs-panel" id="contact" data-v-067cb7a0><form method="POST" enctype="multipart/form-data" data-v-067cb7a0><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Office Address"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.address)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Country Name"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.country)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Google Map Link"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.map_link)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Contact Info subtitle"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.contact_info_text)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Contact Info Number"))}</label><input type="tel" class="input"${ssrRenderAttr("value", __props.contact_page.contact_info_number)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Live Support subtitle"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.live_chat_service_text)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0><label data-v-067cb7a0>${ssrInterpolate(unref(trans)("Live Support Website"))}</label><input type="text" class="input"${ssrRenderAttr("value", __props.contact_page.live_chat_service_website)} required data-v-067cb7a0></div><div class="mb-2" data-v-067cb7a0>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         processing: isProcessing.value,
         "btn-text": unref(trans)("Save Changes")
@@ -10026,7 +10025,7 @@ _sfc_main$3u.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Admin/PageSetting/Index.vue");
   return _sfc_setup$3u ? _sfc_setup$3u(props, ctx) : void 0;
 };
-const Index = /* @__PURE__ */ _export_sfc(_sfc_main$3u, [["__scopeId", "data-v-432c58ae"]]);
+const Index = /* @__PURE__ */ _export_sfc(_sfc_main$3u, [["__scopeId", "data-v-067cb7a0"]]);
 const __vite_glob_0_85 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: Index
@@ -10058,7 +10057,7 @@ const _sfc_main$3t = /* @__PURE__ */ Object.assign(__default__$1H, {
         segments: __props.segments,
         buttons: __props.buttons
       }, null, _parent));
-      _push(`<div class="space-y-6"><div class="w-100 flex"><div class="flex-1"><strong>${ssrInterpolate(unref(trans)("Edit Plan"))}</strong><p>${ssrInterpolate(unref(trans)("Edit subscription plan for charging from the customer"))}</p></div><div class="flex-1"><form><div class="card"><div class="card-body"><div class="my-2"><label>${ssrInterpolate(unref(trans)("Plan Name"))}</label><input type="text" name="title" required="" class="input"${ssrRenderAttr("value", unref(form).title)}></div><div class="my-2"><label>${ssrInterpolate(unref(trans)("Select Duration"))}</label><select class="select" name="days"><option value="30">${ssrInterpolate(unref(trans)("Monthly"))}</option><option value="365">${ssrInterpolate(unref(trans)("yearly"))}</option></select></div><div class="my-2"><label>${ssrInterpolate(unref(trans)("Price"))}</label><input type="number" name="price"${ssrRenderAttr("value", unref(form).price)} step="any" required="" class="input"></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Job Limit"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["job_limit"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Featured Jobs"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["featured_jobs"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Live For (Days)"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["live_job_for_days"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Ai Credits"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["ai_credits"])} required class="input"></div></div><div class="mb-2"><label for="toggle-featured" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_featured) ? ssrLooseContain(unref(form).is_featured, null) : unref(form).is_featured) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-featured" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Featured in home page?"))}</span></label></div><div class="mb-2"><label for="toggle-is_recommended" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_recommended) ? ssrLooseContain(unref(form).is_recommended, null) : unref(form).is_recommended) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-is_recommended" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Is recommended?"))}</span></label></div><div class="mb-2"><label for="toggle-is_trial" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_trial) ? ssrLooseContain(unref(form).is_trial, null) : unref(form).is_trial) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-is_trial" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Accept Trial?"))}</span></label></div>`);
+      _push(`<div class="space-y-6"><div class="w-100 flex"><div class="flex-1"><strong>${ssrInterpolate(unref(trans)("Edit Plan"))}</strong><p>${ssrInterpolate(unref(trans)("Edit subscription plan for charging from the customer"))}</p></div><div class="flex-1"><form><div class="card"><div class="card-body"><div class="my-2"><label>${ssrInterpolate(unref(trans)("Plan Name"))}</label><input type="text" name="title" required="" class="input"${ssrRenderAttr("value", unref(form).title)}></div><div class="my-2"><label>${ssrInterpolate(unref(trans)("Select Duration"))}</label><select class="select" name="days"><option value="30"${ssrIncludeBooleanAttr(Array.isArray(unref(form).days) ? ssrLooseContain(unref(form).days, "30") : ssrLooseEqual(unref(form).days, "30")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Monthly"))}</option><option value="365"${ssrIncludeBooleanAttr(Array.isArray(unref(form).days) ? ssrLooseContain(unref(form).days, "365") : ssrLooseEqual(unref(form).days, "365")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("yearly"))}</option></select></div><div class="my-2"><label>${ssrInterpolate(unref(trans)("Price"))}</label><input type="number" name="price"${ssrRenderAttr("value", unref(form).price)} step="any" required="" class="input"></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Job Limit"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["job_limit"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Featured Jobs"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["featured_jobs"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Live For (Days)"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["live_job_for_days"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(unref(trans)("Ai Credits"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["ai_credits"])} required class="input"></div></div><div class="mb-2"><label for="toggle-featured" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_featured) ? ssrLooseContain(unref(form).is_featured, null) : unref(form).is_featured) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-featured" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Featured in home page?"))}</span></label></div><div class="mb-2"><label for="toggle-is_recommended" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_recommended) ? ssrLooseContain(unref(form).is_recommended, null) : unref(form).is_recommended) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-is_recommended" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Is recommended?"))}</span></label></div><div class="mb-2"><label for="toggle-is_trial" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_trial) ? ssrLooseContain(unref(form).is_trial, null) : unref(form).is_trial) ? " checked" : ""} class="toggle-input peer sr-only" id="toggle-is_trial" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(unref(trans)("Accept Trial?"))}</span></label></div>`);
       if (unref(form).is_trial) {
         _push(`<div class="from-group trial-days mb-2 mt-2"><label class="col-lg-12">${ssrInterpolate(unref(trans)("Trial days"))}</label><div class="col-lg-12"><input type="number"${ssrRenderAttr("value", unref(form).trial_days)} name="trial_days" class="input" required></div></div>`);
       } else {
@@ -10163,7 +10162,7 @@ const _sfc_main$3s = /* @__PURE__ */ Object.assign(__default__$1G, {
           text: _ctx.trans("Opps you have not created any plan....")
         }, null, _parent));
       }
-      _push(`</div></main><div id="addNewPlanDrawer" class="drawer drawer-right"><form method="POST"><div class="drawer-header"><h5>${ssrInterpolate(_ctx.trans("Add New Plan"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="pt-0 drawer-body"><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Plan Name"))}</label><div class=""><input type="text" name="title" required="" class="input"${ssrRenderAttr("value", unref(form).title)}></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Select Duration"))}</label><div class=""><select class="select" name="days"><option value="30">${ssrInterpolate(_ctx.trans("Monthly"))}</option><option value="365">${ssrInterpolate(_ctx.trans("yearly"))}</option></select></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Price"))}</label><div class=""><input type="number" name="price"${ssrRenderAttr("value", unref(form).price)} step="any" required="" class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Job Limit"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["job_limit"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Featured Jobs Limit"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["featured_jobs"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Live For (Days)"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["live_job_for_days"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Ai Credits"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["ai_credits"])} required class="input"></div></div><div class="mb-2"><label for="toggle-featured" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_featured) ? ssrLooseContain(unref(form).is_featured, null) : unref(form).is_featured) ? " checked" : ""} class="sr-only toggle-input peer" id="toggle-featured" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Featured in home page?"))}</span></label></div><div class="mb-2"><label for="toggle-is_recommended" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_recommended) ? ssrLooseContain(unref(form).is_recommended, null) : unref(form).is_recommended) ? " checked" : ""} class="sr-only toggle-input peer" id="toggle-is_recommended" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Is recommended?"))}</span></label></div><div class="mb-2"><label for="toggle-is_trial" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_trial) ? ssrLooseContain(unref(form).is_trial, null) : unref(form).is_trial) ? " checked" : ""} class="sr-only toggle-input peer" id="toggle-is_trial" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Accept Trial?"))}</span></label></div>`);
+      _push(`</div></main><div id="addNewPlanDrawer" class="drawer drawer-right"><form method="POST"><div class="drawer-header"><h5>${ssrInterpolate(_ctx.trans("Add New Plan"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="pt-0 drawer-body"><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Plan Name"))}</label><div class=""><input type="text" name="title" required="" class="input"${ssrRenderAttr("value", unref(form).title)}></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Select Duration"))}</label><div class=""><select class="select" name="days"><option value="30"${ssrIncludeBooleanAttr(Array.isArray(unref(form).days) ? ssrLooseContain(unref(form).days, "30") : ssrLooseEqual(unref(form).days, "30")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Monthly"))}</option><option value="365"${ssrIncludeBooleanAttr(Array.isArray(unref(form).days) ? ssrLooseContain(unref(form).days, "365") : ssrLooseEqual(unref(form).days, "365")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("yearly"))}</option></select></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Price"))}</label><div class=""><input type="number" name="price"${ssrRenderAttr("value", unref(form).price)} step="any" required="" class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Job Limit"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["job_limit"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Featured Jobs Limit"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["featured_jobs"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Live For (Days)"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["live_job_for_days"])} required class="input"></div></div><div class="mb-2"><label class="">${ssrInterpolate(_ctx.trans("Ai Credits"))}</label><div class=""><input type="number"${ssrRenderAttr("value", unref(form).plan_data["ai_credits"])} required class="input"></div></div><div class="mb-2"><label for="toggle-featured" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_featured) ? ssrLooseContain(unref(form).is_featured, null) : unref(form).is_featured) ? " checked" : ""} class="sr-only toggle-input peer" id="toggle-featured" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Featured in home page?"))}</span></label></div><div class="mb-2"><label for="toggle-is_recommended" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_recommended) ? ssrLooseContain(unref(form).is_recommended, null) : unref(form).is_recommended) ? " checked" : ""} class="sr-only toggle-input peer" id="toggle-is_recommended" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Is recommended?"))}</span></label></div><div class="mb-2"><label for="toggle-is_trial" class="toggle toggle-sm"><input${ssrIncludeBooleanAttr(Array.isArray(unref(form).is_trial) ? ssrLooseContain(unref(form).is_trial, null) : unref(form).is_trial) ? " checked" : ""} class="sr-only toggle-input peer" id="toggle-is_trial" type="checkbox"><div class="toggle-body"></div><span class="label label-md">${ssrInterpolate(_ctx.trans("Accept Trial?"))}</span></label></div>`);
       if (unref(form).is_trial) {
         _push(`<div class="mt-2 mb-2 from-group trial-days"><label class="col-lg-12">${ssrInterpolate(_ctx.trans("Trial days"))}</label><div class="col-lg-12"><input type="number"${ssrRenderAttr("value", unref(form).trial_days)} name="trial_days" class="input" required></div></div>`);
       } else {
@@ -10656,7 +10655,7 @@ const _sfc_main$3j = /* @__PURE__ */ Object.assign(__default__$1x, {
           reply.user.avatar ? reply.user.avatar : `https://ui-avatars.com/api/?name=${reply.user.name}`
         )} onerror="this.src = &#39;/images/avatar1.png&#39;" alt="profile-img"></div><div class="flex max-w-sm flex-col items-start gap-y-2 group-[.pr]:items-end"><p class="rounded-primary rounded-tl-none bg-slate-100 p-2 text-sm text-slate-600 group-[.pr]:rounded-tl-primary group-[.pr]:rounded-tr-none group-[.pr]:bg-primary-500 group-[.pr]:text-slate-100 dark:bg-slate-700 dark:text-slate-300">${ssrInterpolate(reply.comment)}</p><span class="text-xs font-normal text-slate-400">${ssrInterpolate(unref(moment)(reply.created_at).format("D MMM, YYYY"))}</span></div></div></li>`);
       });
-      _push(`<!--]--></ul><div id="chat-scroll-view"></div></div><div class="absolute bottom-[-0.5px] left-0 right-0 z-10 rounded-b-primary bg-white py-4 dark:bg-slate-800"><form class="mx-4 flex h-[4.5rem] items-center rounded-primary border border-slate-200 shadow dark:border-slate-600"><input${ssrRenderAttr("value", form.value.message)} class="h-full w-full border-transparent bg-transparent px-4 text-sm text-slate-700 placeholder:text-slate-500 focus:border-transparent focus:ring-0 dark:text-slate-300 dark:placeholder:text-slate-400" type="text" placeholder="Type your message here"><div class="flex items-center justify-end gap-x-4 px-4"><select class="select w-[120px]" name="status"><option value="1">${ssrInterpolate(_ctx.trans("Open"))}</option><option value="2">${ssrInterpolate(_ctx.trans("Pending"))}</option><option value="0">${ssrInterpolate(_ctx.trans("Closed"))}</option></select><button type="submit"${ssrIncludeBooleanAttr(form.value.processing) ? " disabled" : ""} class="btn btn-sm btn-primary"><i width="18" height="18" data-feather="send"></i><span class="hidden md:inline-block">${ssrInterpolate(_ctx.trans("Send"))}</span></button></div></form></div></div><div id="chat-overlay" class="absolute inset-0 z-10 hidden h-full w-full bg-black bg-opacity-0 transition-colors duration-300 ease-in-out xl:hidden"></div></div></div></main>`);
+      _push(`<!--]--></ul><div id="chat-scroll-view"></div></div><div class="absolute bottom-[-0.5px] left-0 right-0 z-10 rounded-b-primary bg-white py-4 dark:bg-slate-800"><form class="mx-4 flex h-[4.5rem] items-center rounded-primary border border-slate-200 shadow dark:border-slate-600"><input${ssrRenderAttr("value", form.value.message)} class="h-full w-full border-transparent bg-transparent px-4 text-sm text-slate-700 placeholder:text-slate-500 focus:border-transparent focus:ring-0 dark:text-slate-300 dark:placeholder:text-slate-400" type="text" placeholder="Type your message here"><div class="flex items-center justify-end gap-x-4 px-4"><select class="select w-[120px]" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(form.value.status) ? ssrLooseContain(form.value.status, "1") : ssrLooseEqual(form.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Open"))}</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(form.value.status) ? ssrLooseContain(form.value.status, "2") : ssrLooseEqual(form.value.status, "2")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Pending"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(form.value.status) ? ssrLooseContain(form.value.status, "0") : ssrLooseEqual(form.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(_ctx.trans("Closed"))}</option></select><button type="submit"${ssrIncludeBooleanAttr(form.value.processing) ? " disabled" : ""} class="btn btn-sm btn-primary"><i width="18" height="18" data-feather="send"></i><span class="hidden md:inline-block">${ssrInterpolate(_ctx.trans("Send"))}</span></button></div></form></div></div><div id="chat-overlay" class="absolute inset-0 z-10 hidden h-full w-full bg-black bg-opacity-0 transition-colors duration-300 ease-in-out xl:hidden"></div></div></div></main>`);
     };
   }
 });
@@ -10684,11 +10683,11 @@ const _sfc_main$3i = /* @__PURE__ */ Object.assign(__default__$1w, {
     "segments"
   ],
   setup(__props) {
-    const props = __props;
     const { deleteRow } = sharedComposable();
     onMounted(() => {
       drawer.init();
     });
+    const props = __props;
     const tagsStats = [
       {
         value: props.totalTags,
@@ -10759,9 +10758,9 @@ const _sfc_main$3i = /* @__PURE__ */ Object.assign(__default__$1w, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.tags.links
       }, null, _parent));
-      _push(`</div></div></main><div id="addNewTagDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Tag"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(tagForm).title)} type="text" name="title" class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language"><!--[-->`);
+      _push(`</div></div></main><div id="addNewTagDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Tag"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", unref(tagForm).title)} type="text" name="title" class="input" required=""></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(tagForm).status) ? ssrLooseContain(unref(tagForm).status, "1") : ssrLooseEqual(unref(tagForm).status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(unref(tagForm).status) ? ssrLooseContain(unref(tagForm).status, "0") : ssrLooseEqual(unref(tagForm).status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(unref(tagForm).language) ? ssrLooseContain(unref(tagForm).language, key) : ssrLooseEqual(unref(tagForm).language, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -10769,9 +10768,9 @@ const _sfc_main$3i = /* @__PURE__ */ Object.assign(__default__$1w, {
         processing: unref(tagForm).processing,
         "btn-text": unref(trans)("Save Tag")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editTagDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Tag"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" id="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status" id="status"><option value="1">${ssrInterpolate(unref(trans)("Active"))}</option><option value="0">${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language" id="language"><!--[-->`);
+      _push(`</div></div></form></div><div id="editTagDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Tag"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Title"))}</label><input${ssrRenderAttr("value", editForm.value.title)} type="text" name="title" id="title" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Status"))}</label><select class="select" name="status" id="status"><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "1") : ssrLooseEqual(editForm.value.status, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Active"))}</option><option value="0"${ssrIncludeBooleanAttr(Array.isArray(editForm.value.status) ? ssrLooseContain(editForm.value.status, "0") : ssrLooseEqual(editForm.value.status, "0")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("Deactive"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Language"))}</label><select class="select" name="language" id="language"><!--[-->`);
       ssrRenderList(__props.languages, (language, key) => {
-        _push(`<option${ssrRenderAttr("value", key)}>${ssrInterpolate(language)}</option>`);
+        _push(`<option${ssrRenderAttr("value", key)}${ssrIncludeBooleanAttr(Array.isArray(editForm.value.lang) ? ssrLooseContain(editForm.value.lang, key) : ssrLooseEqual(editForm.value.lang, key)) ? " selected" : ""}>${ssrInterpolate(language)}</option>`);
       });
       _push(`<!--]--></select></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="w-full btn btn-secondary" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
@@ -10891,8 +10890,8 @@ const _sfc_main$3f = /* @__PURE__ */ Object.assign(__default__$1t, {
     "totalInActiveMembers"
   ],
   setup(__props) {
-    const props = __props;
     const { textExcerpt, deleteRow } = sharedComposable();
+    const props = __props;
     const teamStats = [
       {
         value: props.totalMembers,
@@ -11019,13 +11018,13 @@ const _sfc_main$3e = /* @__PURE__ */ Object.assign(__default__$1s, {
       _push(ssrRenderComponent(_sfc_main$4M, {
         links: __props.posts.links
       }, null, _parent));
-      _push(`</div></main><div id="addNewTestimonialDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Testimonial"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Name"))}</label><input${ssrRenderAttr("value", unref(form).reviewer_name)} type="text" name="reviewer_name" maxlength="150" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Position"))}</label><input${ssrRenderAttr("value", unref(form).reviewer_position)} type="text" name="reviewer_position" class="input" required placeholder="CEO of Google" maxlength="50"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Avatar"))}</label><input type="file" name="reviewer_avatar" accept="image/*" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Avatar"))}</label><input type="file" name="brand_avatar" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Review Star"))}</label><select class="select" name="star"><option value="5">${ssrInterpolate(unref(trans)("5 Star"))}</option><option value="4">${ssrInterpolate(unref(trans)("4 Star"))}</option><option value="3">${ssrInterpolate(unref(trans)("3 Star"))}</option><option value="2">${ssrInterpolate(unref(trans)("2 Star"))}</option><option value="1">${ssrInterpolate(unref(trans)("1 Star"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Comment"))}</label><textarea class="textarea h-100" maxlength="500" name="comment" required>${ssrInterpolate(unref(form).comment)}</textarea></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></main><div id="addNewTestimonialDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Add New Testimonial"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Name"))}</label><input${ssrRenderAttr("value", unref(form).reviewer_name)} type="text" name="reviewer_name" maxlength="150" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Position"))}</label><input${ssrRenderAttr("value", unref(form).reviewer_position)} type="text" name="reviewer_position" class="input" required placeholder="CEO of Google" maxlength="50"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Avatar"))}</label><input type="file" name="reviewer_avatar" accept="image/*" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Avatar"))}</label><input type="file" name="brand_avatar" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Review Star"))}</label><select class="select" name="star"><option value="5"${ssrIncludeBooleanAttr(Array.isArray(unref(form).star) ? ssrLooseContain(unref(form).star, "5") : ssrLooseEqual(unref(form).star, "5")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("5 Star"))}</option><option value="4"${ssrIncludeBooleanAttr(Array.isArray(unref(form).star) ? ssrLooseContain(unref(form).star, "4") : ssrLooseEqual(unref(form).star, "4")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("4 Star"))}</option><option value="3"${ssrIncludeBooleanAttr(Array.isArray(unref(form).star) ? ssrLooseContain(unref(form).star, "3") : ssrLooseEqual(unref(form).star, "3")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("3 Star"))}</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(unref(form).star) ? ssrLooseContain(unref(form).star, "2") : ssrLooseEqual(unref(form).star, "2")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("2 Star"))}</option><option value="1"${ssrIncludeBooleanAttr(Array.isArray(unref(form).star) ? ssrLooseContain(unref(form).star, "1") : ssrLooseEqual(unref(form).star, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("1 Star"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Comment"))}</label><textarea class="textarea h-100" maxlength="500" name="comment" required>${ssrInterpolate(unref(form).comment)}</textarea></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: unref(form).processing,
         "btn-text": unref(trans)("Create")
       }, null, _parent));
-      _push(`</div></div></form></div><div id="editTestimonialDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Testimonial"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Name"))}</label><input${ssrRenderAttr("value", editTestimonialForm.value.title)} type="text" name="reviewer_name" id="reviewer_name" maxlength="150" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Position"))}</label><input${ssrRenderAttr("value", editTestimonialForm.value.slug)} type="text" name="reviewer_position" id="reviewer_position" class="input" required="" placeholder="CEO of Google" maxlength="50"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Avatar"))}</label><input type="file" name="reviewer_avatar" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Avatar"))}</label><input type="file" name="reviewer_avatar" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Review Star"))}</label><select class="select" name="star" id="star"><option value="5">${ssrInterpolate(unref(trans)("5 Star"))}</option><option value="4">${ssrInterpolate(unref(trans)("4 Star"))}</option><option value="3">${ssrInterpolate(unref(trans)("3 Star"))}</option><option value="2">${ssrInterpolate(unref(trans)("2 Star"))}</option><option value="1">${ssrInterpolate(unref(trans)("1 Star"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Comment"))}</label><textarea class="textarea h-100" maxlength="500" name="comment" id="comment" required>${ssrInterpolate(((_b2 = (_a2 = editTestimonialForm.value) == null ? void 0 : _a2.excerpt) == null ? void 0 : _b2.value) ?? "")}</textarea></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
+      _push(`</div></div></form></div><div id="editTestimonialDrawer" class="drawer drawer-right"><form><div class="drawer-header"><h5>${ssrInterpolate(unref(trans)("Edit Testimonial"))}</h5><button type="button" class="btn btn-plain-secondary dark:text-slate-300 dark:hover:bg-slate-700 dark:focus:bg-slate-700" data-dismiss="drawer"><i data-feather="x" width="1.5rem" height="1.5rem"></i></button></div><div class="drawer-body"><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Name"))}</label><input${ssrRenderAttr("value", editTestimonialForm.value.title)} type="text" name="reviewer_name" id="reviewer_name" maxlength="150" class="input" required></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Position"))}</label><input${ssrRenderAttr("value", editTestimonialForm.value.slug)} type="text" name="reviewer_position" id="reviewer_position" class="input" required="" placeholder="CEO of Google" maxlength="50"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Reviewer Avatar"))}</label><input type="file" name="reviewer_avatar" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Brand Avatar"))}</label><input type="file" name="reviewer_avatar" accept="image/*" class="input"></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Review Star"))}</label><select class="select" name="star" id="star"><option value="5"${ssrIncludeBooleanAttr(Array.isArray(editTestimonialForm.value.lang) ? ssrLooseContain(editTestimonialForm.value.lang, "5") : ssrLooseEqual(editTestimonialForm.value.lang, "5")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("5 Star"))}</option><option value="4"${ssrIncludeBooleanAttr(Array.isArray(editTestimonialForm.value.lang) ? ssrLooseContain(editTestimonialForm.value.lang, "4") : ssrLooseEqual(editTestimonialForm.value.lang, "4")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("4 Star"))}</option><option value="3"${ssrIncludeBooleanAttr(Array.isArray(editTestimonialForm.value.lang) ? ssrLooseContain(editTestimonialForm.value.lang, "3") : ssrLooseEqual(editTestimonialForm.value.lang, "3")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("3 Star"))}</option><option value="2"${ssrIncludeBooleanAttr(Array.isArray(editTestimonialForm.value.lang) ? ssrLooseContain(editTestimonialForm.value.lang, "2") : ssrLooseEqual(editTestimonialForm.value.lang, "2")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("2 Star"))}</option><option value="1"${ssrIncludeBooleanAttr(Array.isArray(editTestimonialForm.value.lang) ? ssrLooseContain(editTestimonialForm.value.lang, "1") : ssrLooseEqual(editTestimonialForm.value.lang, "1")) ? " selected" : ""}>${ssrInterpolate(unref(trans)("1 Star"))}</option></select></div><div class="mb-2"><label>${ssrInterpolate(unref(trans)("Comment"))}</label><textarea class="textarea h-100" maxlength="500" name="comment" id="comment" required>${ssrInterpolate(((_b2 = (_a2 = editTestimonialForm.value) == null ? void 0 : _a2.excerpt) == null ? void 0 : _b2.value) ?? "")}</textarea></div></div><div class="drawer-footer"><div class="flex justify-between gap-2"><button type="button" class="btn btn-secondary w-full" data-dismiss="drawer"><span>${ssrInterpolate(unref(trans)("Close"))}</span></button>`);
       _push(ssrRenderComponent(_sfc_main$4Y, {
         classes: "w-full btn btn-primary",
         processing: editTestimonialForm.value.processing,
@@ -11206,6 +11205,7 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5, _temp6;
       _push(`<main${ssrRenderAttrs(mergeProps({ class: "container flex-grow p-4 sm:p-6" }, _attrs))}>`);
       _push(ssrRenderComponent(_sfc_main$4Z, {
         title: "Themes Settings",
@@ -11220,10 +11220,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp0 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, theme.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.home === theme.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.home === theme.value).text)}</button></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, theme.img)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.home === theme.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.home === theme.value).text)}</button></div></div>`);
       });
       _push(`<!--]--></div></div><div><h5>${ssrInterpolate(_ctx.trans("Job Listing"))}</h5><div class="grid grid-cols-4 gap-5 mt-3"><!--[-->`);
       ssrRenderList(jobLists, (jobList, i) => {
@@ -11233,10 +11233,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp1 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, jobList.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, jobList.img)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([
           btnInfo(
             themeData.value.job_list.type === jobList.type && themeData.value.job_list.path === jobList.path
           ).class,
@@ -11253,10 +11253,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp2 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, jobDetail.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.job_detail === jobDetail.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.job_detail === jobDetail.value).text)}</button></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, jobDetail.img)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.job_detail === jobDetail.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.job_detail === jobDetail.value).text)}</button></div></div>`);
       });
       _push(`<!--]--></div></div><div><h5>${ssrInterpolate(_ctx.trans("Candidate Lists"))}</h5><div class="grid grid-cols-4 gap-5 mt-3"><!--[-->`);
       ssrRenderList(candidateLists, (candidateList) => {
@@ -11266,10 +11266,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp3 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, candidateList.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.candidate_list === candidateList.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.candidate_list === candidateList.value).text)}</button></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, candidateList.img)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.candidate_list === candidateList.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.candidate_list === candidateList.value).text)}</button></div></div>`);
       });
       _push(`<!--]--></div></div><div><h5>${ssrInterpolate(_ctx.trans("Candidate Details"))}</h5><div class="grid grid-cols-4 gap-5 mt-3"><!--[-->`);
       ssrRenderList(candidateDetails, (candidateDetail) => {
@@ -11279,10 +11279,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp4 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, candidateDetail.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.candidate_detail === candidateDetail.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.candidate_detail === candidateDetail.value).text)}</button></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, candidateDetail.img)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.candidate_detail === candidateDetail.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.candidate_detail === candidateDetail.value).text)}</button></div></div>`);
       });
       _push(`<!--]--></div></div><div><h5>${ssrInterpolate(_ctx.trans("Company Lists"))}</h5><div class="grid grid-cols-4 gap-5 mt-3"><!--[-->`);
       ssrRenderList(companyLists, (companyList) => {
@@ -11292,10 +11292,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp5 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, companyList.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.company_list === companyList.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.company_list === companyList.value).text)}</button></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, companyList.img)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.company_list === companyList.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.company_list === companyList.value).text)}</button></div></div>`);
       });
       _push(`<!--]--></div></div><div><h5>${ssrInterpolate(_ctx.trans("Blog Lists"))}</h5><div class="grid grid-cols-4 gap-5 mt-3"><!--[-->`);
       ssrRenderList(blogs, (blog) => {
@@ -11305,10 +11305,10 @@ const _sfc_main$3d = /* @__PURE__ */ Object.assign(__default__$1r, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<img${ssrRenderAttrs(mergeProps({
+        _push(`<img${ssrRenderAttrs(_temp6 = mergeProps({
           class: "border rounded-md",
           alt: "img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, blog.img)))}></a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.blog === blog.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.blog === blog.value).text)}</button></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, blog.img)))}>${"textContent" in _temp6 ? ssrInterpolate(_temp6.textContent) : _temp6.innerHTML ?? ""}</a><div class="flex items-center justify-center mt-2"><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="${ssrRenderClass([btnInfo(themeData.value.blog === blog.value).class, "btn btn-xs disabled:cursor-not-allowed"])}">${ssrInterpolate(btnInfo(themeData.value.blog === blog.value).text)}</button></div></div>`);
       });
       _push(`<!--]--></div></div></form></div></div></div></main>`);
     };
@@ -11445,8 +11445,8 @@ const _sfc_main$3a = {
     const setComponent = () => {
       themeLoader.$patch({ theme: usePage().props.theme });
       themeLoader.loadedComponents[themeLoader.theme] = {
-        header: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Header.vue": () => import("./assets/Header-78cfd49e.js"), "./Default/Four/Header.vue": () => import("./assets/Header-fbccc67d.js"), "./Default/One/Header.vue": () => import("./assets/Header-0270c69c.js"), "./Default/Seven/Header.vue": () => import("./assets/Header-b61cc4e4.js"), "./Default/Six/Header.vue": () => import("./assets/Header-3b4947b3.js"), "./Default/Three/Header.vue": () => import("./assets/Header-930752a9.js"), "./Default/Two/Header.vue": () => import("./assets/Header-3e26641d.js") }), `./Default/${themeLoader.theme}/Header.vue`)),
-        footer: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Footer.vue": () => import("./assets/Footer-ee2ba89b.js"), "./Default/Four/Footer.vue": () => import("./assets/Footer-f7c600b7.js"), "./Default/One/Footer.vue": () => import("./assets/Footer-06c64920.js"), "./Default/Seven/Footer.vue": () => import("./assets/Footer-373131e0.js"), "./Default/Six/Footer.vue": () => import("./assets/Footer-dd019337.js"), "./Default/Three/Footer.vue": () => import("./assets/Footer-fe0d600e.js"), "./Default/Two/Footer.vue": () => import("./assets/Footer-d4fd7ccf.js") }), `./Default/${themeLoader.theme}/Footer.vue`))
+        header: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Header.vue": () => import("./assets/Header-478998af.js"), "./Default/Four/Header.vue": () => import("./assets/Header-cf28e7a7.js"), "./Default/One/Header.vue": () => import("./assets/Header-f4ea3a55.js"), "./Default/Seven/Header.vue": () => import("./assets/Header-36db10a9.js"), "./Default/Six/Header.vue": () => import("./assets/Header-a1fc146e.js"), "./Default/Three/Header.vue": () => import("./assets/Header-7e299b41.js"), "./Default/Two/Header.vue": () => import("./assets/Header-f1662814.js") }), `./Default/${themeLoader.theme}/Header.vue`)),
+        footer: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Footer.vue": () => import("./assets/Footer-ee2ba89b.js"), "./Default/Four/Footer.vue": () => import("./assets/Footer-f7c600b7.js"), "./Default/One/Footer.vue": () => import("./assets/Footer-c3e23092.js"), "./Default/Seven/Footer.vue": () => import("./assets/Footer-c80ff43d.js"), "./Default/Six/Footer.vue": () => import("./assets/Footer-27e963fd.js"), "./Default/Three/Footer.vue": () => import("./assets/Footer-5ecb7dfc.js"), "./Default/Two/Footer.vue": () => import("./assets/Footer-d4fd7ccf.js") }), `./Default/${themeLoader.theme}/Footer.vue`))
       };
     };
     onMounted(() => setComponent());
@@ -11496,7 +11496,7 @@ const _sfc_main$39 = /* @__PURE__ */ Object.assign(__default__$1p, {
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Confirm Password" }, null, _parent));
-      _push(`<div class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, "position-relative p-70px"])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(_ctx.trans("Confirm Password"))}</h2><p>${ssrInterpolate(_ctx.trans(
+      _push(`<div class="" class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, ""])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(_ctx.trans("Confirm Password"))}</h2><p>${ssrInterpolate(_ctx.trans(
         "This is a secure area of the application. Please confirm your password before continuing."
       ))}</p></div><div class="form-wrapper m-auto"><form><div class="mb-2"><div class="input-group-meta position-relative"><label>${ssrInterpolate(_ctx.trans("Password"))} *</label><input type="password"${ssrRenderAttr("value", unref(form).password)} required autocomplete="new-password"${ssrRenderAttr("placeholder", _ctx.trans("Enter Password"))} class="pass_log_id"><span class="placeholder_icon"><span class="passVicon"><img src="/assets/images/icon/icon_60.svg" alt="icon"></span></span></div>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -11539,7 +11539,7 @@ const _sfc_main$38 = /* @__PURE__ */ Object.assign(__default__$1o, {
       const _component_Link = resolveComponent("Link");
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Forgot Password" }, null, _parent));
-      _push(`<div class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, "position-relative p-70px"])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container mt-40"><div class="user-data-form"><div class="form-wrapper m-auto"><div class="text-secondary small mb-4">${ssrInterpolate(_ctx.trans(
+      _push(`<div class="" class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, ""])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container mt-40"><div class="user-data-form"><div class="form-wrapper m-auto"><div class="text-secondary small mb-4">${ssrInterpolate(_ctx.trans(
         "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one."
       ))}</div>`);
       if (__props.status) {
@@ -11619,9 +11619,10 @@ const _sfc_main$37 = /* @__PURE__ */ Object.assign(__default__$1n, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, null, null, _parent));
-      _push(`<div class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, "position-relative p-70px"])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(unref(trans)("Hi, Welcome Back!"))}</h2><p>${ssrInterpolate(unref(trans)("Still don't have an account?"))} `);
+      _push(`<div class="" class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, ""])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(unref(trans)("Hi, Welcome Back!"))}</h2><p>${ssrInterpolate(unref(trans)("Still don't have an account?"))} `);
       _push(ssrRenderComponent(_component_Link, { href: "/register" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
@@ -11665,13 +11666,13 @@ const _sfc_main$37 = /* @__PURE__ */ Object.assign(__default__$1n, {
       }, null, _parent));
       _push(`</div><div class="row"><div class="col-sm-6">`);
       if (__props.googleClient) {
-        _push(`<a href="/auth/google" class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/google.png")))}><span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Google"))}</span></a>`);
+        _push(`<a href="/auth/google" class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/google.png")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Google"))}</span></a>`);
       } else {
         _push(`<!---->`);
       }
       _push(`</div><div class="col-sm-6">`);
       if (__props.facebookClient) {
-        _push(`<a href="/auth/facebook" class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/facebook.png")))}><span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Facebook"))}</span></a>`);
+        _push(`<a href="/auth/facebook" class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(_temp1 = mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/facebook.png")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Facebook"))}</span></a>`);
       } else {
         _push(`<!---->`);
       }
@@ -11739,9 +11740,10 @@ const _sfc_main$36 = /* @__PURE__ */ Object.assign(__default__$1m, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
-      _push(`<div class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, "position-relative p-70px"])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(unref(trans)("Create Account"))}</h2></div><div class="m-auto form-wrapper">`);
+      _push(`<div class="" class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, ""])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(unref(trans)("Create Account"))}</h2></div><div class="m-auto form-wrapper">`);
       if (!unref(form).plan_id) {
         _push(`<ul class="border-0 nav nav-tabs w-100 mt-30" role="tablist"><li class="nav-item"><button class="${ssrRenderClass([{ active: unref(form).role == "user" }, "nav-link"])}">${ssrInterpolate(unref(trans)("Candidates"))}</button></li><li class="nav-item"><button class="${ssrRenderClass([{ active: unref(form).role == "employer" }, "nav-link"])}">${ssrInterpolate(unref(trans)("Employer"))}</button></li></ul>`);
       } else {
@@ -11797,13 +11799,13 @@ const _sfc_main$36 = /* @__PURE__ */ Object.assign(__default__$1m, {
       }, null, _parent));
       _push(`</div></div></form></div><div class="mb-10 d-flex align-items-center mt-30"><div class="line"></div><span class="pe-3 ps-3">${ssrInterpolate(unref(trans)("OR"))}</span><div class="line"></div></div><div class="row"><div class="col-sm-6">`);
       if (__props.googleClient) {
-        _push(`<a${ssrRenderAttr("href", `/auth/google?r=${unref(form).role}`)} class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(mergeProps({ alt: "icon" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/google.png")))}><span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Google"))}</span></a>`);
+        _push(`<a${ssrRenderAttr("href", `/auth/google?r=${unref(form).role}`)} class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "icon" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/google.png")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Google"))}</span></a>`);
       } else {
         _push(`<!---->`);
       }
       _push(`</div><div class="col-sm-6">`);
       if (__props.facebookClient) {
-        _push(`<a${ssrRenderAttr("href", `/auth/facebook?r=${unref(form).role}`)} class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(mergeProps({ alt: "icon" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/facebook.png")))}><span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Facebook"))}</span></a>`);
+        _push(`<a${ssrRenderAttr("href", `/auth/facebook?r=${unref(form).role}`)} class="mt-10 social-use-btn d-flex align-items-center justify-content-center tran3s w-100"><img${ssrRenderAttrs(_temp1 = mergeProps({ alt: "icon" }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/facebook.png")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<span class="ps-2">${ssrInterpolate(unref(trans)("Signup with Facebook"))}</span></a>`);
       } else {
         _push(`<!---->`);
       }
@@ -11862,7 +11864,7 @@ const _sfc_main$35 = /* @__PURE__ */ Object.assign(__default__$1l, {
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Reset Password" }, null, _parent));
-      _push(`<div class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, "position-relative p-70px"])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(_ctx.trans("Reset Password"))}</h2></div><div class="form-wrapper m-auto"><form><div class="mb-2"><div class="input-group-meta position-relative mb-3"><label>${ssrInterpolate(_ctx.trans("Email"))} *</label><input${ssrRenderAttr("value", unref(form).email)} required autofocus type="email"${ssrRenderAttr("placeholder", _ctx.trans("Enter email address"))}>`);
+      _push(`<div class="" class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, ""])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(_ctx.trans("Reset Password"))}</h2></div><div class="form-wrapper m-auto"><form><div class="mb-2"><div class="input-group-meta position-relative mb-3"><label>${ssrInterpolate(_ctx.trans("Email"))} *</label><input${ssrRenderAttr("value", unref(form).email)} required autofocus type="email"${ssrRenderAttr("placeholder", _ctx.trans("Enter email address"))}>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
         message: unref(form).errors.email
       }, null, _parent));
@@ -11934,7 +11936,7 @@ const _sfc_main$33 = /* @__PURE__ */ Object.assign(__default__$1k, {
       const _component_Link = resolveComponent("Link");
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Email Verification" }, null, _parent));
-      _push(`<div class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, "position-relative p-70px"])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(_ctx.trans("Email verification"))}</h2><p>${ssrInterpolate(_ctx.trans(
+      _push(`<div class="" class="${ssrRenderClass([{ "inner-banner-one": (_ctx.$page.props.theme ?? "Two") == "One" }, ""])}"></div><section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80"><div class="container"><div class="user-data-form"><div class="text-center"><h2>${ssrInterpolate(_ctx.trans("Email verification"))}</h2><p>${ssrInterpolate(_ctx.trans(
         `Thanks for signing up! Before getting started, could you verify your email address by clicking
                 on the link we just emailed to you? If you didn't receive the email, we will gladly send you
                 another.`
@@ -12066,6 +12068,7 @@ const _sfc_main$31 = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[--><aside class="dash-aside-navbar"><div class="position-relative"><div class="logo text-md-center d-md-block d-flex align-items-center justify-content-between">`);
       _push(ssrRenderComponent(_component_Link, { href: "/" }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
@@ -12082,14 +12085,14 @@ const _sfc_main$31 = {
         }),
         _: 1
       }, _parent));
-      _push(`<button class="close-btn d-block d-md-none"><i class="bi bi-x-lg"></i></button></div><div class="user-data"><div class="user-avatar online position-relative rounded-circle"><img${ssrRenderAttrs(mergeProps({
+      _push(`<button class="close-btn d-block d-md-none"><i class="bi bi-x-lg"></i></button></div><div class="user-data"><div class="user-avatar online position-relative rounded-circle"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         unref(authUser2).avatar == null ? `https://ui-avatars.com/api/?name=${unref(authUser2).name}` : `${unref(authUser2).avatar}`
-      )))}></div><div class="user-name-data"><button class="user-name dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">${ssrInterpolate(unref(authUser2).name)}</button><ul class="dropdown-menu" aria-labelledby="profile-dropdown"><li>`);
+      )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="user-name-data"><button class="user-name dropdown-toggle" type="button" id="profile-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">${ssrInterpolate(unref(authUser2).name)}</button><ul class="dropdown-menu" aria-labelledby="profile-dropdown"><li>`);
       _push(ssrRenderComponent(_component_Link, {
         class: "dropdown-item d-flex align-items-center",
         href: `/companies/${unref(authUser2).username}`
@@ -12355,10 +12358,11 @@ const _sfc_main$30 = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<!--[--><header class="dashboard-header"><div class="d-flex align-items-center justify-content-end"><button class="dash-mobile-nav-toggler d-block d-md-none me-auto"><span></span></button><div class="search-form"><input type="text" placeholder="Search here.."><button><img src="/assets/dashboard/images/icon/icon_10.svg" alt="icon" class="lazy-img m-auto"></button></div><div class="profile-notification ms-md-5 me-4 ms-2"><button class="noti-btn dropdown-toggle" type="button" id="notification-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><img${ssrRenderAttrs(mergeProps({
+      let _temp0;
+      _push(`<!--[--><header class="dashboard-header"><div class="d-flex align-items-center justify-content-end"><button class="dash-mobile-nav-toggler d-block d-md-none me-auto"><span></span></button><div class="search-form"><input type="text" placeholder="Search here.."><button><img src="/assets/dashboard/images/icon/icon_10.svg" alt="icon" class="lazy-img m-auto"></button></div><div class="profile-notification ms-md-5 me-4 ms-2"><button class="noti-btn dropdown-toggle" type="button" id="notification-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/dashboard/images/icon/icon_11.svg")))}>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/dashboard/images/icon/icon_11.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
       if (unreadNotifications.value) {
         _push(`<div class="badge-pill"></div>`);
       } else {
@@ -12499,14 +12503,15 @@ const _sfc_main$2_ = /* @__PURE__ */ Object.assign(__default__$1j, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Ai Templates | Employer Panel" }, null, _parent));
       _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Ai Templates"))}</h2><div><div class="row"><!--[-->`);
       ssrRenderList(stats.value, (stat) => {
-        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "lazy",
           class: "lazy-img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
       });
       _push(`<!--]--></div><div class="row mt-30"><!--[-->`);
       ssrRenderList(__props.templates, (temp) => {
@@ -12517,14 +12522,14 @@ const _sfc_main$2_ = /* @__PURE__ */ Object.assign(__default__$1j, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                 alt: "avatar rounded-circle",
                 class: "lazy-img m-auto"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 temp.icon == null ? `https://ui-avatars.com/api/?name=${temp.title}` : `${temp.icon}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -12557,7 +12562,7 @@ const _sfc_main$2_ = /* @__PURE__ */ Object.assign(__default__$1j, {
           }),
           _: 2
         }, _parent));
-        _push(`<ul class="style-none d-flex info-data flex-wrap"><li>${ssrInterpolate(temp.ai_model)}</li></ul></div></div><div>${unref(textExcerpt)(temp.description, 100)}</div></div></div></div>`);
+        _push(`<ul class="style-none d-flex info-data flex-wrap"><li>${ssrInterpolate(temp.ai_model)}</li></ul></div></div><div>${unref(textExcerpt)(temp.description, 100) ?? ""}</div></div></div></div>`);
       });
       _push(`<!--]--></div>`);
       if (__props.templates.length < 1) {
@@ -12801,13 +12806,13 @@ const _sfc_main$2Z = /* @__PURE__ */ Object.assign(__default__$1i, {
       ssrRenderList(__props.gateways, (gateway) => {
         _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table">`);
         if (gateway.charge != 0) {
-          _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr>`);
+          _push(`<tbody><tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr></tbody>`);
         } else {
           _push(`<!---->`);
         }
         _push(`</table>`);
         if (gateway.comment != null) {
-          _push(`<table class="table-borderless mt-2 table"><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></table>`);
+          _push(`<table class="table-borderless mt-2 table"><tbody><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></tbody></table>`);
         } else {
           _push(`<!---->`);
         }
@@ -12857,8 +12862,8 @@ const _sfc_main$2Y = {
     jobObj: Object
   },
   setup(__props) {
-    const props = __props;
     const { uiAvatar, formatNumber, textExcerpt } = sharedComposable();
+    const props = __props;
     const maxTag = ref(2);
     const applicationId = ref(null);
     const findCandidate = computed(() => {
@@ -13047,7 +13052,7 @@ const _sfc_main$2Y = {
       }
       _push(`</div></div></div></div></div></div><div class="modal fade" id="reviewModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="reviewModalTitleId" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="reviewModalTitleId">${ssrInterpolate(unref(trans)("Add a review"))}</div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><form><div class="modal-body"><div class="mb-4"><label class="form-label">${ssrInterpolate(unref(trans)("Ratting Star (out of 5)"))}</label><select class="form-control"><!--[-->`);
       ssrRenderList(5, (item) => {
-        _push(`<option${ssrRenderAttr("value", item)}>${ssrInterpolate(item)}</option>`);
+        _push(`<option${ssrRenderAttr("value", item)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).ratting) ? ssrLooseContain(unref(form).ratting, item) : ssrLooseEqual(unref(form).ratting, item)) ? " selected" : ""}>${ssrInterpolate(item)}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -13099,7 +13104,7 @@ const _sfc_main$2X = {
                   } else if (link.label.includes("Previous")) {
                     _push2(`<!--[--><!--]-->`);
                   } else {
-                    _push2(`<span${_scopeId}>${link.label}</span>`);
+                    _push2(`<span${_scopeId}>${link.label ?? ""}</span>`);
                   }
                 } else {
                   return [
@@ -13157,7 +13162,7 @@ const _sfc_main$2W = {
     }
   },
   emits: ["update:modelValue", "change"],
-  setup(__props, { emit }) {
+  setup(__props, { emit: __emit }) {
     const props = __props;
     const isOpen = ref(false);
     const selectedOption = ref(null);
@@ -13296,8 +13301,8 @@ const _sfc_main$2U = /* @__PURE__ */ Object.assign(__default__$1g, {
   __ssrInlineRender: true,
   props: ["services", "countries", "shortcodes"],
   setup(__props) {
-    const props = __props;
     const { authUser: authUser2 } = sharedComposable();
+    const props = __props;
     const step = ref(1);
     const states = ref([]);
     const categories = ref([]);
@@ -13628,7 +13633,6 @@ const _sfc_main$2T = /* @__PURE__ */ Object.assign(__default__$1f, {
   props: ["creditLogs", "credit_fee", "gateways"],
   setup(__props) {
     var _a2;
-    const props = __props;
     const sorts = [
       {
         label: "Complete",
@@ -13639,6 +13643,7 @@ const _sfc_main$2T = /* @__PURE__ */ Object.assign(__default__$1f, {
         value: "inactive"
       }
     ];
+    const props = __props;
     const { pickBy: pickBy2, formatCurrency, authUser: authUser2 } = sharedComposable();
     const filterForm = ref({
       order: "",
@@ -13701,13 +13706,13 @@ const _sfc_main$2T = /* @__PURE__ */ Object.assign(__default__$1f, {
       ssrRenderList(__props.gateways, (gateway) => {
         _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table">`);
         if (gateway.charge != 0) {
-          _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr>`);
+          _push(`<tbody><tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr></tbody>`);
         } else {
           _push(`<!---->`);
         }
         _push(`</table>`);
         if (gateway.comment != null) {
-          _push(`<table class="table-borderless mt-2 table"><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></table>`);
+          _push(`<table class="table-borderless mt-2 table"><tbody><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></tbody></table>`);
         } else {
           _push(`<!---->`);
         }
@@ -14000,9 +14005,9 @@ const _sfc_main$2R = /* @__PURE__ */ Object.assign(__default__$1d, {
   __ssrInlineRender: true,
   props: ["aiGenerated"],
   setup(__props) {
-    const props = __props;
     const { cke, ClassicEditor: ClassicEditor2 } = ckeEditor();
     sharedComposable();
+    const props = __props;
     const form = useForm({
       ...props.aiGenerated
     });
@@ -14075,14 +14080,15 @@ const _sfc_main$2Q = /* @__PURE__ */ Object.assign(__default__$1c, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Ai History" }, null, _parent));
       _push(`<div class="d-sm-flex align-items-center justify-content-between lg-mb-30 mb-40"><h2 class="main-title m0">${ssrInterpolate(unref(trans)("Ai Generated History"))}</h2><div class="d-flex xs-mt-30 ms-auto"><div class="nav nav-tabs tab-filter-btn me-4"><button class="${ssrRenderClass([{ active: filterForm.value.order === "" }, "nav-link"])}" type="button">${ssrInterpolate(unref(trans)("All"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.order === "desc" }, "nav-link"])}" type="button">${ssrInterpolate(unref(trans)("New"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.order === "asc" }, "nav-link"])}" type="button">${ssrInterpolate(unref(trans)("Old"))}</button></div></div></div><div class="row my-3"><!--[-->`);
       ssrRenderList(stats.value, (stat) => {
-        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "lazy",
           class: "lazy-img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
       });
       _push(`<!--]--></div><div class="card-box border-20 bg-white"><div class="tab-content" id="nav-tabContent"><div class="tab-pane fade show active" id="a1" role="tabpanel">`);
       if (__props.aiGenerated.total) {
@@ -14141,9 +14147,9 @@ const _sfc_main$2P = /* @__PURE__ */ Object.assign(__default__$1b, {
     "user"
   ],
   setup(__props) {
-    const props = __props;
     const { cke, ClassicEditor: ClassicEditor2 } = ckeEditor();
     const { authUser: authUser2, pickBy: pickBy2, textExcerpt } = sharedComposable();
+    const props = __props;
     const form = useForm({
       title: "",
       description: "",
@@ -14943,7 +14949,6 @@ const _sfc_main$2N = /* @__PURE__ */ Object.assign(__default__$19, {
   props: ["jobs", "request"],
   setup(__props) {
     var _a2, _b2;
-    const props = __props;
     const sorts = [
       {
         label: "Active",
@@ -14958,6 +14963,7 @@ const _sfc_main$2N = /* @__PURE__ */ Object.assign(__default__$19, {
         value: "inactive"
       }
     ];
+    const props = __props;
     const { pickBy: pickBy2, copyToClipboard, deleteRow } = sharedComposable();
     const filterForm = ref({
       order: ((_a2 = props.request) == null ? void 0 : _a2.order) ?? "",
@@ -15089,8 +15095,8 @@ const _sfc_main$2M = {
     jobObj: Object
   },
   setup(__props) {
-    const props = __props;
     const { formatNumber, uiAvatar, textExcerpt } = sharedComposable();
+    const props = __props;
     const candidateId = ref(null);
     const maxTag = ref(2);
     const findCandidate = computed(() => {
@@ -15251,8 +15257,8 @@ const _sfc_main$2L = /* @__PURE__ */ Object.assign(__default__$18, {
   __ssrInlineRender: true,
   props: ["applicants", "job"],
   setup(__props) {
-    const props = __props;
     const { pickBy: pickBy2 } = sharedComposable();
+    const props = __props;
     const filterForm = ref({
       order: ""
     });
@@ -15323,8 +15329,7 @@ const _sfc_main$2K = /* @__PURE__ */ Object.assign(__default__$17, {
   props: ["kyc_methods"],
   setup(__props) {
     var _a2, _b2;
-    const { kyc_methods } = __props;
-    const selectedMethod = ref(kyc_methods[0] ? kyc_methods[0] : {});
+    const selectedMethod = ref(__props.kyc_methods[0] ? __props.kyc_methods[0] : {});
     const form = useForm({
       method: (_a2 = selectedMethod.value) == null ? void 0 : _a2.id,
       fields: ((_b2 = selectedMethod.value) == null ? void 0 : _b2.fields) ?? [],
@@ -15507,11 +15512,10 @@ const _sfc_main$2I = /* @__PURE__ */ Object.assign(__default__$15, {
   __ssrInlineRender: true,
   props: ["kyc"],
   setup(__props) {
-    const { kyc } = __props;
     sharedComposable();
     let form = useForm({
-      fields: kyc.fields,
-      note: kyc.note
+      fields: __props.kyc.fields,
+      note: __props.kyc.note
     });
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<!--[-->`);
@@ -15965,6 +15969,7 @@ const _sfc_main$2E = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[--><div class="row gx-0 align-items-center"><div class="offcanvas compose-mail-offcanvas" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel"><div class="compose-new-email-container"><div class="new-email-header position-relative"><div class="input-group d-flex align-items-center"><div class="w-60px text-center">To</div><input required${ssrRenderAttr("value", messageForm.value.email)} type="email" class="flex-fill" placeholder="payoneer@inquiry.com"></div></div><div class="compose-body"><textarea>${ssrInterpolate(messageForm.value.body)}</textarea></div>`);
       if (((_a2 = messageForm.value) == null ? void 0 : _a2.attachments.length) > 0) {
         _push(`<div class="row mt-10 ps-3"><!--[-->`);
@@ -15993,10 +15998,10 @@ const _sfc_main$2E = {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div><div class="card-box border-20 p0 mt-30 bg-white"><div class="message-wrapper"><div class="row gx-0"><div class="col-lg-4 max-h-10-r"><div class="message-sidebar pt-20"><div class="ps-xxl-4 pe-xxl-4 pe-3 ps-3"><div class="d-flex align-items-center justify-content-between"><div class="page-title fw-500">${ssrInterpolate(_ctx.trans("Inbox"))}</div></div><form class="search-form mb-20 mt-20"><input type="text" placeholder="Search contacts"${ssrRenderAttr("value", filterForm.value.name)}><button type="submit"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div><div class="card-box border-20 p0 mt-30 bg-white"><div class="message-wrapper"><div class="row gx-0"><div class="col-lg-4 max-h-10-r"><div class="message-sidebar pt-20"><div class="ps-xxl-4 pe-xxl-4 pe-3 ps-3"><div class="d-flex align-items-center justify-content-between"><div class="page-title fw-500">${ssrInterpolate(_ctx.trans("Inbox"))}</div></div><form class="search-form mb-20 mt-20"><input type="text" placeholder="Search contacts"${ssrRenderAttr("value", filterForm.value.name)}><button type="submit"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "img",
         class: "lazy-img m-auto"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/dashboard/images/icon/icon_10.svg")))}></button></form><div class="message_filter d-flex align-items-center justify-content-evenly mb-20" id="module_btns"><button class="${ssrRenderClass([{ active: filterForm.value.read === null }, "filter_btn"])}">${ssrInterpolate(_ctx.trans("All"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "read" }, "filter_btn"])}"><span class="bg-success"></span> ${ssrInterpolate(_ctx.trans("Read"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "unread" }, "filter_btn"])}"><span class="bg-danger"></span> ${ssrInterpolate(_ctx.trans("Unread"))}</button></div></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/dashboard/images/icon/icon_10.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</button></form><div class="message_filter d-flex align-items-center justify-content-evenly mb-20" id="module_btns"><button class="${ssrRenderClass([{ active: filterForm.value.read === null }, "filter_btn"])}">${ssrInterpolate(_ctx.trans("All"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "read" }, "filter_btn"])}"><span class="bg-success"></span> ${ssrInterpolate(_ctx.trans("Read"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "unread" }, "filter_btn"])}"><span class="bg-danger"></span> ${ssrInterpolate(_ctx.trans("Unread"))}</button></div></div>`);
       _push(ssrRenderComponent(_sfc_main$2F, null, null, _parent));
       _push(`</div></div>`);
       ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
@@ -16040,10 +16045,10 @@ const _sfc_main$2C = /* @__PURE__ */ Object.assign(__default__$11, {
   __ssrInlineRender: true,
   props: ["replies", "conversation"],
   setup(__props) {
-    const props = __props;
     const intersectionTargetView = ref(null);
     let observer = null;
     const message = useMessageStore();
+    const props = __props;
     const { authUser: authUser2, pickBy: pickBy2, textExcerpt, currentRoute, uiAvatar } = sharedComposable();
     const messageForm = useForm({
       body: "",
@@ -16270,8 +16275,8 @@ const _sfc_main$2A = /* @__PURE__ */ Object.assign(__default__$10, {
   ],
   setup(__props) {
     var _a2;
-    const props = __props;
     const { formatCurrency } = sharedComposable();
+    const props = __props;
     const activeGateway = ref(((_a2 = props.gateways[0]) == null ? void 0 : _a2.id) || 0);
     const manualPayment = ref({
       image: null,
@@ -16286,7 +16291,7 @@ const _sfc_main$2A = /* @__PURE__ */ Object.assign(__default__$10, {
       }, null, _parent));
       _push(`<div class="payment-container"><div class="container py-5"><div class="row justify-content-center"><div class="col-sm-12 col-lg-6"><div class="rounded-lg bg-white p-5 shadow-lg"><div class="d-flex justify-content-between align-items-center mb-3"><img src="/assets/dashboard/images/logo_01.png" alt=""><span class="unpaid text-danger h3 fw-bold">${ssrInterpolate(_ctx.trans("Unpaid"))}</span></div>`);
       if (__props.error) {
-        _push(`<div class="col-sm-12 my-4"><div class="alert alert-danger alert-dismissible fade show" role="alert"><span class="alert-icon"><i class="fas fa-sad-tear"></i></span><strong>${ssrInterpolate(_ctx.trans("!Opps "))}</strong> ${ssrInterpolate(_ctx.trans("Transaction failed if you make payment successfully please contact us."))} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div></div>`);
+        _push(`<div class="col-sm-12 my-4"><div class="alert alert-danger alert-dismissible fade show" role="alert"><span class="alert-icon"><i class="fas fa-sad-tear"></i></span><strong>${ssrInterpolate(_ctx.trans("!Oops "))}</strong> ${ssrInterpolate(_ctx.trans("Transaction failed! If you make payment successfully, please contact us."))} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div></div>`);
       } else {
         _push(`<!---->`);
       }
@@ -16301,7 +16306,7 @@ const _sfc_main$2A = /* @__PURE__ */ Object.assign(__default__$10, {
       });
       _push(`<!--]--></div><div class="clear"></div><!--[-->`);
       ssrRenderList(__props.gateways, (gateway) => {
-        _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table"><tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Method Name: "))}</td><td class="text-center">${ssrInterpolate(gateway.name)}</td></tr>`);
+        _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table"><tbody><tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Method Name: "))}</td><td class="text-center">${ssrInterpolate(gateway.name)}</td></tr>`);
         if (gateway.currency != null) {
           _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Currency: "))}</td><td class="text-center">${ssrInterpolate(gateway.currency)}</td></tr>`);
         } else {
@@ -16312,9 +16317,9 @@ const _sfc_main$2A = /* @__PURE__ */ Object.assign(__default__$10, {
         } else {
           _push(`<!---->`);
         }
-        _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Payable Amount: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(__props.total * gateway.multiply + gateway.charge))}</td></tr></table>`);
+        _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Payable Amount: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(__props.total * gateway.multiply + gateway.charge))}</td></tr></tbody></table>`);
         if (gateway.comment != null) {
-          _push(`<table class="table-borderless mt-2 table"><tr><td class="fw-600 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></table>`);
+          _push(`<table class="table-borderless mt-2 table"><tbody><tr><td class="fw-600 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></tbody></table>`);
         } else {
           _push(`<!---->`);
         }
@@ -16330,7 +16335,7 @@ const _sfc_main$2A = /* @__PURE__ */ Object.assign(__default__$10, {
         }
         _push(`</div><button${ssrIncludeBooleanAttr(isProcessing.value) ? " disabled" : ""} type="submit" class="btn-one w-100 d-flex align-items-center justify-content-center mb-1 mt-1 py-2"><img style="${ssrRenderStyle(isProcessing.value ? null : { display: "none" })}" src="/assets/images/ajax_loading_white.svg" class="spinner_btn_img"><span>${ssrInterpolate(_ctx.trans("Pay Now"))}</span></button></form></div>`);
       });
-      _push(`<!--]--><br><div class="col-sm-12"><table class="table" cellspacing="8"><tr><td class="col-6 rounded border"><div class="text-fs-sm"><strong>${ssrInterpolate(_ctx.trans("Invoiced To"))}</strong><br> ${ssrInterpolate(__props.user.name)}<br> ${ssrInterpolate(__props.user.address)}</div></td><td class="col-6 rounded border"><div class="text-fs-sm"><strong>${ssrInterpolate(_ctx.trans("Pay To"))}</strong><br> ${ssrInterpolate(__props.invoice_data.company_name)} <br> ${ssrInterpolate(__props.invoice_data.address)}, ${ssrInterpolate(__props.invoice_data.city)} <br> ${ssrInterpolate(__props.invoice_data.post_code)}, ${ssrInterpolate(__props.invoice_data.country)}</div></td></tr></table><table class="table-borderless text-fs-sm mt-2 table"><tr class="title text-center"><td class="col-9 fw-500 border p-2">${ssrInterpolate(_ctx.trans("Description"))}</td><td class="col-3 fw-500 border p-2">${ssrInterpolate(_ctx.trans("Amount"))}</td></tr><tr><td class="border p-2">${ssrInterpolate(__props.plan.title)}</td><td class="border p-2 text-center">${ssrInterpolate(__props.plan.price_format)}</td></tr><tr class="title"><td class="border p-2">${ssrInterpolate(_ctx.trans("Sub Total"))}:</td><td class="border p-2 text-center">${ssrInterpolate(__props.plan.price_format)}</td></tr><tr class="title"><td class="border p-2">${ssrInterpolate(_ctx.trans("Tax"))}:</td><td class="border p-2 text-center">${ssrInterpolate(unref(formatCurrency)(__props.tax))}</td></tr><tr class="title"><td class="border p-2">${ssrInterpolate(_ctx.trans("Total"))} :</td><td class="border p-2 text-center">${ssrInterpolate(unref(formatCurrency)(__props.total))}</td></tr></table><div class="text-center">`);
+      _push(`<!--]--><br><div class="col-sm-12"><table class="table" cellspacing="8"><tbody><tr><td class="col-6 rounded border"><div class="text-fs-sm"><strong>${ssrInterpolate(_ctx.trans("Invoiced To"))}</strong><br> ${ssrInterpolate(__props.user.name)}<br> ${ssrInterpolate(__props.user.address)}</div></td><td class="col-6 rounded border"><div class="text-fs-sm"><strong>${ssrInterpolate(_ctx.trans("Pay To"))}</strong><br> ${ssrInterpolate(__props.invoice_data.company_name)} <br> ${ssrInterpolate(__props.invoice_data.address)}, ${ssrInterpolate(__props.invoice_data.city)} <br> ${ssrInterpolate(__props.invoice_data.post_code)}, ${ssrInterpolate(__props.invoice_data.country)}</div></td></tr></tbody></table><table class="table-borderless text-fs-sm mt-2 table"><tbody><tr class="title text-center"><td class="col-9 fw-500 border p-2">${ssrInterpolate(_ctx.trans("Description"))}</td><td class="col-3 fw-500 border p-2">${ssrInterpolate(_ctx.trans("Amount"))}</td></tr><tr><td class="border p-2">${ssrInterpolate(__props.plan.title)}</td><td class="border p-2 text-center">${ssrInterpolate(__props.plan.price_format)}</td></tr><tr class="title"><td class="border p-2">${ssrInterpolate(_ctx.trans("Sub Total"))}:</td><td class="border p-2 text-center">${ssrInterpolate(__props.plan.price_format)}</td></tr><tr class="title"><td class="border p-2">${ssrInterpolate(_ctx.trans("Tax"))}:</td><td class="border p-2 text-center">${ssrInterpolate(unref(formatCurrency)(__props.tax))}</td></tr><tr class="title"><td class="border p-2">${ssrInterpolate(_ctx.trans("Total"))} :</td><td class="border p-2 text-center">${ssrInterpolate(unref(formatCurrency)(__props.total))}</td></tr></tbody></table><div class="text-center">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/employer/memberships",
         class: "btn btn-outline-danger rounded-pill w-100 mb-2 mt-2 py-2"
@@ -16367,8 +16372,8 @@ const _sfc_main$2z = /* @__PURE__ */ Object.assign(__default__$$, {
   props: ["user", "service", "countries", "states", "categories", "shortcodes"],
   setup(__props) {
     var _a2, _b2, _c, _d;
-    const props = __props;
     const { authUser: authUser2 } = sharedComposable();
+    const props = __props;
     const categories = ref(props.categories);
     const states = ref(props.states);
     const descriptionTemplates = ref([]);
@@ -16422,18 +16427,19 @@ const _sfc_main$2z = /* @__PURE__ */ Object.assign(__default__$$, {
     return (_ctx, _push, _parent, _attrs) => {
       var _a3, _b3, _c2, _d2, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), {
         title: unref(trans)("Profile")
       }, null, _parent));
-      _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Profile"))}</h2><div class="bg-white card-box border-20"><div class="user-avatar-setting mb-30"><div class="d-flex justify-content-between"><div class="d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({
+      _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Profile"))}</h2><div class="bg-white card-box border-20"><div class="user-avatar-setting mb-30"><div class="d-flex justify-content-between"><div class="d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img user-img"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         __props.user.avatar == null ? `https://ui-avatars.com/api/?name=${__props.user.name}` : `${__props.user.avatar}`
-      )))}><div class="upload-btn position-relative tran3s me-3 ms-4">${ssrInterpolate(unref(trans)("Upload new photo"))} <input type="file" id="uploadImg" name="uploadImg" placeholder=""></div></div></div></div><div class="dash-input-wrapper mb-30"><label for="">${ssrInterpolate(unref(trans)("Company Name"))}*</label><input type="text" placeholder="John Smith" readonly disabled${ssrRenderAttr("value", unref(authUser2).name)}>`);
+      )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="upload-btn position-relative tran3s me-3 ms-4">${ssrInterpolate(unref(trans)("Upload new photo"))} <input type="file" id="uploadImg" name="uploadImg" placeholder=""></div></div></div></div><div class="dash-input-wrapper mb-30"><label for="">${ssrInterpolate(unref(trans)("Company Name"))}*</label><input type="text" placeholder="John Smith" readonly disabled${ssrRenderAttr("value", unref(authUser2).name)}>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
         message: (_b3 = (_a3 = unref(form).errors.meta) == null ? void 0 : _a3.company) == null ? void 0 : _b3.name
       }, null, _parent));
@@ -16663,6 +16669,7 @@ const _sfc_main$2y = /* @__PURE__ */ Object.assign(__default__$_, {
     );
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), {
         title: _ctx.trans("Job Reviews")
@@ -16681,11 +16688,11 @@ const _sfc_main$2y = /* @__PURE__ */ Object.assign(__default__$_, {
         _push(`<div class="table-responsive"><table class="table job-alert-table"><thead><tr><th scope="col">${ssrInterpolate(_ctx.trans("Candidate"))}</th><th scope="col">${ssrInterpolate(_ctx.trans("Job"))}</th><th scope="col">${ssrInterpolate(_ctx.trans("Ratting"))}</th><th scope="col">${ssrInterpolate(_ctx.trans("Comment"))}</th><th scope="col">${ssrInterpolate(_ctx.trans("Created At"))}</th><th scope="col"></th></tr></thead><tbody class="border-0"><!--[-->`);
         ssrRenderList(__props.reviews.data, (review) => {
           var _a2, _b2, _c;
-          _push(`<tr><td><div class="gap-3 d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({ class: "review-avatar-img" }, ssrGetDirectiveProps(
+          _push(`<tr><td><div class="gap-3 d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({ class: "review-avatar-img" }, ssrGetDirectiveProps(
             _ctx,
             _directive_lazy,
             review.author.avatar == null ? `https://ui-avatars.com/api/?name=${review.author.name}` : `${review.author.avatar}`
-          )))}><a target="_blank" class="fw-bold"${ssrRenderAttr("href", _ctx.route("candidates.show", (_a2 = review.author) == null ? void 0 : _a2.username))}>${ssrInterpolate((_b2 = review.author) == null ? void 0 : _b2.name)}</a></div></td><td>`);
+          )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<a target="_blank" class="fw-bold"${ssrRenderAttr("href", _ctx.route("candidates.show", (_a2 = review.author) == null ? void 0 : _a2.username))}>${ssrInterpolate((_b2 = review.author) == null ? void 0 : _b2.name)}</a></div></td><td>`);
           if ((_c = review.job) == null ? void 0 : _c.id) {
             _push(`<div><a target="_blank"${ssrRenderAttr("href", _ctx.route("jobs.show", review.job.slug))}>${ssrInterpolate(review.job.title)}</a></div>`);
           } else {
@@ -17772,14 +17779,15 @@ const _sfc_main$2n = /* @__PURE__ */ Object.assign(__default__$T, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Ai Templates | User Panel" }, null, _parent));
       _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Ai Templates"))}</h2><div><div class="row"><!--[-->`);
       ssrRenderList(stats.value, (stat) => {
-        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "lazy",
           class: "lazy-img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
       });
       _push(`<!--]--></div><div class="row mt-30"><!--[-->`);
       ssrRenderList(__props.templates, (temp) => {
@@ -17790,14 +17798,14 @@ const _sfc_main$2n = /* @__PURE__ */ Object.assign(__default__$T, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                 alt: "avatar rounded-circle",
                 class: "lazy-img m-auto"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 temp.icon == null ? `https://ui-avatars.com/api/?name=${temp.title}` : `${temp.icon}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -17830,7 +17838,7 @@ const _sfc_main$2n = /* @__PURE__ */ Object.assign(__default__$T, {
           }),
           _: 2
         }, _parent));
-        _push(`<ul class="style-none d-flex info-data flex-wrap"><li>${ssrInterpolate(temp.ai_model)}</li></ul></div></div><div>${unref(textExcerpt)(temp.description, 100)}</div></div></div></div>`);
+        _push(`<ul class="style-none d-flex info-data flex-wrap"><li>${ssrInterpolate(temp.ai_model)}</li></ul></div></div><div>${unref(textExcerpt)(temp.description, 100) ?? ""}</div></div></div></div>`);
       });
       _push(`<!--]--></div>`);
       if (__props.templates.length < 1) {
@@ -18074,13 +18082,13 @@ const _sfc_main$2m = /* @__PURE__ */ Object.assign(__default__$S, {
       ssrRenderList(__props.gateways, (gateway) => {
         _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table">`);
         if (gateway.charge != 0) {
-          _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr>`);
+          _push(`<tbody><tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr></tbody>`);
         } else {
           _push(`<!---->`);
         }
         _push(`</table>`);
         if (gateway.comment != null) {
-          _push(`<table class="table-borderless mt-2 table"><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></table>`);
+          _push(`<table class="table-borderless mt-2 table"><tbody><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></tbody></table>`);
         } else {
           _push(`<!---->`);
         }
@@ -18142,6 +18150,7 @@ const _sfc_main$2l = /* @__PURE__ */ Object.assign(__default__$R, {
     };
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Applied Jobs" }, null, _parent));
       _push(`<div class="mb-40 d-flex align-items-center justify-content-between lg-mb-30"><h2 class="main-title m0">${ssrInterpolate(_ctx.trans("Applied Jobs"))}</h2><div class="short-filter d-flex align-items-center"><div class="text-dark fw-500 me-2">${ssrInterpolate(_ctx.trans("Sort by"))}:</div>`);
@@ -18159,14 +18168,14 @@ const _sfc_main$2l = /* @__PURE__ */ Object.assign(__default__$R, {
         _push(`<div class="wrapper"><!--[-->`);
         ssrRenderList(__props.jobs.data, (job, index) => {
           var _a2, _b2, _c, _d, _e;
-          _push(`<div class="mb-20 overflow-visible job-list-one style-two position-relative"><div class="row justify-content-between align-items-center"><div class="col-xxl-3 col-lg-4"><div class="job-title d-flex align-items-center"><a${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="logo"><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="mb-20 overflow-visible job-list-one style-two position-relative"><div class="row justify-content-between align-items-center"><div class="col-xxl-3 col-lg-4"><div class="job-title d-flex align-items-center"><a${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="logo"><img${ssrRenderAttrs(_temp0 = mergeProps({
             alt: "",
             class: "m-auto lazy-img"
           }, ssrGetDirectiveProps(
             _ctx,
             _directive_lazy,
             ((_a2 = job.user) == null ? void 0 : _a2.avatar) == null ? `https://ui-avatars.com/api/?name=${(_b2 = job.user) == null ? void 0 : _b2.name}` : `${(_c = job.user) == null ? void 0 : _c.avatar}`
-          )))}></a><a${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="title fw-500 tran3s">${ssrInterpolate(job.title)}</a></div></div><div class="col-lg-3 col-md-4 col-sm-6 ms-auto"><a href="#" class="job-duration fw-500">${ssrInterpolate(job.type)}</a>`);
+          )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</a><a${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="title fw-500 tran3s">${ssrInterpolate(job.title)}</a></div></div><div class="col-lg-3 col-md-4 col-sm-6 ms-auto"><a href="#" class="job-duration fw-500">${ssrInterpolate(job.type)}</a>`);
           if ((_d = job == null ? void 0 : job.pivot) == null ? void 0 : _d.is_hired) {
             _push(`<span class="ms-3 badge bg-success">${ssrInterpolate(_ctx.trans("Hired"))}</span>`);
           } else {
@@ -18201,7 +18210,7 @@ const _sfc_main$2l = /* @__PURE__ */ Object.assign(__default__$R, {
       }, null, _parent));
       _push(`</div><div class="modal fade" id="reviewModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="reviewModalTitleId" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="reviewModalTitleId">${ssrInterpolate(_ctx.trans("Add a review"))}</div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><form><div class="modal-body"><div class="mb-4"><label class="form-label">${ssrInterpolate(_ctx.trans("Ratting Star (out of 5)"))}</label><select class="form-control"><!--[-->`);
       ssrRenderList(5, (item) => {
-        _push(`<option${ssrRenderAttr("value", item)}>${ssrInterpolate(item)}</option>`);
+        _push(`<option${ssrRenderAttr("value", item)}${ssrIncludeBooleanAttr(Array.isArray(unref(form).ratting) ? ssrLooseContain(unref(form).ratting, item) : ssrLooseEqual(unref(form).ratting, item)) ? " selected" : ""}>${ssrInterpolate(item)}</option>`);
       });
       _push(`<!--]--></select>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -18238,7 +18247,6 @@ const _sfc_main$2k = /* @__PURE__ */ Object.assign(__default__$Q, {
   props: ["creditLogs", "credit_fee", "gateways"],
   setup(__props) {
     var _a2;
-    const props = __props;
     const sorts = [
       {
         label: "Complete",
@@ -18249,6 +18257,7 @@ const _sfc_main$2k = /* @__PURE__ */ Object.assign(__default__$Q, {
         value: "inactive"
       }
     ];
+    const props = __props;
     const { pickBy: pickBy2, formatCurrency, authUser: authUser2 } = sharedComposable();
     const filterForm = ref({
       order: "",
@@ -18309,15 +18318,15 @@ const _sfc_main$2k = /* @__PURE__ */ Object.assign(__default__$Q, {
       });
       _push(`<!--]--></div><!--[-->`);
       ssrRenderList(__props.gateways, (gateway) => {
-        _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table">`);
+        _push(`<div style="${ssrRenderStyle(activeGateway.value === gateway.id ? null : { display: "none" })}" class="col-sm-12 gateway-form"${ssrRenderAttr("id", "gateway-form" + gateway.id)}><form method="post" enctype="multipart/form-data"><div class="table-responsive"><table class="table-borderless text-fs-sm table"><tbody>`);
         if (gateway.charge != 0) {
           _push(`<tr class="border"><td class="border p-2">${ssrInterpolate(_ctx.trans("Gateway Charge: "))}</td><td class="text-center">${ssrInterpolate(unref(formatCurrency)(gateway.charge))}</td></tr>`);
         } else {
           _push(`<!---->`);
         }
-        _push(`</table>`);
+        _push(`</tbody></table>`);
         if (gateway.comment != null) {
-          _push(`<table class="table-borderless mt-2 table"><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></table>`);
+          _push(`<table class="table-borderless mt-2 table"><tbody><tr><td class="fw-500 text-fs-sm">${ssrInterpolate(_ctx.trans("Payment Instruction: "))}</td></tr><tr><td class="text-fs-sm">${ssrInterpolate(gateway.comment)}</td></tr></tbody></table>`);
         } else {
           _push(`<!---->`);
         }
@@ -18366,8 +18375,8 @@ const _sfc_main$2j = /* @__PURE__ */ Object.assign(__default__$P, {
     "visits"
   ],
   setup(__props) {
-    const props = __props;
     sharedComposable();
+    const props = __props;
     const chartFilterBtns = ["day", "week", "month", "year"];
     const areaChart = computed(() => {
       return {
@@ -18414,6 +18423,7 @@ const _sfc_main$2j = /* @__PURE__ */ Object.assign(__default__$P, {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Dashboard | Candidate Panel" }, null, _parent));
       _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Dashboard"))}</h2><div class="row"><div class="col-lg-3 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="/assets/images/icon/icon_60.svg" alt="" class="lazy-img"></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(__props.total_visitors)}</div><span>${ssrInterpolate(unref(trans)("Total Visitor"))}</span></div></div></div></div><div class="col-lg-3 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="/assets/images/icon/icon_18.svg" alt="" class="lazy-img"></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(__props.total_shortlisted)}</div><span>${ssrInterpolate(unref(trans)("Shortlisted"))}</span></div></div></div></div><div class="col-lg-3 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="/assets/images/icon/icon_09.svg" alt="" class="lazy-img"></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(__props.total_bookmarks)}</div><span>${ssrInterpolate(unref(trans)("Bookmarked"))}</span></div></div></div></div><div class="col-lg-3 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img src="/assets/images/icon/icon_53.svg" alt="" class="lazy-img"></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(__props.total_applied_jobs)}</div><span>${ssrInterpolate(unref(trans)("Applied Job"))}</span></div></div></div></div></div><div class="row d-flex pt-50 lg-pt-10"><div class="col-xl-7 col-lg-6 d-flex flex-column"><div class="user-activity-chart border-20 mt-30 h-100 bg-white"><h4 class="dash-title-two">${ssrInterpolate(unref(trans)("Profile Views"))}</h4><div class="mt-20 pe-5 ps-5"><div class="d-flex justify-content-around chart-filter-area mb-4"><!--[-->`);
@@ -18448,7 +18458,7 @@ const _sfc_main$2j = /* @__PURE__ */ Object.assign(__default__$P, {
         _push(`<!--[-->`);
         ssrRenderList(__props.appliedJobs, (item) => {
           var _a2, _b2, _c;
-          _push(`<div class="job-item-list d-flex align-items-center"><div><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="job-item-list d-flex align-items-center"><div><img${ssrRenderAttrs(_temp0 = mergeProps({
             alt: "",
             height: "50",
             class: "lazy-img m-auto"
@@ -18456,7 +18466,7 @@ const _sfc_main$2j = /* @__PURE__ */ Object.assign(__default__$P, {
             _ctx,
             _directive_lazy,
             ((_a2 = item.user) == null ? void 0 : _a2.avatar) == null ? `https://ui-avatars.com/api/?name=${(_b2 = item.user) == null ? void 0 : _b2.name}` : `${(_c = item.user) == null ? void 0 : _c.avatar}`
-          )))}></div><div class="job-title"><h6 class="mb-5"><a${ssrRenderAttr("href", _ctx.route("jobs.show", item.slug))}>${ssrInterpolate(item.title)}</a></h6><div class="meta"><span>${ssrInterpolate(item.type)}</span> . <span>${ssrInterpolate(item.address)}</span></div></div><div class="job-action"><button class="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span></span></button><ul class="dropdown-menu"><li><a class="dropdown-item"${ssrRenderAttr("href", _ctx.route("jobs.show", item.slug))}>${ssrInterpolate(unref(trans)("View Job"))}</a></li><li><a class="dropdown-item" href="#">${ssrInterpolate(unref(trans)("Delete"))}</a></li></ul></div></div>`);
+          )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="job-title"><h6 class="mb-5"><a${ssrRenderAttr("href", _ctx.route("jobs.show", item.slug))}>${ssrInterpolate(item.title)}</a></h6><div class="meta"><span>${ssrInterpolate(item.type)}</span> . <span>${ssrInterpolate(item.address)}</span></div></div><div class="job-action"><button class="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span></span></button><ul class="dropdown-menu"><li><a class="dropdown-item"${ssrRenderAttr("href", _ctx.route("jobs.show", item.slug))}>${ssrInterpolate(unref(trans)("View Job"))}</a></li><li><a class="dropdown-item" href="#">${ssrInterpolate(unref(trans)("Delete"))}</a></li></ul></div></div>`);
         });
         _push(`<!--]-->`);
       } else {
@@ -18482,9 +18492,9 @@ const _sfc_main$2i = /* @__PURE__ */ Object.assign(__default__$O, {
   __ssrInlineRender: true,
   props: ["aiGenerated"],
   setup(__props) {
-    const props = __props;
     const { cke, ClassicEditor: ClassicEditor2 } = ckeEditor();
     sharedComposable();
+    const props = __props;
     const form = useForm({
       ...props.aiGenerated
     });
@@ -18557,14 +18567,15 @@ const _sfc_main$2h = /* @__PURE__ */ Object.assign(__default__$N, {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Ai History" }, null, _parent));
       _push(`<div class="d-sm-flex align-items-center justify-content-between lg-mb-30 mb-40"><h2 class="main-title m0">${ssrInterpolate(unref(trans)("Ai Generated History"))}</h2><div class="d-flex xs-mt-30 ms-auto"><div class="nav nav-tabs tab-filter-btn me-4"><button class="${ssrRenderClass([{ active: filterForm.value.order === "" }, "nav-link"])}" type="button">${ssrInterpolate(unref(trans)("All"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.order === "desc" }, "nav-link"])}" type="button">${ssrInterpolate(unref(trans)("New"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.order === "asc" }, "nav-link"])}" type="button">${ssrInterpolate(unref(trans)("Old"))}</button></div></div></div><div class="row my-3"><!--[-->`);
       ssrRenderList(stats.value, (stat) => {
-        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="col-lg-4 col-6"><div class="dash-card-one border-30 position-relative mb-15 bg-white"><div class="d-sm-flex align-items-center justify-content-between"><div class="icon rounded-circle d-flex align-items-center justify-content-center order-sm-1"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "lazy",
           class: "lazy-img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}></div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, stat.iconSrc)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="order-sm-0"><div class="value fw-500">${ssrInterpolate(stat.value)}</div><span>${ssrInterpolate(stat.title)}</span></div></div></div></div>`);
       });
       _push(`<!--]--></div><div class="card-box border-20 bg-white"><div class="tab-content" id="nav-tabContent"><div class="tab-pane fade show active" id="a1" role="tabpanel">`);
       if (__props.aiGenerated.total) {
@@ -18827,6 +18838,7 @@ const _sfc_main$2e = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[--><div class="row gx-0 align-items-center"><div class="col-lg-4"><div class="d-flex align-items-center justify-content-between"><h2 class="main-title m0">${ssrInterpolate(_ctx.trans("Messages"))}</h2></div></div>`);
       if (((_a2 = unref(message).conversations) == null ? void 0 : _a2.length) > 1 && unref(currentRoute)("User/Message/Show")) {
         _push(`<div class="col-lg-8"><div class="message-pagination ps-lg-4 ps-xxl-5 d-flex align-items-center justify-content-between md-mt-40"><button type="button" class="prev-msg"><img src="/assets/dashboard/images/icon/icon_26.svg" alt="" class="lazy-img"></button><div class="d-flex align-items-center"><i class="bi bi-chevron-left"></i>`);
@@ -18839,10 +18851,10 @@ const _sfc_main$2e = {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div><div class="card-box border-20 p0 mt-30 bg-white"><div class="message-wrapper"><div class="row gx-0"><div class="col-lg-4 max-h-10-r"><div class="message-sidebar pt-20"><div class="ps-xxl-4 pe-xxl-4 pe-3 ps-3"><div class="d-flex align-items-center justify-content-between"><div class="page-title fw-500">${ssrInterpolate(_ctx.trans("Inbox"))}</div></div><form class="search-form mb-20 mt-20"><input type="text" placeholder="Search contacts"${ssrRenderAttr("value", filterForm.value.name)}><button type="submit"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div><div class="card-box border-20 p0 mt-30 bg-white"><div class="message-wrapper"><div class="row gx-0"><div class="col-lg-4 max-h-10-r"><div class="message-sidebar pt-20"><div class="ps-xxl-4 pe-xxl-4 pe-3 ps-3"><div class="d-flex align-items-center justify-content-between"><div class="page-title fw-500">${ssrInterpolate(_ctx.trans("Inbox"))}</div></div><form class="search-form mb-20 mt-20"><input type="text" placeholder="Search contacts"${ssrRenderAttr("value", filterForm.value.name)}><button type="submit"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "img",
         class: "lazy-img m-auto"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/dashboard/images/icon/icon_10.svg")))}></button></form><div class="message_filter d-flex align-items-center justify-content-evenly mb-20" id="module_btns"><button class="${ssrRenderClass([{ active: filterForm.value.read === null }, "filter_btn"])}">${ssrInterpolate(_ctx.trans("All"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "read" }, "filter_btn"])}"><span class="bg-success"></span> ${ssrInterpolate(_ctx.trans("Read"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "unread" }, "filter_btn"])}"><span class="bg-danger"></span> ${ssrInterpolate(_ctx.trans("Unread"))}</button></div></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/dashboard/images/icon/icon_10.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</button></form><div class="message_filter d-flex align-items-center justify-content-evenly mb-20" id="module_btns"><button class="${ssrRenderClass([{ active: filterForm.value.read === null }, "filter_btn"])}">${ssrInterpolate(_ctx.trans("All"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "read" }, "filter_btn"])}"><span class="bg-success"></span> ${ssrInterpolate(_ctx.trans("Read"))}</button><button class="${ssrRenderClass([{ active: filterForm.value.read === "unread" }, "filter_btn"])}"><span class="bg-danger"></span> ${ssrInterpolate(_ctx.trans("Unread"))}</button></div></div>`);
       _push(ssrRenderComponent(_sfc_main$2f, null, null, _parent));
       _push(`</div></div>`);
       ssrRenderSlot(_ctx.$slots, "default", {}, null, _push, _parent);
@@ -18886,10 +18898,10 @@ const _sfc_main$2c = /* @__PURE__ */ Object.assign(__default__$K, {
   __ssrInlineRender: true,
   props: ["replies", "conversation"],
   setup(__props) {
-    const props = __props;
     const intersectionTargetView = ref(null);
     let observer = null;
     const message = useMessageStore();
+    const props = __props;
     const { authUser: authUser2, pickBy: pickBy2, textExcerpt, currentRoute, uiAvatar } = sharedComposable();
     const messageForm = useForm({
       body: "",
@@ -18990,6 +19002,7 @@ const _sfc_main$2c = /* @__PURE__ */ Object.assign(__default__$K, {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), {
         title: _ctx.trans("Messages")
@@ -18997,10 +19010,10 @@ const _sfc_main$2c = /* @__PURE__ */ Object.assign(__default__$K, {
       if (__props.conversation.deleted_by && __props.conversation.deleted_by === unref(authUser2).id) {
         _push(`<div class="col-lg-8 d-flex align-items-center justify-content-center"><p>${ssrInterpolate(_ctx.trans("You Have deleted this conversation"))}</p></div>`);
       } else {
-        _push(`<div class="col-lg-8"><div class="open-email-container pb-40"><div class="email-header divider d-flex justify-content-between ps-xxl-5 pe-xxl-5"><div class="sender-info d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="col-lg-8"><div class="open-email-container pb-40"><div class="email-header divider d-flex justify-content-between ps-xxl-5 pe-xxl-5"><div class="sender-info d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "avatar",
           class: "lazy-img logo"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_b2 = (_a2 = __props.conversation) == null ? void 0 : _a2.receiver[0]) == null ? void 0 : _b2.avatar)))}><div class="ps-3"><div class="sender-name">${ssrInterpolate((_d = (_c = __props.conversation) == null ? void 0 : _c.receiver[0]) == null ? void 0 : _d.name)}</div><div class="sender-email">${ssrInterpolate((_f = (_e = __props.conversation) == null ? void 0 : _e.receiver[0]) == null ? void 0 : _f.email)}</div></div></div><div class="email-info"><div class="d-flex align-items-center justify-content-end"><div class="action-dots float-end"><button class="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span></span></button><ul class="dropdown-menu dropdown-menu-end"><li>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_b2 = (_a2 = __props.conversation) == null ? void 0 : _a2.receiver[0]) == null ? void 0 : _b2.avatar)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="ps-3"><div class="sender-name">${ssrInterpolate((_d = (_c = __props.conversation) == null ? void 0 : _c.receiver[0]) == null ? void 0 : _d.name)}</div><div class="sender-email">${ssrInterpolate((_f = (_e = __props.conversation) == null ? void 0 : _e.receiver[0]) == null ? void 0 : _f.email)}</div></div></div><div class="email-info"><div class="d-flex align-items-center justify-content-end"><div class="action-dots float-end"><button class="action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span></span></button><ul class="dropdown-menu dropdown-menu-end"><li>`);
         _push(ssrRenderComponent(_component_Link, {
           class: "dropdown-item",
           href: _ctx.route("companies.show", (_h = (_g = __props.conversation) == null ? void 0 : _g.receiver[0]) == null ? void 0 : _h.username)
@@ -19117,16 +19130,17 @@ const _sfc_main$2b = /* @__PURE__ */ Object.assign(__default__$J, {
     return (_ctx, _push, _parent, _attrs) => {
       var _a3, _b3, _c2, _d2, _e, _f, _g, _h, _i;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Profile" }, null, _parent));
-      _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Profile"))}</h2><div class="card-box border-20 bg-white"><div class="user-avatar-setting d-flex align-items-center mb-30"><img${ssrRenderAttrs(mergeProps({
+      _push(`<h2 class="main-title">${ssrInterpolate(unref(trans)("Profile"))}</h2><div class="card-box border-20 bg-white"><div class="user-avatar-setting d-flex align-items-center mb-30"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img user-img"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         __props.user.avatar == null ? `https://ui-avatars.com/api/?name=${__props.user.name}` : `${__props.user.avatar}`
-      )))}><div class="upload-btn position-relative tran3s me-3 ms-4">${ssrInterpolate(unref(trans)("Upload new photo"))} <input type="file" id="uploadImg" name="uploadImg" placeholder=""></div></div><div class="dash-input-wrapper mb-30"><label for="">${ssrInterpolate(unref(trans)("Full Name"))} *</label><input type="text" placeholder="Zubayer Hasan"${ssrRenderAttr("value", unref(form).name)}>`);
+      )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="upload-btn position-relative tran3s me-3 ms-4">${ssrInterpolate(unref(trans)("Upload new photo"))} <input type="file" id="uploadImg" name="uploadImg" placeholder=""></div></div><div class="dash-input-wrapper mb-30"><label for="">${ssrInterpolate(unref(trans)("Full Name"))} *</label><input type="text" placeholder="Zubayer Hasan"${ssrRenderAttr("value", unref(form).name)}>`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
         message: (_a3 = unref(form).errors) == null ? void 0 : _a3.name
       }, null, _parent));
@@ -19699,6 +19713,7 @@ const _sfc_main$28 = /* @__PURE__ */ Object.assign(__default__$H, {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2, _c, _d, _e, _f, _g, _h;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), {
         title: unref(trans)("My Resume")
@@ -19779,7 +19794,7 @@ const _sfc_main$28 = /* @__PURE__ */ Object.assign(__default__$H, {
       ssrRenderList(unref(form).education_qualifications, (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `item-${index}`)}><div class="d-flex"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapseItem-${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapseItem-${index}`)}>${ssrInterpolate(unref(trans)("Education"))} ${ssrInterpolate(index + 1)}</button><button type="button" class="btn text-danger">${ssrInterpolate(unref(trans)("X"))}</button></div></div><div${ssrRenderAttr("id", `collapseItem-${index}`)} class="accordion-collapse collapse"${ssrRenderAttr("aria-labelledby", `item-${index}`)}${ssrRenderAttr("data-bs-parent", `#item-${index}`)}><div class="accordion-body"><div class="row"><div class="form-check mb-20"><input class="form-check-input" type="checkbox"${ssrIncludeBooleanAttr(Array.isArray(item.is_current) ? ssrLooseContain(item.is_current, null) : item.is_current) ? " checked" : ""}${ssrRenderAttr("id", `currentItem${index}`)}><label class="form-check-label"${ssrRenderAttr("for", `currentItem${index}`)}>${ssrInterpolate(unref(trans)(" Currenly Studing"))}</label></div><div class="row"><div class="col-md-2 dash-input-wrapper mb-2"><label for="">${ssrInterpolate(unref(trans)("Degree"))} *</label><select class="form-control select-input-degree"><!--[-->`);
         ssrRenderList(__props.education_qualifications, (item2, index2) => {
-          _push(`<option${ssrRenderAttr("value", item2.id)}>${ssrInterpolate(item2.title)}</option>`);
+          _push(`<option${ssrRenderAttr("value", item2.id)}${ssrIncludeBooleanAttr(Array.isArray(item2.degree) ? ssrLooseContain(item2.degree, item2.id) : ssrLooseEqual(item2.degree, item2.id)) ? " selected" : ""}>${ssrInterpolate(item2.title)}</option>`);
         });
         _push(`<!--]--></select>`);
         _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -19900,7 +19915,7 @@ const _sfc_main$28 = /* @__PURE__ */ Object.assign(__default__$H, {
       });
       _push(`<!--]--></div><button type="button" class="dash-btn-one"><i class="bi bi-plus"></i> ${ssrInterpolate(unref(trans)("Add more"))}</button></div><div class="card-box border-20 mt-40 bg-white"><h4 class="dash-title-three">${ssrInterpolate(unref(trans)("Portfolio"))}</h4><div class="row"><!--[-->`);
       ssrRenderList(__props.portfolios, (portfolio) => {
-        _push(`<div class="col-lg-3 col-6"><div class="candidate-portfolio-block position-relative mb-25"><div class="d-flex align-items-center justify-content-between"><span>${ssrInterpolate(portfolio.title)}</span><button class="btn text-danger"> X </button></div><img${ssrRenderAttrs(mergeProps({ class: "lazy-img w-100" }, ssrGetDirectiveProps(_ctx, _directive_lazy, portfolio.preview)))}></div></div>`);
+        _push(`<div class="col-lg-3 col-6"><div class="candidate-portfolio-block position-relative mb-25"><div class="d-flex align-items-center justify-content-between"><span>${ssrInterpolate(portfolio.title)}</span><button class="btn text-danger"> X </button></div><img${ssrRenderAttrs(_temp0 = mergeProps({ class: "lazy-img w-100" }, ssrGetDirectiveProps(_ctx, _directive_lazy, portfolio.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div>`);
       });
       _push(`<!--]--></div><button data-bs-toggle="modal" data-bs-target="#addNewPortfolioModal" class="dash-btn-one"><i class="bi bi-plus"></i> ${ssrInterpolate(unref(trans)("Add more"))}</button></div><div class="button-group d-inline-flex align-items-center mt-30"><button type="button" class="dash-btn-two tran3s me-3">${ssrInterpolate(unref(trans)("Save"))}</button><button type="button" class="dash-cancel-btn tran3s">${ssrInterpolate(unref(trans)("Cancel"))}</button></div><div class="modal fade" id="addNewPortfolioModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="addNewPortfolioModalTitle" aria-hidden="true"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><form><div class="modal-header"><h5 class="modal-title" id="addNewPortfolioModalTitle">${ssrInterpolate(unref(trans)("Add Portfolio"))}</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="mb-2"><label for="title">${ssrInterpolate(unref(trans)("Title"))}</label><input type="text"${ssrRenderAttr("value", unref(portfolioForm).title)} class="form-control">`);
       _push(ssrRenderComponent(_sfc_main$4Q, {
@@ -19971,6 +19986,7 @@ const _sfc_main$27 = /* @__PURE__ */ Object.assign(__default__$G, {
     );
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), {
         title: _ctx.trans("Job Reviews")
@@ -19991,11 +20007,11 @@ const _sfc_main$27 = /* @__PURE__ */ Object.assign(__default__$G, {
           var _a2, _b2, _c, _d, _e, _f;
           _push(`<tr><td>`);
           if (review.company) {
-            _push(`<div class="gap-3 d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({ class: "review-avatar-img" }, ssrGetDirectiveProps(
+            _push(`<div class="gap-3 d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({ class: "review-avatar-img" }, ssrGetDirectiveProps(
               _ctx,
               _directive_lazy,
               ((_a2 = review.company) == null ? void 0 : _a2.avatar) == null ? `https://ui-avatars.com/api/?name=${(_b2 = review.company) == null ? void 0 : _b2.name}` : `${(_c = review.company) == null ? void 0 : _c.avatar}`
-            )))}><a target="_blank" class="fw-bold"${ssrRenderAttr("href", _ctx.route("companies.show", (_d = review.company) == null ? void 0 : _d.username))}>${ssrInterpolate((_e = review.company) == null ? void 0 : _e.name)}</a></div>`);
+            )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<a target="_blank" class="fw-bold"${ssrRenderAttr("href", _ctx.route("companies.show", (_d = review.company) == null ? void 0 : _d.username))}>${ssrInterpolate((_e = review.company) == null ? void 0 : _e.name)}</a></div>`);
           } else {
             _push(`<!---->`);
           }
@@ -20056,6 +20072,7 @@ const _sfc_main$26 = /* @__PURE__ */ Object.assign(__default__$F, {
     };
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), { title: "Saved Jobs" }, null, _parent));
       _push(`<div class="mb-40 d-flex align-items-center justify-content-between lg-mb-30"><h2 class="main-title m0">${ssrInterpolate(_ctx.trans("Saved Job"))}</h2><div class="short-filter d-flex align-items-center"><div class="text-dark fw-500 me-2">${ssrInterpolate(_ctx.trans("Sort by"))}:</div>`);
@@ -20073,14 +20090,14 @@ const _sfc_main$26 = /* @__PURE__ */ Object.assign(__default__$F, {
         _push(`<div class="wrapper"><!--[-->`);
         ssrRenderList(__props.jobs.data, (job, index) => {
           var _a2, _b2, _c;
-          _push(`<div class="mb-20 overflow-visible job-list-one style-two position-relative"><div class="row justify-content-between align-items-center"><div class="col-xxl-3 col-lg-4"><div class="job-title d-flex align-items-center"><a target="_blank"${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="logo"><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="mb-20 overflow-visible job-list-one style-two position-relative"><div class="row justify-content-between align-items-center"><div class="col-xxl-3 col-lg-4"><div class="job-title d-flex align-items-center"><a target="_blank"${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="logo"><img${ssrRenderAttrs(_temp0 = mergeProps({
             alt: "",
             class: "m-auto lazy-img"
           }, ssrGetDirectiveProps(
             _ctx,
             _directive_lazy,
             ((_a2 = job.user) == null ? void 0 : _a2.avatar) == null ? `https://ui-avatars.com/api/?name=${(_b2 = job.user) == null ? void 0 : _b2.name}` : `${(_c = job.user) == null ? void 0 : _c.avatar}`
-          )))}></a><a target="_blank"${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="title fw-500 tran3s">${ssrInterpolate(job.title)}</a></div></div><div class="col-lg-3 col-md-4 col-sm-6 ms-auto"><a href="#" class="job-duration fw-500">${ssrInterpolate(job.type)}</a><div class="job-salary">`);
+          )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</a><a target="_blank"${ssrRenderAttr("href", _ctx.route("jobs.show", job.slug))} class="title fw-500 tran3s">${ssrInterpolate(job.title)}</a></div></div><div class="col-lg-3 col-md-4 col-sm-6 ms-auto"><a href="#" class="job-duration fw-500">${ssrInterpolate(job.type)}</a><div class="job-salary">`);
           if (job.salary_range && job.salary_range.split("-")[0] > 0 && job.salary_range.split("-")[1] > 0) {
             _push(`<span class="fw-500 text-dark">${ssrInterpolate(unref(formatNumber)(job.salary_range.split("-")[0] ?? 0, 0))}-${ssrInterpolate(unref(formatNumber)(job.salary_range.split("-")[1] ?? 0, 0))}</span>`);
           } else {
@@ -20570,12 +20587,13 @@ const _sfc_main$20 = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "how-it-works position-relative bg-color pt-110 lg-pt-80 pb-110 lg-pb-70" }, _attrs))}><div class="container"><div class="title-one mb-65 lg-mb-40 text-center"><h2 class="text-white">${ssrInterpolate(_ctx.trans("How it’s"))} <span class="position-relative">${ssrInterpolate(_ctx.trans("work?"))} <img src="/assets/images/shape/shape_07.svg" alt="" class="lazy-img shapes shape"></span></h2></div><div class="row justify-content-center"><!--[-->`);
       ssrRenderList(features.value, (item, index) => {
-        _push(`<div class="${ssrRenderClass([{ "m-auto": index == 1 }, "col-xxl-3 col-lg-4 col-md-6"])}"><div class="${ssrRenderClass([{ "position-relative arrow": index == 1 }, "card-style-two mt-25 wow fadeInUp text-center"])}"><div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="${ssrRenderClass([{ "m-auto": index == 1 }, "col-xxl-3 col-lg-4 col-md-6"])}"><div class="${ssrRenderClass([{ "position-relative arrow": index == 1 }, "card-style-two mt-25 wow fadeInUp text-center"])}"><div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "preview",
           class: "m-h-40px"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div><div class="title fw-500 text-white">${ssrInterpolate(item.title)}</div><p${ssrRenderAttr("title", item.full_text)}>${ssrInterpolate(item.text)}</p></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title fw-500 text-white">${ssrInterpolate(item.title)}</div><p${ssrRenderAttr("title", item.full_text)}>${ssrInterpolate(item.text)}</p></div></div>`);
       });
       _push(`<!--]--></div></div><img src="/assets/images/shape/shape_08.svg" alt="" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_09.svg" alt="" class="lazy-img shapes shape_02"></section>`);
     };
@@ -20623,6 +20641,7 @@ const _sfc_main$1$ = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "feedback-section-one pt-180 xl-pt-150 lg-pt-100" }, _attrs))}><div class="position-relative container"><div class="row"><div class="col-lg-5 col-md-6"><div class="title-one text-md-start mb-65 md-mb-50 text-center"><h2>${ssrInterpolate(_ctx.trans("Trusted by leading startups."))}</h2></div></div></div>`);
       _push(ssrRenderComponent(unref(Swiper), {
         breakpoints,
@@ -20639,7 +20658,7 @@ const _sfc_main$1$ = {
               }, {
                 default: withCtx((_2, _push3, _parent3, _scopeId2) => {
                   if (_push3) {
-                    _push3(`<div class="logo"${_scopeId2}><img${ssrRenderAttrs(mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.banner_logo)))}${_scopeId2}></div><blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30"${_scopeId2}>“${ssrInterpolate(item.review)}”</blockquote><div class="name text-dark"${_scopeId2}><span class="fw-500"${_scopeId2}>${ssrInterpolate(item.author)},</span> ${ssrInterpolate(item.author_designation)}</div><div class="review md-pt-20 md-mt-30 d-flex justify-content-between align-items-center mt-40 pt-40"${_scopeId2}><div class="text-md fw-500 text-dark"${_scopeId2}>${ssrInterpolate(item.ratting_point)}.0 ${ssrInterpolate(item.rating_type)}</div><ul class="style-none d-flex"${_scopeId2}><!--[-->`);
+                    _push3(`<div class="logo"${_scopeId2}><img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.banner_logo)))}${_scopeId2}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30"${_scopeId2}>“${ssrInterpolate(item.review)}”</blockquote><div class="name text-dark"${_scopeId2}><span class="fw-500"${_scopeId2}>${ssrInterpolate(item.author)},</span> ${ssrInterpolate(item.author_designation)}</div><div class="review md-pt-20 md-mt-30 d-flex justify-content-between align-items-center mt-40 pt-40"${_scopeId2}><div class="text-md fw-500 text-dark"${_scopeId2}>${ssrInterpolate(item.ratting_point)}.0 ${ssrInterpolate(item.rating_type)}</div><ul class="style-none d-flex"${_scopeId2}><!--[-->`);
                     ssrRenderList(5, (sl) => {
                       _push3(`<li${_scopeId2}><a href="#"${_scopeId2}><i class="${ssrRenderClass(sl <= item.ratting_point ? "bi bi-star-fill" : "bi bi-star")}"${_scopeId2}></i></a></li>`);
                     });
@@ -20733,7 +20752,7 @@ const _sfc_main$1$ = {
               }, {
                 default: withCtx((_2, _push3, _parent3, _scopeId2) => {
                   if (_push3) {
-                    _push3(`<img${ssrRenderAttrs(mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId2}>`);
+                    _push3(`<img${ssrRenderAttrs(_temp1 = mergeProps({ alt: "image" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId2}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
                   } else {
                     return [
                       withDirectives(createVNode("img", { alt: "image" }, null, 512), [
@@ -20850,6 +20869,7 @@ const _sfc_main$1Z = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<div${ssrRenderAttrs(mergeProps({
         class: ["inner-banner-one position-relative", breadcrumbColor.value]
       }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="m-auto text-center"><div class="title-two"><h2${ssrRenderAttr("title", __props.title)}>${ssrInterpolate(unref(textExcerpt)(__props.title || "Title", 40))}</h2></div><ul class="style-none d-flex justify-content-center page-pagination mt-15"><li>`);
@@ -20869,13 +20889,13 @@ const _sfc_main$1Z = {
       } else {
         _push(`<!---->`);
       }
-      _push(`<template>${ssrInterpolate(_ctx.trans("Home"))}</template></li><li><i class="bi bi-chevron-right"></i></li><li>${ssrInterpolate(unref(textExcerpt)(__props.subtitle, 60))}</li></ul></div></div></div></div><img${ssrRenderAttrs(mergeProps({
+      _push(`<template>${ssrInterpolate(_ctx.trans("Home"))}</template></li><li><i class="bi bi-chevron-right"></i></li><li>${ssrInterpolate(unref(textExcerpt)(__props.subtitle, 60))}</li></ul></div></div></div></div><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "shape",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_02.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_02.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "shape",
         class: "lazy-img shapes shape_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_03.svg")))}></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_03.svg")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div>`);
     };
   }
 };
@@ -20894,6 +20914,7 @@ const _sfc_main$1Y = /* @__PURE__ */ Object.assign(__default__$z, {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(unref(Head), {
         title: __props.seo.site_name
@@ -20918,25 +20939,25 @@ const _sfc_main$1Y = /* @__PURE__ */ Object.assign(__default__$z, {
       } else {
         _push(`<!---->`);
       }
-      _push(`<a${ssrRenderAttr("href", __props.about.cta_s2.btn_link)} class="btn-one lg mt-50 md-mt-30">${ssrInterpolate(__props.about.cta_s2.btn_text)}</a></div></div><div class="m-auto col-lg-7 col-md-11 order-lg-first"><div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(mergeProps({
+      _push(`<a${ssrRenderAttr("href", __props.about.cta_s2.btn_link)} class="btn-one lg mt-50 md-mt-30">${ssrInterpolate(__props.about.cta_s2.btn_text)}</a></div></div><div class="m-auto col-lg-7 col-md-11 order-lg-first"><div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img img01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image1)))}></div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img img02 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image2)))}></div><div class="col-md-6 col-7"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="col-md-6 col-7"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img img01 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image3)))}></div></div><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen01 wow fadeInRight"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image4)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen02 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image5)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image5)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen03 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image6)))}><img src="/assets/images/shape/shape_06.svg" alt="image" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.about.cta_s2.image6)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<img src="/assets/images/shape/shape_06.svg" alt="image" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
       _push(ssrRenderComponent(_sfc_main$20, null, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1$, null, null, _parent));
       _push(ssrRenderComponent(JobIntro$1, null, null, _parent));
@@ -20963,6 +20984,7 @@ const _sfc_main$1X = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<article${ssrRenderAttrs(mergeProps({ class: "blog-meta-two mb-75 lg-mb-40" }, _attrs))}><figure class="post-img m0">`);
       _push(ssrRenderComponent(unref(Link), {
         href: _ctx.route("blogs.show", __props.post),
@@ -20970,10 +20992,10 @@ const _sfc_main$1X = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
               alt: "preview",
               class: "lazy-img w-100 tran4s"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.post.preview.value)))}${_scopeId}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.post.preview.value)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", {
@@ -21075,6 +21097,7 @@ const _sfc_main$1W = {
       var _a2;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "blog-sidebar ps-xl-4 md-mt-60" }, _attrs))}><form class="search-form position-relative mb-50 lg-mb-40"><input${ssrRenderAttr("value", searchInput.value)} type="text" placeholder="Search..."><button><i class="bi bi-search"></i></button></form>`);
       if (__props.categories.length) {
         _push(`<div class="category-list lg-mb-40 mb-60"><h3 class="sidebar-title">${ssrInterpolate(_ctx.trans("Category"))}</h3><ul class="style-none"><!--[-->`);
@@ -21105,10 +21128,10 @@ const _sfc_main$1W = {
         _push(`<!--[-->`);
         ssrRenderList(__props.recent_blogs, (item, index) => {
           var _a3;
-          _push(`<div class="pt-20 pb-20 news-block d-flex align-items-center border-top"><div><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="pt-20 pb-20 news-block d-flex align-items-center border-top"><div><img${ssrRenderAttrs(_temp0 = mergeProps({
             alt: "img",
             class: "lazy-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a3 = item.preview) == null ? void 0 : _a3.value)))}></div><div class="post ps-4"><h4 class="mb-5">`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a3 = item.preview) == null ? void 0 : _a3.value)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="post ps-4"><h4 class="mb-5">`);
           _push(ssrRenderComponent(_component_Link, {
             href: _ctx.route("blogs.show", item),
             class: "title tran3s"
@@ -21243,6 +21266,7 @@ const _sfc_main$1U = /* @__PURE__ */ Object.assign(__default__$x, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -21251,10 +21275,10 @@ const _sfc_main$1U = /* @__PURE__ */ Object.assign(__default__$x, {
         "href-text": _ctx.trans("Home"),
         subtitle: _ctx.trans("Blog")
       }, null, _parent));
-      _push(`<section class="blog-section pt-100 lg-pt-80"><div class="container"><div class="border-bottom pb-160 xl-pb-130 lg-pb-80"><div class="row"><div class="col-lg-8"><div class="blog-details-page pe-xxl-5 me-xxl-3"><article class="blog-details-meta"><div class="blog-pubish-date">${ssrInterpolate((_a2 = __props.blog.categories[0]) == null ? void 0 : _a2.title)} . ${ssrInterpolate(unref(moment)(__props.blog.created_at).format("DD MMM, YYYY"))}</div><h2 class="blog-heading">${ssrInterpolate(__props.blog.title)}</h2><div class="img-meta mb-15"><img${ssrRenderAttrs(mergeProps({
+      _push(`<section class="blog-section pt-100 lg-pt-80"><div class="container"><div class="border-bottom pb-160 xl-pb-130 lg-pb-80"><div class="row"><div class="col-lg-8"><div class="blog-details-page pe-xxl-5 me-xxl-3"><article class="blog-details-meta"><div class="blog-pubish-date">${ssrInterpolate((_a2 = __props.blog.categories[0]) == null ? void 0 : _a2.title)} . ${ssrInterpolate(unref(moment)(__props.blog.created_at).format("DD MMM, YYYY"))}</div><h2 class="blog-heading">${ssrInterpolate(__props.blog.title)}</h2><div class="img-meta mb-15"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "preview",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_b2 = __props.blog.preview) == null ? void 0 : _b2.value)))}></div><h4>${ssrInterpolate(_ctx.trans("Overview"))}</h4><div>${(_c = __props.blog.short_description) == null ? void 0 : _c.value}</div><br><hr><br><div>${(_d = __props.blog.long_description) == null ? void 0 : _d.value}</div><div class="bottom-widget d-sm-flex align-items-center justify-content-between"><ul class="pb-20 d-flex tags style-none"><li>${ssrInterpolate(_ctx.trans("Tag"))}:</li><li><!--[-->`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_b2 = __props.blog.preview) == null ? void 0 : _b2.value)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><h4>${ssrInterpolate(_ctx.trans("Overview"))}</h4><div>${((_c = __props.blog.short_description) == null ? void 0 : _c.value) ?? ""}</div><br><hr><br><div>${((_d = __props.blog.long_description) == null ? void 0 : _d.value) ?? ""}</div><div class="bottom-widget d-sm-flex align-items-center justify-content-between"><ul class="pb-20 d-flex tags style-none"><li>${ssrInterpolate(_ctx.trans("Tag"))}:</li><li><!--[-->`);
       ssrRenderList(__props.blog.tags, (item, index) => {
         _push(ssrRenderComponent(_component_Link, {
           key: index,
@@ -21338,12 +21362,13 @@ const _sfc_main$1S = /* @__PURE__ */ Object.assign(__default__$w, {
   __ssrInlineRender: true,
   props: ["blogs", "categories", "recent_blogs", "tags", "meta"],
   setup(__props) {
-    const props = __props;
     const { textExcerpt } = sharedComposable();
+    const props = __props;
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.meta }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -21364,10 +21389,10 @@ const _sfc_main$1S = /* @__PURE__ */ Object.assign(__default__$w, {
             default: withCtx((_, _push2, _parent2, _scopeId) => {
               var _a2, _b2;
               if (_push2) {
-                _push2(`<img${ssrRenderAttrs(mergeProps({
+                _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                   alt: "preview",
                   class: "lazy-img w-100 tran4s"
-                }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = post.preview) == null ? void 0 : _a2.value)))}${_scopeId}>`);
+                }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = post.preview) == null ? void 0 : _a2.value)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
               } else {
                 return [
                   withDirectives(createVNode("img", {
@@ -21882,6 +21907,7 @@ const _sfc_main$1O = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2, _c, _d, _e;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "col-xxl-3 col-lg-4 col-sm-6 d-flex" }, _attrs))}><div class="${ssrRenderClass([{ favourite: __props.candidate.is_star }, "candidate-profile-card grid-layout mb-25 text-center"])}"><button class="save-btn tran3s"><i class="${ssrRenderClass([[__props.candidate.isBookmarked ? "text-danger bi-heart-fill" : "bi-heart"], "bi"])}"></i></button><div class="cadidate-avatar online position-relative d-block m-auto">`);
       _push(ssrRenderComponent(unref(Link), {
         href: _ctx.route("candidates.show", __props.candidate.username),
@@ -21890,14 +21916,14 @@ const _sfc_main$1O = {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           var _a3, _b3, _c2, _d2;
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
               alt: "avatar",
               class: "lazy-img rounded-circle"
             }, ssrGetDirectiveProps(
               _ctx,
               _directive_lazy,
               ((_a3 = __props.candidate) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${__props.candidate.name}` : `${(_b3 = __props.candidate) == null ? void 0 : _b3.avatar}`
-            )))}${_scopeId}>`);
+            )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", {
@@ -22009,6 +22035,7 @@ const _sfc_main$1N = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2, _c, _d;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({
         class: ["candidate-profile-card list-layout mb-25", { favourite: __props.candidate.is_star }]
       }, _attrs))}><div class="d-flex"><div class="cadidate-avatar online position-relative d-block m-auto">`);
@@ -22019,14 +22046,14 @@ const _sfc_main$1N = {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           var _a3, _b3, _c2, _d2;
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
               alt: "avatar",
               class: "lazy-img rounded-circle"
             }, ssrGetDirectiveProps(
               _ctx,
               _directive_lazy,
               ((_a3 = __props.candidate) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${__props.candidate.name}` : `${(_b3 = __props.candidate) == null ? void 0 : _b3.avatar}`
-            )))}${_scopeId}>`);
+            )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", {
@@ -22155,17 +22182,18 @@ const _sfc_main$1L = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<div${ssrRenderAttrs(mergeProps({
         class: ["inner-banner-one position-relative", innerBannerColor.value]
       }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-xl-6 m-auto text-center"><div class="title-two"><h2>${ssrInterpolate(_ctx.trans("Candidates"))}</h2></div><p class="mt-30 lg-mt-20 mb-35 lg-mb-20 text-lg">${ssrInterpolate(_ctx.trans("Find you desire talents & make your work done"))}</p></div></div><div class="position-relative"><div class="row"><div class="col-xl-9 col-lg-8 m-auto"><div class="job-search-one position-relative">`);
       _push(ssrRenderComponent(_sfc_main$1M, null, null, _parent));
-      _push(`</div></div></div></div></div></div><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div></div></div></div></div><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "shape",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_02.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_02.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "shape",
         class: "lazy-img shapes shape_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_03.svg")))}></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_03.svg")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div>`);
     };
   }
 };
@@ -22195,10 +22223,10 @@ const _sfc_main$1K = /* @__PURE__ */ Object.assign(__default__$u, {
     "highestSalaryAmount"
   ],
   setup(__props) {
-    const props = __props;
     const { getQueryParams: getQueryParams2 } = sharedComposable();
     const store = useCandidateFilterStore();
     const request = getQueryParams2();
+    const props = __props;
     onMounted(() => {
       store.$patch({
         services: props.services,
@@ -22306,10 +22334,10 @@ const _sfc_main$1J = /* @__PURE__ */ Object.assign(__default__$t, {
     "highestSalaryAmount"
   ],
   setup(__props) {
-    const props = __props;
     const { getQueryParams: getQueryParams2 } = sharedComposable();
     const store = useCandidateFilterStore();
     const request = getQueryParams2();
+    const props = __props;
     onMounted(() => {
       store.$patch({
         services: props.services,
@@ -22407,8 +22435,8 @@ const _sfc_main$1I = /* @__PURE__ */ Object.assign(__default__$s, {
   props: ["candidate", "seo"],
   setup(__props) {
     var _a2;
-    const props = __props;
     const { authUser: authUser2, formatNumber } = sharedComposable();
+    const props = __props;
     const meta = ((_a2 = props.candidate) == null ? void 0 : _a2.meta) ?? {};
     const form = useForm({
       body: "",
@@ -22454,6 +22482,7 @@ const _sfc_main$1I = /* @__PURE__ */ Object.assign(__default__$s, {
       var _a3, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z;
       const _component_Seo = resolveComponent("Seo");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -22504,13 +22533,13 @@ const _sfc_main$1I = /* @__PURE__ */ Object.assign(__default__$s, {
       if ((_e = __props.candidate.portfolios) == null ? void 0 : _e.length) {
         _push(`<!--[--><h3 class="title">${ssrInterpolate(unref(trans)("Portfolio"))}</h3><div class="candidate-portfolio-slider"><!--[-->`);
         ssrRenderList(__props.candidate.portfolios, (item, index) => {
-          _push(`<div class="item"><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="item"><img${ssrRenderAttrs(_temp0 = mergeProps({
             alt: "preview",
             class: "w-100",
             "data-bs-toggle": "tooltip",
             "data-bs-placement": "bottom",
             title: item.title
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div>`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div>`);
         });
         _push(`<!--]--></div><!--]-->`);
       } else {
@@ -22524,27 +22553,27 @@ const _sfc_main$1I = /* @__PURE__ */ Object.assign(__default__$s, {
           ssrRenderList(review.ratting, (item, index2) => {
             _push(`<li><a href="#" tabindex="0"><i class="bi bi-star-fill"></i></a></li>`);
           });
-          _push(`<!--]--></ul><div class="review-score"><span class="fw-500 text-dark">${ssrInterpolate((_a4 = review.ratting) == null ? void 0 : _a4.toFixed(1))}</span> ${ssrInterpolate(unref(trans)("out of 5"))}</div></div><blockquote>${ssrInterpolate(review.comment)}</blockquote><div class="d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({
+          _push(`<!--]--></ul><div class="review-score"><span class="fw-500 text-dark">${ssrInterpolate((_a4 = review.ratting) == null ? void 0 : _a4.toFixed(1))}</span> ${ssrInterpolate(unref(trans)("out of 5"))}</div></div><blockquote>${ssrInterpolate(review.comment)}</blockquote><div class="d-flex align-items-center"><img${ssrRenderAttrs(_temp1 = mergeProps({
             alt: "img",
             class: "author-img rounded-circle"
           }, ssrGetDirectiveProps(
             _ctx,
             _directive_lazy,
             ((_b3 = review.company) == null ? void 0 : _b3.avatar) == null ? `https://ui-avatars.com/api/?name=${(_c2 = review.company) == null ? void 0 : _c2.name}` : `${(_d2 = review.company) == null ? void 0 : _d2.avatar}`
-          )))}><div class="ms-3"><div class="name fw-500 text-dark">${ssrInterpolate((_e2 = review.company) == null ? void 0 : _e2.name)}</div><span class="opacity-50">${ssrInterpolate(((_g2 = (_f2 = review.company) == null ? void 0 : _f2.countries[0]) == null ? void 0 : _g2.name) ?? "")}</span></div></div></div></div>`);
+          )))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<div class="ms-3"><div class="name fw-500 text-dark">${ssrInterpolate((_e2 = review.company) == null ? void 0 : _e2.name)}</div><span class="opacity-50">${ssrInterpolate(((_g2 = (_f2 = review.company) == null ? void 0 : _f2.countries[0]) == null ? void 0 : _g2.name) ?? "")}</span></div></div></div></div>`);
         });
         _push(`<!--]--></div></div>`);
       } else {
         _push(`<!---->`);
       }
-      _push(`</div></div><div class="col-xxl-3 col-lg-4"><div class="cadidate-profile-sidebar ms-xl-5 ms-xxl-0 md-mt-60"><div class="cadidate-bio bg-wrapper bg-color md-mb-40 mb-60"><div class="pt-25"><div class="cadidate-avatar m-auto"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div><div class="col-xxl-3 col-lg-4"><div class="cadidate-profile-sidebar ms-xl-5 ms-xxl-0 md-mt-60"><div class="cadidate-bio bg-wrapper bg-color md-mb-40 mb-60"><div class="pt-25"><div class="cadidate-avatar m-auto"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "img",
         class: "lazy-img rounded-circle w-100"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         ((_g = __props.candidate) == null ? void 0 : _g.avatar) == null ? `https://ui-avatars.com/api/?name=${__props.candidate.name}` : `${(_h = __props.candidate) == null ? void 0 : _h.avatar}`
-      )))}></div></div><h3 class="cadidate-name text-center">${ssrInterpolate(__props.candidate.name)}</h3><ul class="style-none"><li><span>${ssrInterpolate(unref(trans)("Location"))}: </span><div>${ssrInterpolate(__props.candidate.state ?? "")} , ${ssrInterpolate(__props.candidate.country ?? "")}</div></li><li><span>${ssrInterpolate(unref(trans)("Date of Birth"))}: </span><div>${ssrInterpolate(unref(moment)(unref(meta).date_of_birth).format("DD-MMM-YYYY"))}</div></li><li><span>${ssrInterpolate(unref(trans)("Qualification"))}: </span><div>${ssrInterpolate(__props.candidate.currentEducationDegree)}</div></li><li><span>${ssrInterpolate(unref(trans)("Gender"))}: </span><div class="text-capitalize">${ssrInterpolate(unref(meta).gender)}</div></li><li><span>${ssrInterpolate(unref(trans)("Expected Salary"))}: </span>`);
+      )))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><h3 class="cadidate-name text-center">${ssrInterpolate(__props.candidate.name)}</h3><ul class="style-none"><li><span>${ssrInterpolate(unref(trans)("Location"))}: </span><div>${ssrInterpolate(__props.candidate.state ?? "")} , ${ssrInterpolate(__props.candidate.country ?? "")}</div></li><li><span>${ssrInterpolate(unref(trans)("Date of Birth"))}: </span><div>${ssrInterpolate(unref(moment)(unref(meta).date_of_birth).format("DD-MMM-YYYY"))}</div></li><li><span>${ssrInterpolate(unref(trans)("Qualification"))}: </span><div>${ssrInterpolate(__props.candidate.currentEducationDegree)}</div></li><li><span>${ssrInterpolate(unref(trans)("Gender"))}: </span><div class="text-capitalize">${ssrInterpolate(unref(meta).gender)}</div></li><li><span>${ssrInterpolate(unref(trans)("Expected Salary"))}: </span>`);
       if (((_i = unref(meta)) == null ? void 0 : _i.expected_salary) && ((_j = unref(meta)) == null ? void 0 : _j.expected_salary) > 1) {
         _push(`<div>${ssrInterpolate(unref(formatNumber)(unref(meta).expected_salary))}/ ${ssrInterpolate(unref(meta).currency)}</div>`);
       } else {
@@ -22650,10 +22679,10 @@ const _sfc_main$1H = /* @__PURE__ */ Object.assign(__default__$r, {
     "highestSalaryAmount"
   ],
   setup(__props) {
-    const props = __props;
     const { getQueryParams: getQueryParams2 } = sharedComposable();
     const store = useCandidateFilterStore();
     const request = getQueryParams2();
+    const props = __props;
     store.$patch({
       services: props.services,
       categories: props.categories,
@@ -22785,10 +22814,10 @@ const _sfc_main$1G = /* @__PURE__ */ Object.assign(__default__$q, {
     "highestSalaryAmount"
   ],
   setup(__props) {
-    const props = __props;
     const { getQueryParams: getQueryParams2 } = sharedComposable();
     const store = useCandidateFilterStore();
     const request = getQueryParams2();
+    const props = __props;
     onMounted(() => {
       store.$patch({
         services: props.services,
@@ -22888,8 +22917,8 @@ const _sfc_main$1F = /* @__PURE__ */ Object.assign(__default__$p, {
   props: ["candidate", "seo"],
   setup(__props) {
     var _a2;
-    const props = __props;
     const themeLoader = useThemeLoaderStore();
+    const props = __props;
     const meta = ((_a2 = props.candidate) == null ? void 0 : _a2.meta) ?? {};
     const { authUser: authUser2, formatNumber } = sharedComposable();
     onMounted(() => {
@@ -22942,16 +22971,17 @@ const _sfc_main$1F = /* @__PURE__ */ Object.assign(__default__$p, {
       var _a3, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z;
       const _component_Seo = resolveComponent("Seo");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
-      _push(`<div class="${ssrRenderClass([breadcrumbColor.value, "inner-banner-one position-relative"])}"><div class="container"><div class="candidate-profile-card list-layout"><div class="d-flex align-items-start align-items-xl-center"><div class="cadidate-avatar position-relative d-block me-auto ms-auto"><a href="#" class="rounded-circle"><img${ssrRenderAttrs(mergeProps({
+      _push(`<div class="${ssrRenderClass([breadcrumbColor.value, "inner-banner-one position-relative"])}"><div class="container"><div class="candidate-profile-card list-layout"><div class="d-flex align-items-start align-items-xl-center"><div class="cadidate-avatar position-relative d-block me-auto ms-auto"><a href="#" class="rounded-circle"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img rounded-circle"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         ((_a3 = __props.candidate) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${__props.candidate.name}` : `${(_b2 = __props.candidate) == null ? void 0 : _b2.avatar}`
-      )))}></a></div><div class="right-side"><div class="row gx-1 align-items-center"><div class="col-xl-2 order-xl-0"><div class="position-relative"><h4 class="candidate-name mb-0">${ssrInterpolate(__props.candidate.name)}</h4><div class="candidate-post">${ssrInterpolate(__props.candidate.serviceName)}</div></div></div><div class="col-xl-3 order-xl-3"><ul class="cadidate-skills style-none d-flex align-items-center flex-wrap"><!--[-->`);
+      )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</a></div><div class="right-side"><div class="row gx-1 align-items-center"><div class="col-xl-2 order-xl-0"><div class="position-relative"><h4 class="candidate-name mb-0">${ssrInterpolate(__props.candidate.name)}</h4><div class="candidate-post">${ssrInterpolate(__props.candidate.serviceName)}</div></div></div><div class="col-xl-3 order-xl-3"><ul class="cadidate-skills style-none d-flex align-items-center flex-wrap"><!--[-->`);
       ssrRenderList(__props.candidate.skills ?? [], (item, index) => {
         _push(`<li>${ssrInterpolate(item.title)}</li>`);
       });
@@ -23007,13 +23037,13 @@ const _sfc_main$1F = /* @__PURE__ */ Object.assign(__default__$p, {
       if ((_f = __props.candidate.portfolios) == null ? void 0 : _f.length) {
         _push(`<!--[--><h3 class="title">${ssrInterpolate(_ctx.trans("Portfolio"))}</h3><div class="candidate-portfolio-slider"><!--[-->`);
         ssrRenderList(__props.candidate.portfolios, (item, index) => {
-          _push(`<div class="item"><img${ssrRenderAttrs(mergeProps({
+          _push(`<div class="item"><img${ssrRenderAttrs(_temp1 = mergeProps({
             alt: "preview",
             class: "w-100",
             "data-bs-toggle": "tooltip",
             "data-bs-placement": "bottom",
             title: item.title
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div>`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div>`);
         });
         _push(`<!--]--></div><!--]-->`);
       } else {
@@ -23028,14 +23058,14 @@ const _sfc_main$1F = /* @__PURE__ */ Object.assign(__default__$p, {
           ssrRenderList(review.ratting, (item, index2) => {
             _push(`<li><a href="#" tabindex="0"><i class="bi bi-star-fill"></i></a></li>`);
           });
-          _push(`<!--]--></ul><div class="review-score"><span class="fw-500 text-dark">${ssrInterpolate((_a4 = review.ratting) == null ? void 0 : _a4.toFixed(1))}</span> ${ssrInterpolate(_ctx.trans("out of 5"))}</div></div><blockquote>${ssrInterpolate(review.comment)}</blockquote><div class="d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({
+          _push(`<!--]--></ul><div class="review-score"><span class="fw-500 text-dark">${ssrInterpolate((_a4 = review.ratting) == null ? void 0 : _a4.toFixed(1))}</span> ${ssrInterpolate(_ctx.trans("out of 5"))}</div></div><blockquote>${ssrInterpolate(review.comment)}</blockquote><div class="d-flex align-items-center"><img${ssrRenderAttrs(_temp2 = mergeProps({
             alt: "img",
             class: "author-img rounded-circle"
           }, ssrGetDirectiveProps(
             _ctx,
             _directive_lazy,
             ((_b3 = review.company) == null ? void 0 : _b3.avatar) == null ? `https://ui-avatars.com/api/?name=${(_c2 = review.company) == null ? void 0 : _c2.name}` : `${(_d2 = review.company) == null ? void 0 : _d2.avatar}`
-          )))}><div class="ms-3"><div class="name fw-500 text-dark">${ssrInterpolate((_e2 = review.company) == null ? void 0 : _e2.name)}</div><span class="opacity-50">${ssrInterpolate(((_g2 = (_f2 = review.company) == null ? void 0 : _f2.countries[0]) == null ? void 0 : _g2.name) ?? "")}</span></div></div></div></div>`);
+          )))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}<div class="ms-3"><div class="name fw-500 text-dark">${ssrInterpolate((_e2 = review.company) == null ? void 0 : _e2.name)}</div><span class="opacity-50">${ssrInterpolate(((_g2 = (_f2 = review.company) == null ? void 0 : _f2.countries[0]) == null ? void 0 : _g2.name) ?? "")}</span></div></div></div></div>`);
         });
         _push(`<!--]--></div></div>`);
       } else {
@@ -23319,6 +23349,7 @@ const _sfc_main$1D = /* @__PURE__ */ Object.assign(__default__$o, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -23347,14 +23378,14 @@ const _sfc_main$1D = /* @__PURE__ */ Object.assign(__default__$o, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "img",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -23429,14 +23460,14 @@ const _sfc_main$1D = /* @__PURE__ */ Object.assign(__default__$o, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -23473,24 +23504,24 @@ const _sfc_main$1D = /* @__PURE__ */ Object.assign(__default__$o, {
         if (((_d = (_c = company.meta.company) == null ? void 0 : _c.teams) == null ? void 0 : _d.length) > 0) {
           _push(`<!--[-->`);
           ssrRenderList((_f = (_e = company == null ? void 0 : company.meta) == null ? void 0 : _e.company) == null ? void 0 : _f.teams, (team) => {
-            _push(`<img${ssrRenderAttrs(mergeProps({
+            _push(`<img${ssrRenderAttrs(_temp2 = mergeProps({
               key: team,
               alt: "img",
               class: "lazy-img rounded-circle team-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}`);
           });
           _push(`<!--]-->`);
         } else {
-          _push(`<!--[--><img${ssrRenderAttrs(mergeProps({
+          _push(`<!--[--><img${ssrRenderAttrs(_temp3 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}><!--]-->`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<!--]-->`);
         }
         _push(`<div class="team-text"><span class="text-md fw-500 text-dark d-block">${ssrInterpolate(company.meta.company.size)}</span> ${ssrInterpolate(_ctx.trans(" Team Size"))}</div></div></div></div><div class="col-lg-3 col-md-4"><div class="btn-group d-flex align-items-center justify-content-md-end md-mt-20">`);
         _push(ssrRenderComponent(_component_Link, {
@@ -23632,6 +23663,7 @@ const _sfc_main$1B = /* @__PURE__ */ Object.assign(__default__$n, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -23666,14 +23698,14 @@ const _sfc_main$1B = /* @__PURE__ */ Object.assign(__default__$n, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -23748,14 +23780,14 @@ const _sfc_main$1B = /* @__PURE__ */ Object.assign(__default__$n, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -23792,24 +23824,24 @@ const _sfc_main$1B = /* @__PURE__ */ Object.assign(__default__$n, {
         if (((_d = (_c = company.meta.company) == null ? void 0 : _c.teams) == null ? void 0 : _d.length) > 0) {
           _push(`<!--[-->`);
           ssrRenderList((_f = (_e = company == null ? void 0 : company.meta) == null ? void 0 : _e.company) == null ? void 0 : _f.teams, (team) => {
-            _push(`<img${ssrRenderAttrs(mergeProps({
+            _push(`<img${ssrRenderAttrs(_temp2 = mergeProps({
               key: team,
               alt: "img",
               class: "lazy-img rounded-circle team-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}`);
           });
           _push(`<!--]-->`);
         } else {
-          _push(`<!--[--><img${ssrRenderAttrs(mergeProps({
+          _push(`<!--[--><img${ssrRenderAttrs(_temp3 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}><!--]-->`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<!--]-->`);
         }
         _push(`<div class="team-text"><span class="text-md fw-500 text-dark d-block">${ssrInterpolate(company.meta.company.size)}</span> ${ssrInterpolate(_ctx.trans(" Team Size"))}</div></div></div></div><div class="col-xl-3 col-md-4"><div class="btn-group d-flex align-items-center justify-content-md-end lg-mt-20">`);
         _push(ssrRenderComponent(_component_Link, {
@@ -23897,6 +23929,7 @@ const _sfc_main$1A = /* @__PURE__ */ Object.assign(__default__$m, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -23905,14 +23938,14 @@ const _sfc_main$1A = /* @__PURE__ */ Object.assign(__default__$m, {
         "href-text": _ctx.trans("Home"),
         subtitle: companyDetails.value.name
       }, null, _parent));
-      _push(`<section class="company-details lg-pt-80 pb-160 xl-pb-150 lg-pb-80 pt-80"><div class="container"><div class="row"><div class="col-xxl-3 col-xl-4 order-xl-last"><div class="job-company-info ms-xl-5 ms-xxl-0 lg-mb-50"><img${ssrRenderAttrs(mergeProps({
+      _push(`<section class="company-details lg-pt-80 pb-160 xl-pb-150 lg-pb-80 pt-80"><div class="container"><div class="row"><div class="col-xxl-3 col-xl-4 order-xl-last"><div class="job-company-info ms-xl-5 ms-xxl-0 lg-mb-50"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "img",
         class: "m-auto lazy-img logo"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         __props.company.avatar == null ? `https://ui-avatars.com/api/?name=${__props.company.name}` : `${__props.company.avatar}`
-      )))}><div class="mb-20 text-center text-md text-dark mt-15 lg-mb-10">${ssrInterpolate(companyDetails.value.name)}</div><div class="text-center">`);
+      )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="mb-20 text-center text-md text-dark mt-15 lg-mb-10">${ssrInterpolate(companyDetails.value.name)}</div><div class="text-center">`);
       if (business.value.site_url) {
         _push(`<a${ssrRenderAttr("href", business.value.site_url)} class="website-btn-two tran3s" target="_blank">${ssrInterpolate(_ctx.trans("Visit our website"))}</a>`);
       } else {
@@ -23990,14 +24023,14 @@ const _sfc_main$1A = /* @__PURE__ */ Object.assign(__default__$m, {
             default: withCtx((_, _push2, _parent2, _scopeId) => {
               var _a3, _b3, _c2, _d2;
               if (_push2) {
-                _push2(`<img${ssrRenderAttrs(mergeProps({
+                _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                   alt: "img",
                   class: "m-auto lazy-img"
                 }, ssrGetDirectiveProps(
                   _ctx,
                   _directive_lazy,
                   ((_a3 = job.user) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${job.user.name}` : `${(_b3 = job.user) == null ? void 0 : _b3.avatar}`
-                )))}${_scopeId}>`);
+                )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
               } else {
                 return [
                   withDirectives(createVNode("img", {
@@ -24152,6 +24185,7 @@ const _sfc_main$1z = /* @__PURE__ */ Object.assign(__default__$l, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -24180,14 +24214,14 @@ const _sfc_main$1z = /* @__PURE__ */ Object.assign(__default__$l, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -24262,14 +24296,14 @@ const _sfc_main$1z = /* @__PURE__ */ Object.assign(__default__$l, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -24306,24 +24340,24 @@ const _sfc_main$1z = /* @__PURE__ */ Object.assign(__default__$l, {
         if (((_d = (_c = company.meta.company) == null ? void 0 : _c.teams) == null ? void 0 : _d.length) > 0) {
           _push(`<!--[-->`);
           ssrRenderList((_f = (_e = company == null ? void 0 : company.meta) == null ? void 0 : _e.company) == null ? void 0 : _f.teams, (team) => {
-            _push(`<img${ssrRenderAttrs(mergeProps({
+            _push(`<img${ssrRenderAttrs(_temp2 = mergeProps({
               key: team,
               alt: "img",
               class: "lazy-img rounded-circle team-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}`);
           });
           _push(`<!--]-->`);
         } else {
-          _push(`<!--[--><img${ssrRenderAttrs(mergeProps({
+          _push(`<!--[--><img${ssrRenderAttrs(_temp3 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}><!--]-->`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<!--]-->`);
         }
         _push(`<div class="team-text"><span class="text-md fw-500 text-dark d-block">${ssrInterpolate(company.meta.company.size)}</span> ${ssrInterpolate(_ctx.trans(" Team Size"))}</div></div></div></div><div class="col-lg-3 col-md-4"><div class="btn-group d-flex align-items-center justify-content-md-end md-mt-20">`);
         _push(ssrRenderComponent(_component_Link, {
@@ -24408,6 +24442,7 @@ const _sfc_main$1y = /* @__PURE__ */ Object.assign(__default__$k, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -24442,14 +24477,14 @@ const _sfc_main$1y = /* @__PURE__ */ Object.assign(__default__$k, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -24524,14 +24559,14 @@ const _sfc_main$1y = /* @__PURE__ */ Object.assign(__default__$k, {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
                 alt: "avatar",
                 class: "lazy-img rounded-circle"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 (company == null ? void 0 : company.avatar) == null ? `https://ui-avatars.com/api/?name=${company.name}` : `${company == null ? void 0 : company.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -24568,24 +24603,24 @@ const _sfc_main$1y = /* @__PURE__ */ Object.assign(__default__$k, {
         if (((_d = (_c = company.meta.company) == null ? void 0 : _c.teams) == null ? void 0 : _d.length) > 0) {
           _push(`<!--[-->`);
           ssrRenderList((_f = (_e = company == null ? void 0 : company.meta) == null ? void 0 : _e.company) == null ? void 0 : _f.teams, (team) => {
-            _push(`<img${ssrRenderAttrs(mergeProps({
+            _push(`<img${ssrRenderAttrs(_temp2 = mergeProps({
               key: team,
               alt: "img",
               class: "lazy-img rounded-circle team-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, team)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}`);
           });
           _push(`<!--]-->`);
         } else {
-          _push(`<!--[--><img${ssrRenderAttrs(mergeProps({
+          _push(`<!--[--><img${ssrRenderAttrs(_temp3 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_42.png")))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}><img${ssrRenderAttrs(mergeProps({
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_43.png")))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
             alt: "img",
             class: "lazy-img rounded-circle team-img"
-          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}><!--]-->`);
+          }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/assets/img_44.png")))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<!--]-->`);
         }
         _push(`<div class="team-text"><span class="text-md fw-500 text-dark d-block">${ssrInterpolate(company.meta.company.size)}</span> ${ssrInterpolate(_ctx.trans(" Team Size"))}</div></div></div></div><div class="col-xl-3 col-md-4"><div class="btn-group d-flex align-items-center justify-content-md-end lg-mt-20">`);
         _push(ssrRenderComponent(_component_Link, {
@@ -24653,8 +24688,8 @@ const _sfc_main$1x = /* @__PURE__ */ Object.assign(__default__$j, {
   __ssrInlineRender: true,
   props: ["contact", "seo", "recaptchaSiteKey"],
   setup(__props) {
-    const props = __props;
     const themeLoader = useThemeLoaderStore();
+    const props = __props;
     const contact = ref({ ...props.contact });
     const form = useForm({
       email: "",
@@ -24738,7 +24773,7 @@ const _sfc_main$1w = /* @__PURE__ */ Object.assign(__default__$i, {
         "href-text": _ctx.trans("Home"),
         subtitle: __props.info.title
       }, null, _parent));
-      _push(`<section class="faq-section position-relative pt-100 lg-pt-80"><div class="container">${(_a2 = __props.info.description) == null ? void 0 : _a2.value}</div></section><!--]-->`);
+      _push(`<section class="faq-section position-relative pt-100 lg-pt-80"><div class="container">${((_a2 = __props.info.description) == null ? void 0 : _a2.value) ?? ""}</div></section><!--]-->`);
     };
   }
 });
@@ -24889,10 +24924,11 @@ const _sfc_main$1t = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-five position-relative pt-200 lg-pt-150" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-8"><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="mt-40 text-md lg-mt-20 mb-65 lg-mb-30 pe-xxl-5">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-8"><div class="job-search-two position-relative me-xxl-5"><form class="d-flex align-items-center justify-content-between"><input type="text"${ssrRenderAttr("value", unref(form).keyword)} placeholder="Search job, title etc...." class="bg-grey"><button type="submit" class="btn-five h-100">${ssrInterpolate(_ctx.trans("Search"))}</button></form></div></div></div></div><div class="d-sm-flex align-items-center mt-85 lg-mt-50"><img${ssrRenderAttrs(mergeProps({
+      let _temp0;
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-five position-relative pt-200 lg-pt-150" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-8"><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="mt-40 text-md lg-mt-20 mb-65 lg-mb-30 pe-xxl-5">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-8"><div class="job-search-two position-relative me-xxl-5"><form class="d-flex align-items-center justify-content-between"><input type="text"${ssrRenderAttr("value", unref(form).keyword)} placeholder="Search job, title etc...." class="bg-grey"><button type="submit" class="btn-five h-100">${ssrInterpolate(_ctx.trans("Search"))}</button></form></div></div></div></div><div class="d-sm-flex align-items-center mt-85 lg-mt-50"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "img",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}><div class="ps-3"><div class="fw-500 text-dark text-md">${ssrInterpolate(freelancerCount.value)}</div><div>${ssrInterpolate(_ctx.trans("Individual Freelancer"))}</div></div></div></div></div><div class="img-meta" style="${ssrRenderStyle({ backgroundImage: `url(${__props.home.hero.image})` })}"><img src="/assets/images/shape/shape_29.svg" alt="img" class="lazy-img shapes shape_01"></div><a href="#" class="chat-btn tran3s"><i class="bi bi-chat-dots"></i></a></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="ps-3"><div class="fw-500 text-dark text-md">${ssrInterpolate(freelancerCount.value)}</div><div>${ssrInterpolate(_ctx.trans("Individual Freelancer"))}</div></div></div></div></div><div class="img-meta" style="${ssrRenderStyle({ backgroundImage: `url(${__props.home.hero.image})` })}"><img src="/assets/images/shape/shape_29.svg" alt="img" class="lazy-img shapes shape_01"></div><a href="#" class="chat-btn tran3s"><i class="bi bi-chat-dots"></i></a></div>`);
     };
   }
 };
@@ -24920,6 +24956,7 @@ const _sfc_main$1s = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "category-section-five position-relative mt-190 lg-mt-150" }, _attrs))}><div class="container"><div class="row justify-content-between align-items-center"><div class="col-lg-8"><div class="title-four text-lg-start text-center"><h2>${ssrInterpolate(_ctx.trans("Most Demanding Categories."))}</h2></div></div><div class="col-lg-4"><div class="d-flex justify-content-lg-end">`);
       _push(ssrRenderComponent(unref(Link), {
         href: "/jobs",
@@ -24945,10 +24982,10 @@ const _sfc_main$1s = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<div class="icon d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="icon d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "shape",
                 class: "lazy-img category-section-img"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId}></div><div class="title fw-500"${_scopeId}>${ssrInterpolate(item.title)}</div>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title fw-500"${_scopeId}>${ssrInterpolate(item.title)}</div>`);
             } else {
               return [
                 createVNode("div", { class: "icon d-flex align-items-center justify-content-center" }, [
@@ -25042,6 +25079,7 @@ const _sfc_main$1q = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       if (jobs.value.length > 0) {
         _push(`<section${ssrRenderAttrs(mergeProps({ class: "job-listing-two pt-120 xl-pt-100 md-pt-80 pb-130 xl-pb-100 lg-pb-80 mt-110 xl-mt-90 md-mt-50" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-xl-6 col-lg-5"><div class="text-center title-one text-lg-start md-mb-20"><h2 class="main-font">${ssrInterpolate(_ctx.trans("New job listing"))}</h2></div></div><div class="row"><!--[-->`);
         ssrRenderList(jobs.value, (item, index) => {
@@ -25053,14 +25091,14 @@ const _sfc_main$1q = {
             default: withCtx((_, _push2, _parent2, _scopeId) => {
               var _a2, _b2, _c, _d;
               if (_push2) {
-                _push2(`<img${ssrRenderAttrs(mergeProps({
+                _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                   alt: "avatar",
                   class: "m-auto lazy-img"
                 }, ssrGetDirectiveProps(
                   _ctx,
                   _directive_lazy,
                   ((_a2 = item.user) == null ? void 0 : _a2.avatar) == null ? `https://ui-avatars.com/api/?name=${item.user.name}` : `${(_b2 = item.user) == null ? void 0 : _b2.avatar}`
-                )))}${_scopeId}>`);
+                )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
               } else {
                 return [
                   withDirectives(createVNode("img", {
@@ -25174,17 +25212,18 @@ const _sfc_main$1p = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-three position-relative pt-200 xl-pt-150 md-pt-80" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last ms-auto"><div class="wow fadeInRight"><div class="title-one"><h2 class="main-font">${ssrInterpolate(__props.home.cta_s1.title)}</h2></div><div class="accordion accordion-style-one mt-25" id="accordionOne"><!--[-->`);
       ssrRenderList(__props.home.cta_s1.features, (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `heading${index}`)}><button class="accordion-button" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapse${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapse${index}`)}>${ssrInterpolate(item.title)}</button></div><div${ssrRenderAttr("id", `collapse${index}`)} class="accordion-collapse collapse"${ssrRenderAttr("aria-labelledby", `heading${index}`)} data-bs-parent="#accordionOne"><div class="accordion-body"><p>${ssrInterpolate(item.body)}</p></div></div></div>`);
       });
-      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-five border6 mt-45">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-6 order-lg-first"><div class="img-box position-relative rounded-circle d-flex align-items-center justify-content-center wow fadeInLeft"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-five border6 mt-45">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-6 order-lg-first"><div class="img-box position-relative rounded-circle d-flex align-items-center justify-content-center wow fadeInLeft"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}><img src="/assets/images/shape/shape_25.svg" alt="" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img src="/assets/images/shape/shape_25.svg" alt="" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
     };
   }
 };
@@ -25218,6 +25257,7 @@ const _sfc_main$1o = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       if (items.value.length > 0) {
         _push(`<section${ssrRenderAttrs(mergeProps({ class: "expert-section-one position-relative mt-180 xl-mt-150 md-mt-100" }, _attrs))}><div class="position-relative container"><div class="row justify-content-between align-items-center"><div class="col-lg-6"><div class="title-one"><h2 class="main-font">${ssrInterpolate(unref(trans)("Top Experts"))}</h2></div></div><div class="col-lg-5"><div class="d-flex justify-content-lg-end">`);
         _push(ssrRenderComponent(_component_Link, {
@@ -25259,10 +25299,10 @@ const _sfc_main$1o = {
                       }, {
                         default: withCtx((_3, _push4, _parent4, _scopeId3) => {
                           if (_push4) {
-                            _push4(`<img${ssrRenderAttrs(mergeProps({
+                            _push4(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                               alt: "",
                               class: "expertSectionImg m-auto"
-                            }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.avatar)))}${_scopeId3}>`);
+                            }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.avatar)))}${_scopeId3}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
                           } else {
                             return [
                               withDirectives(createVNode("img", {
@@ -25464,10 +25504,11 @@ const _sfc_main$1n = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "feedback-section-four position-relative mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="row"><div class="col-xl-5 col-lg-6 order-lg-last ms-auto"><div class="title-one ps-xxl-5"><h2 class="main-font">${ssrInterpolate(_ctx.trans("Our Customer Feedback"))}</h2></div></div><div class="col-xxl-7 col-lg-6 order-lg-first"><div class="bg-wrapper position-relative me-xxl-4 md-mt-40 md-mb-40"><div class="icon d-flex align-items-center justify-content-center rounded-circle"><img${ssrRenderAttrs(mergeProps({
+      let _temp0;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "feedback-section-four position-relative mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="row"><div class="col-xl-5 col-lg-6 order-lg-last ms-auto"><div class="title-one ps-xxl-5"><h2 class="main-font">${ssrInterpolate(_ctx.trans("Our Customer Feedback"))}</h2></div></div><div class="col-xxl-7 col-lg-6 order-lg-first"><div class="bg-wrapper position-relative me-xxl-4 md-mt-40 md-mb-40"><div class="icon d-flex align-items-center justify-content-center rounded-circle"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_30.svg")))}></div><div class="feedback-slider-three-a"><!--[-->`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_30.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="feedback-slider-three-a"><!--[-->`);
       ssrRenderList(feedbacks.value, (item, index) => {
         _push(`<div class="item"><p>“${ssrInterpolate(item.review)}”</p><div class="name text-md text-white">${ssrInterpolate(item.author)},<span class="opacity-50">${ssrInterpolate(item.author_designation)}</span></div></div>`);
       });
@@ -25536,9 +25577,10 @@ const _sfc_main$1m = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "container" }, _attrs))}><div class="partner-logos pt-120 lg-pt-80 lg-pb-40 pb-80"><div class="title fw-500 text-dark text-uppercase mb-65 lg-mb-30 text-center">${ssrInterpolate(_ctx.trans("Trusted by"))} <span>${ssrInterpolate(_ctx.trans("500+"))}</span> ${ssrInterpolate(_ctx.trans("companies"))}</div><div class="partner-slider"><!--[-->`);
       ssrRenderList(brands.value, (item, index) => {
-        _push(`<div class="item"><div class="logo d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({ alt: "" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div></div>`);
+        _push(`<div class="item"><div class="logo d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div>`);
       });
       _push(`<!--]--></div></div></div>`);
     };
@@ -25569,6 +25611,7 @@ const _sfc_main$1l = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "blog-section-one mt-160 xl-mt-130 lg-mt-100" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-xl-7"><div class="title-one lg-mb-10 mb-20"><h2 class="main-font">${ssrInterpolate(_ctx.$page.props.app_name)} ${ssrInterpolate(_ctx.trans("Guides"))}</h2></div></div></div><div class="row gx-xl-5"><!--[-->`);
       ssrRenderList(blogs.value.slice(0, 2), (blog, index) => {
         _push(`<div class="col-sm-6"><article class="blog-meta-two mt-35 xs-mt-20 wow fadeInUp"><figure class="post-img m0">`);
@@ -25579,10 +25622,10 @@ const _sfc_main$1l = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a2, _b2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "",
                 class: "lazy-img w-100 tran4s"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -25682,7 +25725,8 @@ const _sfc_main$1k = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-five mt-160 xl-mt-130 lg-mt-100 md-mt-80" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative"><div class="row"><div class="m-auto col-lg-11"><div class="row"><div class="col-md-7"><div class="title-one mb-35 md-mb-20"><h2 class="text-white main-font">${__props.home.cta_s2.title}</h2></div><ul class="btn-group style-none d-flex"><li class="me-2">`);
+      let _temp0;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-five mt-160 xl-mt-130 lg-mt-100 md-mt-80" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative"><div class="row"><div class="m-auto col-lg-11"><div class="row"><div class="col-md-7"><div class="title-one mb-35 md-mb-20"><h2 class="text-white main-font">${__props.home.cta_s2.title ?? ""}</h2></div><ul class="btn-group style-none d-flex"><li class="me-2">`);
       _push(ssrRenderComponent(_component_Link, {
         href: __props.home.cta_s2.left_btn_link,
         class: "btn-seven border6"
@@ -25714,10 +25758,10 @@ const _sfc_main$1k = {
         }),
         _: 1
       }, _parent));
-      _push(`</li></ul></div><div class="col-md-5"><div class="img-meta sm-mt-30 position-relative"><img${ssrRenderAttrs(mergeProps({
+      _push(`</li></ul></div><div class="col-md-5"><div class="img-meta sm-mt-30 position-relative"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "m-auto lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}></div></div></div></div></div><img src="/assets/images/shape/shape_30.svg" alt="shape" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_31.svg" alt="shape" class="lazy-img shapes shape_02"></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div></div></div></div><img src="/assets/images/shape/shape_30.svg" alt="shape" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_31.svg" alt="shape" class="lazy-img shapes shape_02"></div></div></section>`);
     };
   }
 };
@@ -25778,6 +25822,7 @@ const _sfc_main$1i = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "category-section-one position-relative mt-120" }, _attrs))}><div class="container"><div class="row justify-content-between align-items-center"><div class="col-lg-8"><div class="title-three"><h2 class="fw-600 color-blue">${ssrInterpolate(_ctx.trans("Explore the marketplace."))}</h2></div></div><div class="col-lg-4"><div class="d-flex justify-content-lg-end">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/jobs",
@@ -25803,10 +25848,10 @@ const _sfc_main$1i = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<div class="icon d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="icon d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "shape",
                 class: "lazy-img category-section-img"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, category.preview)))}${_scopeId}></div><div class="title fw-500"${_scopeId}>${ssrInterpolate(category.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(category.jobs_count)} ${ssrInterpolate(_ctx.trans("Jobs"))}</div>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, category.preview)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title fw-500"${_scopeId}>${ssrInterpolate(category.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(category.jobs_count)} ${ssrInterpolate(_ctx.trans("Jobs"))}</div>`);
             } else {
               return [
                 createVNode("div", { class: "icon d-flex align-items-center justify-content-center" }, [
@@ -25872,20 +25917,21 @@ const _sfc_main$1h = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="ps-lg-4 wow fadeInRight"><div class="title-one"><div class="sub-title">${ssrInterpolate(__props.home.cta_s2.top_title)}</div><h2 class="text-dark">${ssrInterpolate(__props.home.cta_s2.title)}</h2></div><div class="accordion accordion-style-one mt-25" id="accordionOne"><!--[-->`);
       ssrRenderList(((_a2 = __props.home.cta_s2) == null ? void 0 : _a2.features) ?? [], (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `heading${index}`)}><button class="accordion-button" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapse${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapse${index}`)}>${ssrInterpolate(item.title)}</button></div><div${ssrRenderAttr("id", `collapse${index}`)} class="accordion-collapse collapse"${ssrRenderAttr("aria-labelledby", `heading${index}`)} data-bs-parent="#accordionOne"><div class="accordion-body"><p>${ssrInterpolate(item.body)}</p></div></div></div>`);
       });
-      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="btn-seven border6 mt-70 lg-mt-40">${ssrInterpolate(__props.home.cta_s2.btn_text)}</a></div></div><div class="col-lg-7 col-md-8 order-lg-first m-auto"><div class="img-data position-relative me-xl-5 md-mt-20"><div class="row align-items-center"><div class="col-6"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="btn-seven border6 mt-70 lg-mt-40">${ssrInterpolate(__props.home.cta_s2.btn_text)}</a></div></div><div class="col-lg-7 col-md-8 order-lg-first m-auto"><div class="img-data position-relative me-xl-5 md-mt-20"><div class="row align-items-center"><div class="col-6"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img mt-35 md-mt-20 wow fadeInLeft"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}></div><div class="col-6"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="col-6"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img mt-35 md-mt-20 wow fadeInDown"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img mt-35 md-mt-20 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image3)))}></div></div><img src="/assets/images/shape/shape_06.svg" alt="shape" class="lazy-img shapes shape_02"><img src="/assets/images/shape/shape_21.svg" alt="shape" class="lazy-img shapes shape_03"></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><img src="/assets/images/shape/shape_06.svg" alt="shape" class="lazy-img shapes shape_02"><img src="/assets/images/shape/shape_21.svg" alt="shape" class="lazy-img shapes shape_03"></div></div></div></div></section>`);
     };
   }
 };
@@ -25926,6 +25972,7 @@ const _sfc_main$1g = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3;
       _push(`<div${ssrRenderAttrs(mergeProps({
         class: "hero-banner-four position-relative pt-170 lg-pt-150 pb-300 lg-pb-150 md-pb-100",
         style: { backgroundImage: `url(${__props.home.hero.image})` }
@@ -25963,19 +26010,19 @@ const _sfc_main$1g = {
         }),
         _: 1
       }, _parent));
-      _push(`</span><i class="bi bi-file-earmark-arrow-up"></i></div></div></div></div></div></div></div><img${ssrRenderAttrs(mergeProps({
+      _push(`</span><i class="bi bi-file-earmark-arrow-up"></i></div></div></div></div></div></div></div><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "img",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "img",
         class: "lazy-img shapes shape_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "img",
         class: "lazy-img shapes shape_03"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image3)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}<img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "img",
         class: "lazy-img shapes shape_04"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image4)))}></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}</div>`);
     };
   }
 };
@@ -25996,11 +26043,12 @@ const _sfc_main$1f = {
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-four mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative wow fadeInUp"><div class="row"><div class="col-lg-6 order-lg-last ms-auto"><div class="text-wrapper wow fadeInRight"><div class="title-one mb-45 lg-mb-30"><h2 class="text-white">${ssrInterpolate(__props.home.cta_s1.title)}</h2></div><p class="text-md mb-55 lg-mb-30 text-white">${ssrInterpolate(__props.home.cta_s1.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="find-job-btn d-flex align-items-center text-white"><span class="fw-500">${ssrInterpolate(__props.home.cta_s1.btn_text)}</span><span class="ms-1"><u>${ssrInterpolate(_ctx.trans("Explore all"))}</u></span><span class="ms-auto"><i class="bi bi-chevron-right"></i></span></a></div></div><div class="col-lg-6 order-lg-first"><div class="img-meta me-xl-4 position-relative" style="${ssrRenderStyle({ backgroundImage: `url(${__props.home.cta_s1.image1})` })}"><img${ssrRenderAttrs(mergeProps({
+      let _temp0;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-four mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative wow fadeInUp"><div class="row"><div class="col-lg-6 order-lg-last ms-auto"><div class="text-wrapper wow fadeInRight"><div class="title-one mb-45 lg-mb-30"><h2 class="text-white">${ssrInterpolate(__props.home.cta_s1.title)}</h2></div><p class="text-md mb-55 lg-mb-30 text-white">${ssrInterpolate(__props.home.cta_s1.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="find-job-btn d-flex align-items-center text-white"><span class="fw-500">${ssrInterpolate(__props.home.cta_s1.btn_text)}</span><span class="ms-1"><u>${ssrInterpolate(_ctx.trans("Explore all"))}</u></span><span class="ms-auto"><i class="bi bi-chevron-right"></i></span></a></div></div><div class="col-lg-6 order-lg-first"><div class="img-meta me-xl-4 position-relative" style="${ssrRenderStyle({ backgroundImage: `url(${__props.home.cta_s1.image1})` })}"><img${ssrRenderAttrs(_temp0 = mergeProps({
         src: "/assets/images/lazy.svg",
         alt: "img",
         class: "lazy-img shapes screen_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}></div></div></div></div><div class="border-bottom pb-50 lg-pb-20 mt-110 xl-mt-80 lg-mt-30"><div class="row"><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center"><h2 class="main-count fw-500">${ssrInterpolate(__props.home.cta_s1.item1)}</h2><p>${ssrInterpolate(_ctx.trans("Completed Jobs"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.2s"><h2 class="main-count fw-500">${ssrInterpolate(__props.home.cta_s1.item2)}</h2><p>${ssrInterpolate(_ctx.trans("Businesses WorldWide"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.35s"><h2 class="main-count fw-500">${ssrInterpolate(__props.home.cta_s1.item3)}</h2><p>${ssrInterpolate(_ctx.trans("Lives Transformed"))}</p></div></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div></div></div><div class="border-bottom pb-50 lg-pb-20 mt-110 xl-mt-80 lg-mt-30"><div class="row"><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center"><h2 class="main-count fw-500">${ssrInterpolate(__props.home.cta_s1.item1)}</h2><p>${ssrInterpolate(_ctx.trans("Completed Jobs"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.2s"><h2 class="main-count fw-500">${ssrInterpolate(__props.home.cta_s1.item2)}</h2><p>${ssrInterpolate(_ctx.trans("Businesses WorldWide"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.35s"><h2 class="main-count fw-500">${ssrInterpolate(__props.home.cta_s1.item3)}</h2><p>${ssrInterpolate(_ctx.trans("Lives Transformed"))}</p></div></div></div></div></div></section>`);
     };
   }
 };
@@ -26229,6 +26277,7 @@ const _sfc_main$1b = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       ssrRenderList(__props.items, (job) => {
         var _a2, _b2;
@@ -26240,14 +26289,14 @@ const _sfc_main$1b = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a3, _b3, _c, _d;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "avatar",
                 class: "m-auto candidate-avatar-rounded"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 ((_a3 = job.user) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${job.user.name}&rounded=true&background=random&color=#fff` : `${(_b3 = job.user) == null ? void 0 : _b3.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -26463,6 +26512,7 @@ const _sfc_main$18 = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "blog-section-one" }, _attrs))}><div class="container"><div class="position-relative"><div class="title-one mb-30 lg-mb-10"><h2>${ssrInterpolate(_ctx.$page.props.app_name)} ${ssrInterpolate(_ctx.trans("Guides"))}</h2></div><div class="row gx-xxl-5"><!--[-->`);
       ssrRenderList(blogs.value, (blog, index) => {
         _push(`<div class="col-lg-4 col-md-6"><article class="blog-meta-one mt-35 wow fadeInUp"><figure class="post-img m0">`);
@@ -26473,10 +26523,10 @@ const _sfc_main$18 = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a2, _b2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "",
                 class: "lazy-img w-100 tran4s"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -26557,25 +26607,26 @@ const _sfc_main$17 = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-two position-relative pt-180 xl-pt-150 lg-pt-100 pb-180 xl-pb-150 lg-pb-120" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="wow fadeInRight"><div class="title-one"><div class="sub-title">${ssrInterpolate(__props.home.cta_s2.top_title)}</div><h2>${ssrInterpolate(__props.home.cta_s2.title)}</h2></div><p class="lg-mt-20 lg-mb-30 mb-40 mt-40 text-lg">${ssrInterpolate(__props.home.cta_s2.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="btn-nine tran3s d-flex align-items-center"><span class="fw-500 me-2">${ssrInterpolate(__props.home.cta_s2.btn_text)}</span><i class="bi bi-arrow-right"></i></a></div></div><div class="col-lg-7 order-lg-first"><div class="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft"><div class="inner-circle rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-two position-relative pt-180 xl-pt-150 lg-pt-100 pb-180 xl-pb-150 lg-pb-120" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="wow fadeInRight"><div class="title-one"><div class="sub-title">${ssrInterpolate(__props.home.cta_s2.top_title)}</div><h2>${ssrInterpolate(__props.home.cta_s2.title)}</h2></div><p class="lg-mt-20 lg-mb-30 mb-40 mt-40 text-lg">${ssrInterpolate(__props.home.cta_s2.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="btn-nine tran3s d-flex align-items-center"><span class="fw-500 me-2">${ssrInterpolate(__props.home.cta_s2.btn_text)}</span><i class="bi bi-arrow-right"></i></a></div></div><div class="col-lg-7 order-lg-first"><div class="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft"><div class="inner-circle rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}></div><div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}></div><div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image3)))}></div><div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image4)))}></div><div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}</div><div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image5)))}></div><div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image5)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}</div><div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image6)))}></div><img src="/assets/images/shape/shape_10.svg" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image6)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</div><img src="/assets/images/shape/shape_10.svg" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
     };
   }
 };
@@ -26619,6 +26670,7 @@ const _sfc_main$16 = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       if (items.value.length > 0) {
         _push(`<section${ssrRenderAttrs(mergeProps({ class: "expert-section-one position-relative mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="position-relative container"><div class="row"><div class="col-md-7"><div class="title-one text-md-start mb-65 md-mb-50 text-center"><h2>${ssrInterpolate(_ctx.trans("Find the best"))} <span class="position-relative">${ssrInterpolate(_ctx.trans("talented"))} <img src="/assets/images/shape/shape_04.svg" alt="" class="lazy-img shapes shape"></span> ${ssrInterpolate(_ctx.trans("expert in"))} ${ssrInterpolate(_ctx.$page.props.app_name)}. </h2></div></div></div><div class="">`);
         _push(ssrRenderComponent(unref(Swiper), {
@@ -26643,10 +26695,10 @@ const _sfc_main$16 = {
                       }, {
                         default: withCtx((_3, _push4, _parent4, _scopeId3) => {
                           if (_push4) {
-                            _push4(`<img${ssrRenderAttrs(mergeProps({
+                            _push4(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                               alt: "",
                               class: "expertSectionImg m-auto"
-                            }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.avatar)))}${_scopeId3}>`);
+                            }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.avatar)))}${_scopeId3}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
                           } else {
                             return [
                               withDirectives(createVNode("img", {
@@ -26781,8 +26833,8 @@ const _sfc_main$15 = {
   __ssrInlineRender: true,
   props: ["home"],
   setup(__props) {
-    const props = __props;
     const { formatNumber } = sharedComposable();
+    const props = __props;
     const categories = ref([]);
     const loading = ref(true);
     onMounted(async () => {
@@ -27140,7 +27192,7 @@ const _sfc_main$13 = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2;
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-one position-relative" }, _attrs))}><div class="container"><div class="position-relative pt-200 md-pt-150 pb-150 xl-pb-120 md-pb-80"><div class="row"><div class="col-lg-6"><h1>${(_b2 = (_a2 = __props.home) == null ? void 0 : _a2.hero) == null ? void 0 : _b2.title}</h1><p class="md-mt-30 mb-50 md-mb-30 mt-40 text-lg text-white">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="col-xl-9 col-lg-8"><div class="job-search-one position-relative me-xl-5">`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-one position-relative" }, _attrs))}><div class="container"><div class="position-relative pt-200 md-pt-150 pb-150 xl-pb-120 md-pb-80"><div class="row"><div class="col-lg-6"><h1>${((_b2 = (_a2 = __props.home) == null ? void 0 : _a2.hero) == null ? void 0 : _b2.title) ?? ""}</h1><p class="md-mt-30 mb-50 md-mb-30 mt-40 text-lg text-white">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="col-xl-9 col-lg-8"><div class="job-search-one position-relative me-xl-5">`);
       _push(ssrRenderComponent(_sfc_main$14, null, null, _parent));
       _push(`<ul class="tags d-flex style-none mt-20 flex-wrap"><li class="fw-500 me-2 text-white">${ssrInterpolate(_ctx.trans("Popular"))}:</li><!--[-->`);
       ssrRenderList(popularCategories.value, (item, index) => {
@@ -27183,6 +27235,7 @@ const _sfc_main$12 = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100 md-pt-80 pb-180 xl-pb-150" }, _attrs))}><div class="container"><div class="row"><div class="col-lg-5 order-lg-last"><div class="ps-xxl-4 wow fadeInRight"><div class="title-one"><h2>${ssrInterpolate(__props.home.cta_s1.title)}</h2></div><p class="md-mt-20 md-mb-20 mb-40 mt-40">${ssrInterpolate(__props.home.cta_s1.subtitle)}</p>`);
       if ((_b2 = (_a2 = __props.home.cta_s1) == null ? void 0 : _a2.features) == null ? void 0 : _b2.length) {
         _push(`<ul class="list-style-one style-none"><!--[-->`);
@@ -27193,25 +27246,25 @@ const _sfc_main$12 = {
       } else {
         _push(`<!---->`);
       }
-      _push(`<a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-one lg mt-50 md-mt-30">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-7 col-md-11 order-lg-first m-auto"><div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(mergeProps({
+      _push(`<a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-one lg mt-50 md-mt-30">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-7 col-md-11 order-lg-first m-auto"><div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img img01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}></div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img img02 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}></div><div class="col-md-6 col-7"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="col-md-6 col-7"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img img01 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image3)))}></div></div><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen01 wow fadeInRight"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image4)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen02 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image5)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image5)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen03 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image6)))}><img src="/assets/images/shape/shape_06.svg" alt="image" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image6)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<img src="/assets/images/shape/shape_06.svg" alt="image" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
     };
   }
 };
@@ -27233,10 +27286,11 @@ const _sfc_main$11 = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-one mt-150 xl-mt-120 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative pt-55 wow fadeInUp pe-4 ps-4"><div class="row"><div class="m-auto col-xxl-11"><div class="row"><div class="col-xl-5 col-lg-6 order-lg-last"><div class="text-wrapper"><div class="title-two"><h2 class="text-white">${__props.home.cta_s3.title}</h2></div><p class="text-md mt-25 lg-mt-20 mb-45 lg-mb-30">${ssrInterpolate(__props.home.cta_s3.subtitle)}</p><form action="#" class="upload-btn position-relative d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-one mt-150 xl-mt-120 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative pt-55 wow fadeInUp pe-4 ps-4"><div class="row"><div class="m-auto col-xxl-11"><div class="row"><div class="col-xl-5 col-lg-6 order-lg-last"><div class="text-wrapper"><div class="title-two"><h2 class="text-white">${__props.home.cta_s3.title ?? ""}</h2></div><p class="text-md mt-25 lg-mt-20 mb-45 lg-mb-30">${ssrInterpolate(__props.home.cta_s3.subtitle)}</p><form action="#" class="upload-btn position-relative d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_11.svg")))}>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_11.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
       _push(ssrRenderComponent(_component_Link, {
         href: __props.home.cta_s3.btn_link,
         class: "fw-500 text-dark ms-2"
@@ -27252,10 +27306,10 @@ const _sfc_main$11 = {
         }),
         _: 1
       }, _parent));
-      _push(`</form></div></div><div class="col-xl-7 col-lg-6 order-lg-first"><div class="img-meta md-mt-20 position-relative"><img${ssrRenderAttrs(mergeProps({
+      _push(`</form></div></div><div class="col-xl-7 col-lg-6 order-lg-first"><div class="img-meta md-mt-20 position-relative"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "",
         class: "m-auto lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image ?? "/assets/images/assets/img_09.png")))}><img src="/assets/images/shape/shape_12.svg" alt="" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_13.svg" alt="" class="lazy-img shapes shape_02"></div></div></div></div></div><img src="/assets/images/shape/shape_14.svg" alt="" class="lazy-img shapes shape_03"></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image ?? "/assets/images/assets/img_09.png")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img src="/assets/images/shape/shape_12.svg" alt="" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_13.svg" alt="" class="lazy-img shapes shape_02"></div></div></div></div></div><img src="/assets/images/shape/shape_14.svg" alt="" class="lazy-img shapes shape_03"></div></div></section>`);
     };
   }
 };
@@ -27399,6 +27453,7 @@ const _sfc_main$_ = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-seven position-relative pt-200 lg-pt-150 pb-110 md-pb-40" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="m-auto text-center col-xl-7 col-lg-8"><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="mb-40 text-md mt-25">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="m-auto col-xxl-7 col-lg-8 col-md-11"><div class="job-search-one style-two border-style position-relative"><form><div class="row align-items-center"><div class="col-md-5"><div class="input-box"><div class="label">${ssrInterpolate(_ctx.trans("Job Services"))}</div>`);
       _push(ssrRenderComponent(_sfc_main$2W, {
         options: services.value,
@@ -27427,13 +27482,13 @@ const _sfc_main$_ = {
         }, _parent));
         _push(`</li>`);
       });
-      _push(`<!--]--></ul></div></div></div></div></div></div><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></ul></div></div></div></div></div></div><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div>`);
     };
   }
 };
@@ -27461,6 +27516,7 @@ const _sfc_main$Z = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "partner-logos pt-45 pb-45 border-0 pe-3 ps-3" }, _attrs))}>`);
       _push(ssrRenderComponent(unref(Swiper), {
         "slides-per-view": 6,
@@ -27476,10 +27532,10 @@ const _sfc_main$Z = {
               }, {
                 default: withCtx((_2, _push3, _parent3, _scopeId2) => {
                   if (_push3) {
-                    _push3(`<img${ssrRenderAttrs(mergeProps({
+                    _push3(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                       class: "mx-auto",
                       alt: "preview"
-                    }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId2}>`);
+                    }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId2}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
                   } else {
                     return [
                       withDirectives(createVNode("img", {
@@ -27551,6 +27607,7 @@ const _sfc_main$Y = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "category-section-two bg-color position-relative mt-45 md-mt-10 pt-150 xl-pt-130 lg-pt-80 pb-170 xl-pb-130 lg-pb-70" }, _attrs))}><div class="container"><div class="row justify-content-between"><div class="col-sm-8"><div class="title-three"><h2 class="main-font">${ssrInterpolate(_ctx.trans("Most Demanding Categories."))}</h2></div></div><div class="col-sm-4"><div class="d-none d-sm-flex justify-content-sm-end mt-15">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/jobs",
@@ -27576,10 +27633,10 @@ const _sfc_main$Y = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<div class="icon tran3s d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="icon tran3s d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "preview",
                 class: "lazy-img"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId}></div><div class="title tran3s fw-500 text-lg"${_scopeId}>${ssrInterpolate(item.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(item.jobs_count)} ${ssrInterpolate(_ctx.trans("jobs"))}</div>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title tran3s fw-500 text-lg"${_scopeId}>${ssrInterpolate(item.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(item.jobs_count)} ${ssrInterpolate(_ctx.trans("jobs"))}</div>`);
             } else {
               return [
                 createVNode("div", { class: "icon tran3s d-flex align-items-center justify-content-center" }, [
@@ -27606,13 +27663,13 @@ const _sfc_main$Y = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<div class="title text-white"${_scopeId}>${ssrInterpolate(totalJobsCount.value)} +</div><div class="text-lg text-white"${_scopeId}>${ssrInterpolate(_ctx.trans("Job already posted"))}</div><div class="d-flex align-items-center justify-content-end mt-50"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+            _push2(`<div class="title text-white"${_scopeId}>${ssrInterpolate(totalJobsCount.value)} +</div><div class="text-lg text-white"${_scopeId}>${ssrInterpolate(_ctx.trans("Job already posted"))}</div><div class="d-flex align-items-center justify-content-end mt-50"${_scopeId}><img${ssrRenderAttrs(_temp1 = mergeProps({
               alt: "image",
               class: "lazy-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_22.svg")))}${_scopeId}><div class="icon tran3s d-flex align-items-center justify-content-center ms-5"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_22.svg")))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<div class="icon tran3s d-flex align-items-center justify-content-center ms-5"${_scopeId}><img${ssrRenderAttrs(_temp2 = mergeProps({
               alt: "image",
               class: "lazy-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_19.svg")))}${_scopeId}></div></div>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_19.svg")))}${_scopeId}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div>`);
           } else {
             return [
               createVNode("div", { class: "title text-white" }, toDisplayString(totalJobsCount.value) + " +", 1),
@@ -27666,12 +27723,13 @@ const _sfc_main$X = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "how-it-works-two position-relative pt-130 lg-pt-80" }, _attrs))}><div class="container"><div class="title-one mb-70 lg-mb-30 text-center"><h2 class="main-font">${ssrInterpolate(_ctx.trans("Our Core Values?"))}</h2></div><div class="border-bottom"><div class="row justify-content-center"><!--[-->`);
       ssrRenderList(features.value, (item, index) => {
-        _push(`<div class="col-lg-4 col-md-6"><div class="card-style-five position-relative mt-25 pb-70 lg-pb-20 wow fadeInUp text-center"><div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="col-lg-4 col-md-6"><div class="card-style-five position-relative mt-25 pb-70 lg-pb-20 wow fadeInUp text-center"><div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "preview",
           class: "w-50"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div><div class="title fw-500 text-dark mt-25 lg-mt-20 mb-10 text-lg">${ssrInterpolate(item.title)}</div><p>${ssrInterpolate(item.text)}</p></div></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title fw-500 text-dark mt-25 lg-mt-20 mb-10 text-lg">${ssrInterpolate(item.title)}</div><p>${ssrInterpolate(item.text)}</p></div></div>`);
       });
       _push(`<!--]--></div></div></div></section>`);
     };
@@ -27842,6 +27900,7 @@ const _sfc_main$V = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "blog-section-one mt-160 xl-mt-130 lg-mt-100" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-xl-7"><div class="title-one lg-mb-10 mb-20"><h2 class="main-font">${ssrInterpolate(_ctx.$page.props.app_name)} ${ssrInterpolate(_ctx.trans("Guides"))}</h2></div></div></div><div class="row gx-xl-5"><!--[-->`);
       ssrRenderList(blogs.value.slice(0, 2), (blog, index) => {
         _push(`<div class="col-sm-6"><article class="blog-meta-two mt-35 xs-mt-20 wow fadeInUp"><figure class="post-img m0">`);
@@ -27852,10 +27911,10 @@ const _sfc_main$V = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a2, _b2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "img",
                 class: "lazy-img w-100 tran4s"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -27939,29 +27998,30 @@ const _sfc_main$U = {
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-one position-relative pt-150 lg-pt-100" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="row"><div class="col-lg-5 order-lg-last"><div class="wow fadeInLeft"><div class="title-two"><div class="sub-title">${ssrInterpolate(__props.home.cta_s1.top_title)}</div><h2 class="main-font color-blue">${ssrInterpolate(__props.home.cta_s1.title)}</h2></div><div class="accordion accordion-style-one color-two mt-40" id="accordionOne"><!--[-->`);
       ssrRenderList(__props.home.cta_s1.features, (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `heading${index}`)}><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapse${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapse${index}`)}>${ssrInterpolate(item.title)}</button></div><div${ssrRenderAttr("id", `collapse${index}`)} class="accordion-collapse collapse"${ssrRenderAttr("aria-labelledby", `heading${index}`)} data-bs-parent="#accordionOne"><div class="accordion-body"><p>${ssrInterpolate(item.body)}</p></div></div></div>`);
       });
-      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-five mt-45 lg-mt-20">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-7 col-md-11 order-lg-first m-auto"><div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-five mt-45 lg-mt-20">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-7 col-md-11 order-lg-first m-auto"><div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img img01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}></div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img img02 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}></div><div class="col-md-6 col-7"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="col-md-6 col-7"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img img01 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image3)))}></div></div><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen01 wow fadeInRight"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image4)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen02 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image5)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image5)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen03 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image6)))}></div></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image6)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</div></div></div></div></div></section>`);
     };
   }
 };
@@ -27982,13 +28042,14 @@ const _sfc_main$T = {
   setup(__props) {
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-six mt-150 xl-mt-120 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative pt-70 lg-pt-50 wow fadeInUp pe-4 ps-4"><div class="row"><div class="m-auto col-xxl-11"><div class="row"><div class="col-lg-6 order-lg-last"><div class="text-wrapper ps-xl-5"><div class="title-two"><h2 class="main-font">${ssrInterpolate(__props.home.cta_s2.title)}</h2></div><p class="text-md text-dark mt-25 lg-mt-20 mb-45 lg-mb-30 opacity-70">${ssrInterpolate(__props.home.cta_s2.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="upload-btn position-relative d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-six mt-150 xl-mt-120 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper position-relative pt-70 lg-pt-50 wow fadeInUp pe-4 ps-4"><div class="row"><div class="m-auto col-xxl-11"><div class="row"><div class="col-lg-6 order-lg-last"><div class="text-wrapper ps-xl-5"><div class="title-two"><h2 class="main-font">${ssrInterpolate(__props.home.cta_s2.title)}</h2></div><p class="text-md text-dark mt-25 lg-mt-20 mb-45 lg-mb-30 opacity-70">${ssrInterpolate(__props.home.cta_s2.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="upload-btn position-relative d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_46.svg")))}><span class="text-white fw-500 ms-2">${ssrInterpolate(__props.home.cta_s2.btn_text)}</span></a></div></div><div class="col-lg-6 order-lg-first"><div class="img-meta position-relative md-mt-20"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_46.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<span class="text-white fw-500 ms-2">${ssrInterpolate(__props.home.cta_s2.btn_text)}</span></a></div></div><div class="col-lg-6 order-lg-first"><div class="img-meta position-relative md-mt-20"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "m-auto lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image)))}><img src="/assets/images/shape/shape_12.svg" alt="img" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_13.svg" alt="img" class="lazy-img shapes shape_02"></div></div></div></div></div><img src="/assets/images/shape/shape_14.svg" alt="" class="lazy-img shapes shape_03"></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img src="/assets/images/shape/shape_12.svg" alt="img" class="lazy-img shapes shape_01"><img src="/assets/images/shape/shape_13.svg" alt="img" class="lazy-img shapes shape_02"></div></div></div></div></div><img src="/assets/images/shape/shape_14.svg" alt="" class="lazy-img shapes shape_03"></div></div></section>`);
     };
   }
 };
@@ -28168,35 +28229,46 @@ const __vite_glob_0_216 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$Q
 }, Symbol.toStringTag, { value: "Module" }));
+const BannerSection_vue_vue_type_style_index_0_scoped_3b450e03_lang = "";
 const _sfc_main$P = {
   __name: "BannerSection",
   __ssrInlineRender: true,
-  props: ["home"],
+  props: {
+    home: {
+      type: Object,
+      required: true
+    }
+  },
   setup(__props) {
-    sharedComposable();
-    const services = ref([]);
-    const loading = ref(true);
-    const form = useForm({
-      keyword: "",
-      service: ""
+    const props = __props;
+    const currentSlide = ref(0);
+    const slides = ref([]);
+    onMounted(() => {
+      var _a2;
+      if ((_a2 = props.home) == null ? void 0 : _a2.hero) {
+        slides.value = [
+          props.home.hero.image1,
+          props.home.hero.image2,
+          props.home.hero.image3
+        ].filter(Boolean);
+        startAutoPlay();
+      }
     });
-    onMounted(async () => {
-      homeApiService.get("services").then((res) => {
-        services.value = res;
-        loading.value = false;
-      });
-    });
+    const startAutoPlay = () => {
+      setInterval(() => {
+        currentSlide.value = (currentSlide.value + 1) % slides.value.length;
+      }, 5e3);
+    };
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-six position-relative pt-170 lg-pt-150 pb-60 lg-pb-40" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="m-auto text-center col-xxl-8 col-xl-9 col-lg-8"><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="text-white text-md mt-25 mb-55 lg-mb-40">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="m-auto col-xl-8 col-lg-9"><div class="job-search-one style-two position-relative me-xxl-3 ms-xxl-3 mb-100 lg-mb-50"><form><div class="row"><div class="col-md-5"><div class="input-box"><div class="label">${ssrInterpolate(_ctx.trans("Search for jobs, skills or our services"))}</div><input type="text"${ssrRenderAttr("value", unref(form).keyword)} placeholder="Xuriel" class="keyword"></div></div><div class="col-md-4"><div class="input-box border-left"><div class="label">${ssrInterpolate(_ctx.trans("Choose a Service or Skill..."))}</div>`);
-      _push(ssrRenderComponent(_sfc_main$2W, {
-        modelValue: unref(form).service,
-        "onUpdate:modelValue": ($event) => unref(form).service = $event,
-        options: services.value,
-        label: "title",
-        "value-by": "slug",
-        placeholder: "SELECT"
-      }, null, _parent));
-      _push(`</div></div><div class="col-md-3"><button class="fw-500 text-md h-100 w-100 tran3s search-btn-two">${ssrInterpolate(_ctx.trans("Search"))}</button></div></div></form></div></div></div><div class="row"><div class="m-auto col-xl-8"><div class="row"><div class="col-sm-4"><div class="text-center counter-block-two mt-15 wow fadeInUp"><p class="text-white">${ssrInterpolate(_ctx.trans("Trusted By"))}</p><div class="text-white main-count fw-500">${ssrInterpolate(__props.home.hero.item1)}</div><p class="text-white">${ssrInterpolate(_ctx.trans("Businesses WorldWide"))}</p></div></div><div class="col-sm-4"><div class="text-center counter-block-two mt-15 wow fadeInUp" data-wow-delay="0.2s"><p class="text-white">${ssrInterpolate(_ctx.trans("The Top"))}</p><div class="text-white main-count fw-500">${ssrInterpolate(__props.home.hero.item2)}</div><p class="text-white">${ssrInterpolate(_ctx.trans("Skilled Professionals"))}</p></div></div><div class="col-sm-4"><div class="text-center counter-block-two mt-15 wow fadeInUp" data-wow-delay="0.35s"><p class="text-white">${ssrInterpolate(_ctx.trans("More Than"))}</p><div class="text-white main-count fw-500">${ssrInterpolate(__props.home.hero.item3)}</div><p class="text-white">${ssrInterpolate(_ctx.trans("Lives Transformed"))}</p></div></div></div></div></div></div></div></div><div id="banner-six-carousel" class="carousel slide" data-bs-ride="carousel"><div class="carousel-inner w-100 h-100"><div class="carousel-item active" style="${ssrRenderStyle(`background-image: url(${__props.home.hero.image1})`)}"></div><div class="carousel-item" style="${ssrRenderStyle(`background-image: url(${__props.home.hero.image2})`)}"></div><div class="carousel-item" style="${ssrRenderStyle(`background-image: url(${__props.home.hero.image3})`)}"></div></div></div></div>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "hero-section" }, _attrs))} data-v-3b450e03><div class="container" data-v-3b450e03><div class="hero-grid" data-v-3b450e03><div class="hero-content" data-v-3b450e03><h1 class="hero-title" data-v-3b450e03>${ssrInterpolate(__props.home.hero.title)}</h1><p class="hero-subtitle" data-v-3b450e03>${ssrInterpolate(__props.home.hero.subtitle)}</p><div class="cta-wrapper" data-v-3b450e03><a href="/jobs" class="cta-button" data-v-3b450e03> Explore Jobs <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-3b450e03><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" data-v-3b450e03></path></svg></a></div></div><div class="slider-wrapper" data-v-3b450e03><div class="slider-container" data-v-3b450e03><div class="slider" data-v-3b450e03><!--[-->`);
+      ssrRenderList(slides.value, (slide, index) => {
+        _push(`<div style="${ssrRenderStyle(currentSlide.value === index ? null : { display: "none" })}" class="${ssrRenderClass([{ active: currentSlide.value === index }, "slide"])}" data-v-3b450e03><img${ssrRenderAttr("src", slide)}${ssrRenderAttr("alt", `Hero image ${index + 1}`)} data-v-3b450e03></div>`);
+      });
+      _push(`<!--]--></div><div class="slider-nav" data-v-3b450e03><!--[-->`);
+      ssrRenderList(slides.value, (_, index) => {
+        _push(`<button class="${ssrRenderClass([{ active: currentSlide.value === index }, "nav-dot"])}" data-v-3b450e03><span class="sr-only" data-v-3b450e03>Slide ${ssrInterpolate(index + 1)}</span></button>`);
+      });
+      _push(`<!--]--></div></div><div class="decoration decoration-1" data-v-3b450e03></div><div class="decoration decoration-2" data-v-3b450e03></div></div></div></div></section>`);
     };
   }
 };
@@ -28206,9 +28278,10 @@ _sfc_main$P.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/BannerSection.vue");
   return _sfc_setup$P ? _sfc_setup$P(props, ctx) : void 0;
 };
+const BannerSection = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-3b450e03"]]);
 const __vite_glob_0_228 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$P
+  default: BannerSection
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$O = {
   __name: "BrandSection",
@@ -28257,9 +28330,10 @@ const _sfc_main$O = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "partner-logos bg-color pt-45 pb-45 border-0 pe-3 ps-3" }, _attrs))}><div class="partner-slider"><!--[-->`);
       ssrRenderList(brands.value, (item, index) => {
-        _push(`<div class="item"><div class="logo d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({ alt: "" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div></div>`);
+        _push(`<div class="item"><div class="logo d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "" }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div>`);
       });
       _push(`<!--]--></div></div>`);
     };
@@ -28399,76 +28473,13 @@ const __vite_glob_0_232 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: CategorySection
 }, Symbol.toStringTag, { value: "Module" }));
+const CategorySection2_vue_vue_type_style_index_0_scoped_ac9f64b1_lang = "";
 const _sfc_main$M = {
   __name: "CategorySection2",
   __ssrInlineRender: true,
   setup(__props) {
-    const categories = ref([]);
-    const loading = ref(true);
-    onMounted(async () => {
-      homeApiService.get("featuredServices").then((res) => {
-        categories.value = res;
-        loading.value = false;
-      }).then(() => {
-        if ($(".category-slider-one").length) {
-          $(".category-slider-one").slick({
-            dots: false,
-            arrows: true,
-            lazyLoad: "ondemand",
-            prevArrow: $(".prev_d"),
-            nextArrow: $(".next_d"),
-            centerPadding: "0px",
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3e3,
-            responsive: [
-              {
-                breakpoint: 992,
-                settings: {
-                  slidesToShow: 3
-                }
-              },
-              {
-                breakpoint: 768,
-                settings: {
-                  slidesToShow: 2
-                }
-              },
-              {
-                breakpoint: 576,
-                settings: {
-                  slidesToShow: 1
-                }
-              }
-            ]
-          });
-        }
-      });
-    });
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_Link = resolveComponent("Link");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "category-section-three pt-140 lg-pt-100" }, _attrs))}><div class="container"><div class="position-relative"><div class="title-one lg-mb-40 mb-60"><h2 class="main-font color-blue">${ssrInterpolate(_ctx.trans("Most Demanding Jobs"))}</h2></div><div class="card-wrapper category-slider-one row"><!--[-->`);
-      ssrRenderList(categories.value, (item, index) => {
-        _push(`<div class="item"><div class="card-style-six position-relative" style="${ssrRenderStyle(`background-image: url(${item.preview});`)}">`);
-        _push(ssrRenderComponent(_component_Link, {
-          href: _ctx.route("job-categories.show", item.slug),
-          class: "w-100 h-100 d-flex align-items-end pb-20 ps-4"
-        }, {
-          default: withCtx((_, _push2, _parent2, _scopeId) => {
-            if (_push2) {
-              _push2(`<div class="title fw-500 text-lg text-white"${_scopeId}>${ssrInterpolate(item.title)}</div>`);
-            } else {
-              return [
-                createVNode("div", { class: "title fw-500 text-lg text-white" }, toDisplayString(item.title), 1)
-              ];
-            }
-          }),
-          _: 2
-        }, _parent));
-        _push(`</div></div>`);
-      });
-      _push(`<!--]--></div><ul class="slider-arrows slick-arrow-one color-two d-flex justify-content-center style-none sm-mt-20"><li class="prev_d slick-arrow"><i class="bi bi-arrow-left"></i></li><li class="next_d slick-arrow"><i class="bi bi-arrow-right"></i></li></ul></div></div></section>`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "about-section" }, _attrs))} data-v-ac9f64b1><div class="container" data-v-ac9f64b1><div class="about-grid" data-v-ac9f64b1><div class="about-content title-one" data-v-ac9f64b1><h2 class="section-title main-font" data-v-ac9f64b1>Empowering Global Talent</h2><div class="section-text" data-v-ac9f64b1><p data-v-ac9f64b1> At Xuriel, we bridge the gap between exceptional talent and innovative opportunities worldwide. Our platform connects skilled professionals with leading companies, fostering growth and transforming careers. </p><p data-v-ac9f64b1> With our extensive network and cutting-edge technology, we&#39;ve helped thousands of professionals find their dream roles while enabling businesses to build high-performing teams across borders. </p></div><a href="/about-us" class="cta-button" data-v-ac9f64b1> Learn More About Us <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" data-v-ac9f64b1><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" data-v-ac9f64b1></path></svg></a></div><div class="image-wrapper" data-v-ac9f64b1><div class="image-container" data-v-ac9f64b1><svg class="about-illustration" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" data-v-ac9f64b1><defs data-v-ac9f64b1><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%" data-v-ac9f64b1><stop offset="0%" style="${ssrRenderStyle({ "stop-color": "#2563eb", "stop-opacity": "0.2" })}" data-v-ac9f64b1></stop><stop offset="100%" style="${ssrRenderStyle({ "stop-color": "#3b82f6", "stop-opacity": "0.1" })}" data-v-ac9f64b1></stop></linearGradient><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%" data-v-ac9f64b1><stop offset="0%" style="${ssrRenderStyle({ "stop-color": "#2563eb", "stop-opacity": "1" })}" data-v-ac9f64b1></stop><stop offset="100%" style="${ssrRenderStyle({ "stop-color": "#3b82f6", "stop-opacity": "1" })}" data-v-ac9f64b1></stop></linearGradient></defs><circle cx="200" cy="200" r="180" fill="url(#grad1)" data-v-ac9f64b1></circle><circle cx="150" cy="150" r="20" fill="url(#grad2)" data-v-ac9f64b1></circle><circle cx="280" cy="180" r="15" fill="url(#grad2)" data-v-ac9f64b1></circle><circle cx="180" cy="280" r="18" fill="url(#grad2)" data-v-ac9f64b1></circle><circle cx="250" cy="250" r="12" fill="url(#grad2)" data-v-ac9f64b1></circle><path d="M150 150 L280 180" stroke="url(#grad2)" stroke-width="2" data-v-ac9f64b1></path><path d="M280 180 L250 250" stroke="url(#grad2)" stroke-width="2" data-v-ac9f64b1></path><path d="M250 250 L180 280" stroke="url(#grad2)" stroke-width="2" data-v-ac9f64b1></path><path d="M180 280 L150 150" stroke="url(#grad2)" stroke-width="2" data-v-ac9f64b1></path><circle cx="200" cy="200" r="40" fill="url(#grad2)" opacity="0.8" data-v-ac9f64b1></circle><circle cx="200" cy="200" r="35" fill="white" opacity="0.3" data-v-ac9f64b1></circle></svg></div></div></div></div></section>`);
     };
   }
 };
@@ -28478,9 +28489,10 @@ _sfc_main$M.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/CategorySection2.vue");
   return _sfc_setup$M ? _sfc_setup$M(props, ctx) : void 0;
 };
+const CategorySection2 = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["__scopeId", "data-v-ac9f64b1"]]);
 const __vite_glob_0_233 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$M
+  default: CategorySection2
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$L = {
   __name: "JobListSection",
@@ -28556,10 +28568,11 @@ const _sfc_main$K = {
       var _a2;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-three mt-150 lg-mt-100" }, _attrs))}><div class="bg-wrapper pt-85 lg-pt-50 lg-pb-50 position-relative wow fadeInUp pb-80" style="${ssrRenderStyle({ backgroundImage: `url(${__props.home.cta_s1.image1})` })}"><div class="container"><div class="row"><div class="col-xxl-5 col-xl-6 col-lg-6 ms-auto"><div class="text-wrapper p0 mb-50 md-mb-20 wow fadeInRight"><a class="fancybox rounded-circle video-icon tran3s d-flex align-items-center justify-content-center" data-fancybox=""${ssrRenderAttr("href", `https://www.youtube.com/embed/${(_a2 = __props.home.cta_s1) == null ? void 0 : _a2.video_id}`)}><i class="bi bi-play-fill"></i></a><div class="title-one mt-25 mb-25 lg-mb-20"><h2 class="text-white main-font">${__props.home.cta_s1.title}</h2></div><p class="text-white text-md">${ssrInterpolate(__props.home.cta_s1.subtitle)}</p></div></div></div><div class="row gx-xl-5 justify-content-between"><div class="col-lg-4 d-flex"><div class="mt-20 card-style-nine w-100 d-flex wow fadeInUp"><div class="icon rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1, _temp2;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "fancy-banner-three mt-150 lg-mt-10" }, _attrs))}><div class="bg-wrapper pt-85 lg-pt-50 lg-pb-50 position-relative wow fadeInUp pb-80" style="${ssrRenderStyle({ backgroundImage: `url(${__props.home.cta_s1.image1})` })}"><div class="container"><div class="row"><div class="col-xxl-5 col-xl-6 col-lg-6 ms-auto"><div class="text-wrapper p0 mb-50 md-mb-20 wow fadeInRight"><a class="fancybox rounded-circle video-icon tran3s d-flex align-items-center justify-content-center" data-fancybox=""${ssrRenderAttr("href", `https://www.youtube.com/embed/${(_a2 = __props.home.cta_s1) == null ? void 0 : _a2.video_id}`)}><i class="bi bi-play-fill"></i></a><div class="title-one mt-25 mb-25 lg-mb-20"><h2 class="text-white main-font">${__props.home.cta_s1.title ?? ""}</h2></div><p class="text-white text-md">${ssrInterpolate(__props.home.cta_s1.subtitle)}</p></div></div></div><div class="row gx-xl-5 justify-content-between"><div class="col-lg-4 d-flex"><div class="mt-20 card-style-nine w-100 d-flex wow fadeInUp"><div class="icon rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_37.svg")))}></div><div class="text d-flex flex-column ps-4"><div class="mb-10 text-lg">${ssrInterpolate(__props.home.cta_s1.steps[0].title)}</div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_37.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="text d-flex flex-column ps-4"><div class="mb-10 text-lg">${ssrInterpolate(__props.home.cta_s1.steps[0].title)}</div>`);
       _push(ssrRenderComponent(_component_Link, {
         href: __props.home.cta_s1.steps[0].link,
         class: "fw-500 text-uppercase"
@@ -28575,11 +28588,11 @@ const _sfc_main$K = {
         }),
         _: 1
       }, _parent));
-      _push(`</div></div></div><div class="col-lg-4 d-flex"><div class="mt-20 card-style-nine w-100 d-flex wow fadeInUp" data-wow-delay="0.2s"><div class="icon rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div></div><div class="col-lg-4 d-flex"><div class="mt-20 card-style-nine w-100 d-flex wow fadeInUp" data-wow-delay="0.2s"><div class="icon rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "",
         image: "",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_38.svg")))}></div><div class="text d-flex flex-column ps-4"><div class="mb-10 text-lg">${ssrInterpolate(__props.home.cta_s1.steps[1].title)}</div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_38.svg")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="text d-flex flex-column ps-4"><div class="mb-10 text-lg">${ssrInterpolate(__props.home.cta_s1.steps[1].title)}</div>`);
       _push(ssrRenderComponent(_component_Link, {
         href: __props.home.cta_s1.steps[1].link,
         class: "fw-500 text-uppercase"
@@ -28595,10 +28608,10 @@ const _sfc_main$K = {
         }),
         _: 1
       }, _parent));
-      _push(`</div></div></div><div class="col-lg-4 d-flex"><div class="mt-20 card-style-nine w-100 d-flex wow fadeInUp" data-wow-delay="0.35s"><div class="icon rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div></div><div class="col-lg-4 d-flex"><div class="mt-20 card-style-nine w-100 d-flex wow fadeInUp" data-wow-delay="0.35s"><div class="icon rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_39.svg")))}></div><div class="text d-flex flex-column ps-4"><div class="mb-10 text-lg">${ssrInterpolate(__props.home.cta_s1.steps[2].title)}</div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_39.svg")))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div class="text d-flex flex-column ps-4"><div class="mb-10 text-lg">${ssrInterpolate(__props.home.cta_s1.steps[2].title)}</div>`);
       _push(ssrRenderComponent(_component_Link, {
         href: __props.home.cta_s1.steps[2].link,
         class: "fw-500 text-uppercase"
@@ -28643,29 +28656,30 @@ const _sfc_main$J = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100" }, _attrs))}><div class="container"><div class="row"><div class="col-lg-5"><div class="wow fadeInLeft"><div class="title-two"><div class="sub-title">${ssrInterpolate(__props.home.cta_s2.top_title)}</div><h2 class="main-font color-blue">${ssrInterpolate(__props.home.cta_s2.title)}</h2></div><div class="accordion accordion-style-one color-two mt-40" id="accordionOne"><!--[-->`);
       ssrRenderList(__props.home.cta_s2.features, (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `heading${index}`)}><button class="accordion-button" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapse${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapse${index}`)}>${ssrInterpolate(item.title)}</button></div><div${ssrRenderAttr("id", `collapse${index}`)} class="accordion-collapse collapse"${ssrRenderAttr("aria-labelledby", `heading${index}`)} data-bs-parent="#accordionOne"><div class="accordion-body"><p>${ssrInterpolate(item.body)}</p></div></div></div>`);
       });
-      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="btn-five mt-45 lg-mt-20">${ssrInterpolate(__props.home.cta_s2.btn_text)}</a></div></div><div class="col-lg-6 col-md-11 me-lg-0 me-auto ms-auto"><div class="img-data position-relative md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s2.btn_link)} class="btn-five mt-45 lg-mt-20">${ssrInterpolate(__props.home.cta_s2.btn_text)}</a></div></div><div class="col-lg-6 col-md-11 me-lg-0 me-auto ms-auto"><div class="img-data position-relative md-mt-50"><div class="row"><div class="col-md-6 col-sm-8 col-10"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "",
         class: "lazy-img img01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}></div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div></div><div class="row"><div class="col-md-4 col-5"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img img02 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}></div><div class="col-md-6 col-7"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="col-md-6 col-7"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img img01 mt-35"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image3)))}></div></div><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen01 wow fadeInRight"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image4)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen02 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image5)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image5)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen03 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image6)))}></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image6)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</div></div></div></div></section>`);
     };
   }
 };
@@ -28743,6 +28757,7 @@ const __vite_glob_0_236 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$I
 }, Symbol.toStringTag, { value: "Module" }));
+const BlogSection_vue_vue_type_style_index_0_scoped_4a2e42cb_lang = "";
 const _sfc_main$H = {
   __name: "BlogSection",
   __ssrInlineRender: true,
@@ -28754,14 +28769,42 @@ const _sfc_main$H = {
       homeApiService.get("blogs").then((res) => {
         blogs.value = res;
         loading.value = false;
+      }).then(() => {
+        $(".blog-slider").slick({
+          dots: false,
+          arrows: true,
+          lazyLoad: "ondemand",
+          prevArrow: $(".prev_blog"),
+          nextArrow: $(".next_blog"),
+          centerPadding: "0px",
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 3e3,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2
+              }
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 1
+              }
+            }
+          ]
+        });
       });
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "blog-section-one mt-160 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-xl-7"><div class="title-one mb-30 lg-mb-10"><h2 class="main-font color-blue">${ssrInterpolate(_ctx.$page.props.app_name)} ${ssrInterpolate(_ctx.trans("Guides"))}</h2></div></div></div><div class="row gx-xxl-5"><!--[-->`);
+      let _temp0;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "blog-section-one mt-160 xl-mt-150 lg-mt-100" }, _attrs))} data-v-4a2e42cb><div class="container" data-v-4a2e42cb><div class="position-relative" data-v-4a2e42cb><div class="row" data-v-4a2e42cb><div class="col-xl-7" data-v-4a2e42cb><div class="title-one mb-30 lg-mb-10" data-v-4a2e42cb><h2 class="main-font color-blue" data-v-4a2e42cb>${ssrInterpolate(_ctx.$page.props.app_name)} ${ssrInterpolate(_ctx.trans("Guides"))}</h2></div></div></div><div class="row blog-slider" data-v-4a2e42cb><!--[-->`);
       ssrRenderList(blogs.value, (item, index) => {
-        _push(`<div class="col-lg-4 col-md-6"><article class="blog-meta-one mt-35 xs-mt-20 wow fadeInUp"><figure class="post-img m0">`);
+        _push(`<div class="item" data-v-4a2e42cb><article class="blog-meta-one mt-35 xs-mt-20 wow fadeInUp" data-v-4a2e42cb><figure class="post-img m0" data-v-4a2e42cb>`);
         _push(ssrRenderComponent(_component_Link, {
           href: _ctx.route("blogs.show", item),
           class: "w-100 d-block"
@@ -28769,10 +28812,10 @@ const _sfc_main$H = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a2, _b2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "",
                 class: "w-100 tran4s"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = item.preview) == null ? void 0 : _a2.value)))}${_scopeId}>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = item.preview) == null ? void 0 : _a2.value)))} data-v-4a2e42cb${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -28786,7 +28829,7 @@ const _sfc_main$H = {
           }),
           _: 2
         }, _parent));
-        _push(`</figure><div class="post-data mt-30 lg-mt-20"><div>`);
+        _push(`</figure><div class="post-data mt-30 lg-mt-20" data-v-4a2e42cb><div data-v-4a2e42cb>`);
         _push(ssrRenderComponent(_component_Link, {
           href: _ctx.route("blogs.show", item),
           class: "date"
@@ -28809,7 +28852,7 @@ const _sfc_main$H = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<h4 class="tran3s blog-title"${_scopeId}>${ssrInterpolate(item.title)}</h4>`);
+              _push2(`<h4 class="tran3s blog-title" data-v-4a2e42cb${_scopeId}>${ssrInterpolate(item.title)}</h4>`);
             } else {
               return [
                 createVNode("h4", { class: "tran3s blog-title" }, toDisplayString(item.title), 1)
@@ -28818,14 +28861,14 @@ const _sfc_main$H = {
           }),
           _: 2
         }, _parent));
-        _push(`<p class="mb-20">${ssrInterpolate(unref(textExcerpt)(item.meta[0].value, 120))}</p>`);
+        _push(`<p class="mb-20" data-v-4a2e42cb>${ssrInterpolate(unref(textExcerpt)(item.meta[0].value, 120))}</p>`);
         _push(ssrRenderComponent(_component_Link, {
           href: _ctx.route("blogs.show", item),
           class: "read-more"
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<img src="/assets/images/icon/icon_42.svg" alt=""${_scopeId}>`);
+              _push2(`<img src="/assets/images/icon/icon_42.svg" alt="" data-v-4a2e42cb${_scopeId}>`);
             } else {
               return [
                 createVNode("img", {
@@ -28839,7 +28882,7 @@ const _sfc_main$H = {
         }, _parent));
         _push(`</div></article></div>`);
       });
-      _push(`<!--]--></div><div class="explore-btn sm-mt-50 text-center">`);
+      _push(`<!--]--></div><ul class="slider-arrows slick-arrow-one d-flex justify-content-center style-none sm-mt-30" data-v-4a2e42cb><li class="prev_blog slick-arrow" data-v-4a2e42cb><i class="bi bi-arrow-left" data-v-4a2e42cb></i></li><li class="next_blog slick-arrow" data-v-4a2e42cb><i class="bi bi-arrow-right" data-v-4a2e42cb></i></li></ul><div class="explore-btn sm-mt-50 text-center" data-v-4a2e42cb>`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/blogs",
         class: "btn-six"
@@ -28865,50 +28908,12 @@ _sfc_main$H.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/BlogSection.vue");
   return _sfc_setup$H ? _sfc_setup$H(props, ctx) : void 0;
 };
+const BlogSection = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["__scopeId", "data-v-4a2e42cb"]]);
 const __vite_glob_0_230 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$H
+  default: BlogSection
 }, Symbol.toStringTag, { value: "Module" }));
 const _sfc_main$G = {
-  __name: "FeatureSection2",
-  __ssrInlineRender: true,
-  props: ["home"],
-  setup(__props) {
-    return (_ctx, _push, _parent, _attrs) => {
-      const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-two position-relative pt-180 xl-pt-150 lg-pt-100 pb-180 xl-pb-150 lg-pb-120" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="wow fadeInRight"><div class="title-one"><div class="sub-title">${ssrInterpolate(__props.home.cta_s3.top_title)}</div><h2>${ssrInterpolate(__props.home.cta_s3.title)}</h2></div><p class="lg-mt-20 lg-mb-30 mb-40 mt-40 text-lg">${ssrInterpolate(__props.home.cta_s3.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s3.btn_link)} class="btn-nine tran3s d-flex align-items-center"><span class="fw-500 me-2">${ssrInterpolate(__props.home.cta_s3.btn_text)}</span><i class="bi bi-arrow-right"></i></a></div></div><div class="col-lg-7 order-lg-first"><div class="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft"><div class="inner-circle rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
-        alt: "image",
-        class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image1)))}></div><div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
-        alt: "image",
-        class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image2)))}></div><div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
-        alt: "image",
-        class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image3)))}></div><div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
-        alt: "image",
-        class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image4)))}></div><div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
-        alt: "image",
-        class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image5)))}></div><div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
-        alt: "image",
-        class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image6)))}></div><img src="/assets/images/shape/shape_10.svg" alt="" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
-    };
-  }
-};
-const _sfc_setup$G = _sfc_main$G.setup;
-_sfc_main$G.setup = (props, ctx) => {
-  const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/FeatureSection2.vue");
-  return _sfc_setup$G ? _sfc_setup$G(props, ctx) : void 0;
-};
-const __vite_glob_0_235 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: _sfc_main$G
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main$F = {
   __name: "JobIntroSection",
   __ssrInlineRender: true,
   props: ["home"],
@@ -28919,7 +28924,7 @@ const _sfc_main$F = {
       _push(`<section${ssrRenderAttrs(mergeProps({
         class: "fancy-banner-five bg-image position-relative pt-100 lg-pt-60 pb-100 lg-pb-60",
         style: { backgroundImage: `url(${__props.home.cta_s4.image1})` }
-      }, _attrs))}><div class="container"><div class="position-relative"><div class="row align-items-center"><div class="col-lg-6"><div class="text-center title-one text-lg-start"><h2 class="text-white main-font">${ssrInterpolate((_a2 = __props.home.cta_s4) == null ? void 0 : _a2.title)}</h2></div></div><div class="col-lg-5 ms-auto"><p class="text-lg text-center text-white mb-35 lg-mb-20 md-mt-20 text-lg-start">${ssrInterpolate((_b2 = __props.home.cta_s4) == null ? void 0 : _b2.subtitle)}</p><ul class="btn-group style-none d-flex justify-content-center justify-content-lg-start"><li class="me-2 ms-2 ms-lg-0">`);
+      }, _attrs))}><div class="container"><div class="position-relative"><div class="row align-items-center"><div class="col-lg-6"><div class="text-center title-one text-lg-start"><h2 class="text-white main-font">${ssrInterpolate((_a2 = __props.home.cta_s4) == null ? void 0 : _a2.title)}</h2></div></div><div class="col-lg-5 ms-auto"><p class="text-lg text-center text-white mb-35 lg-mb-20 md-mt-20 text-lg-start">${ssrInterpolate((_b2 = __props.home.cta_s4) == null ? void 0 : _b2.subtitle)}</p><ul class="btn-group style-none d-flex flex-column flex-lg-row justify-content-center justify-content-lg-start gap-3 gap-lg-2"><li class="mx-auto mx-lg-0 me-lg-2">`);
       _push(ssrRenderComponent(_component_Link, {
         href: __props.home.cta_s4.left_btn_link,
         class: "btn-seven border6"
@@ -28935,22 +28940,22 @@ const _sfc_main$F = {
         }),
         _: 1
       }, _parent));
-      _push(`</li><li class="ms-2 ms-lg-0"><a${ssrRenderAttr("href", __props.home.cta_s4.right_btn_link)} class="btn-five border6">${ssrInterpolate(__props.home.cta_s4.right_btn_text)}</a></li></ul></div></div></div></div></section>`);
+      _push(`</li><li class="mx-auto mx-lg-0"><a${ssrRenderAttr("href", __props.home.cta_s4.right_btn_link)} class="btn-five border6">${ssrInterpolate(__props.home.cta_s4.right_btn_text)}</a></li></ul></div></div></div></div></section>`);
     };
   }
 };
-const _sfc_setup$F = _sfc_main$F.setup;
-_sfc_main$F.setup = (props, ctx) => {
+const _sfc_setup$G = _sfc_main$G.setup;
+_sfc_main$G.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/JobIntroSection.vue");
-  return _sfc_setup$F ? _sfc_setup$F(props, ctx) : void 0;
+  return _sfc_setup$G ? _sfc_setup$G(props, ctx) : void 0;
 };
 const __vite_glob_0_237 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  default: _sfc_main$F
+  default: _sfc_main$G
 }, Symbol.toStringTag, { value: "Module" }));
 const __default__$c = defineComponent({ layout: _sfc_main$3a });
-const _sfc_main$E = /* @__PURE__ */ Object.assign(__default__$c, {
+const _sfc_main$F = /* @__PURE__ */ Object.assign(__default__$c, {
   __name: "Index",
   __ssrInlineRender: true,
   props: ["home", "seo"],
@@ -28959,28 +28964,67 @@ const _sfc_main$E = /* @__PURE__ */ Object.assign(__default__$c, {
       const _component_Seo = resolveComponent("Seo");
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$P, { home: __props.home }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$O, null, null, _parent));
+      _push(ssrRenderComponent(BannerSection, { home: __props.home }, null, _parent));
       _push(ssrRenderComponent(CategorySection, null, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$M, null, null, _parent));
+      _push(ssrRenderComponent(CategorySection2, null, null, _parent));
       _push(ssrRenderComponent(_sfc_main$L, null, null, _parent));
       _push(ssrRenderComponent(_sfc_main$K, { home: __props.home }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$J, { home: __props.home }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$I, { home: __props.home }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$H, null, null, _parent));
+      _push(ssrRenderComponent(BlogSection, null, null, _parent));
+      _push(ssrRenderComponent(_sfc_main$O, null, null, _parent));
       _push(ssrRenderComponent(_sfc_main$G, { home: __props.home }, null, _parent));
-      _push(ssrRenderComponent(_sfc_main$F, { home: __props.home }, null, _parent));
       _push(`<!--]-->`);
     };
   }
 });
+const _sfc_setup$F = _sfc_main$F.setup;
+_sfc_main$F.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Index.vue");
+  return _sfc_setup$F ? _sfc_setup$F(props, ctx) : void 0;
+};
+const __vite_glob_0_227 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: _sfc_main$F
+}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$E = {
+  __name: "FeatureSection2",
+  __ssrInlineRender: true,
+  props: ["home"],
+  setup(__props) {
+    return (_ctx, _push, _parent, _attrs) => {
+      const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-two position-relative pt-180 xl-pt-150 lg-pt-100 pb-180 xl-pb-150 lg-pb-120" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="wow fadeInRight"><div class="title-one"><div class="sub-title">${ssrInterpolate(__props.home.cta_s3.top_title)}</div><h2>${ssrInterpolate(__props.home.cta_s3.title)}</h2></div><p class="lg-mt-20 lg-mb-30 mb-40 mt-40 text-lg">${ssrInterpolate(__props.home.cta_s3.subtitle)}</p><a${ssrRenderAttr("href", __props.home.cta_s3.btn_link)} class="btn-nine tran3s d-flex align-items-center"><span class="fw-500 me-2">${ssrInterpolate(__props.home.cta_s3.btn_text)}</span><i class="bi bi-arrow-right"></i></a></div></div><div class="col-lg-7 order-lg-first"><div class="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft"><div class="inner-circle rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
+        alt: "image",
+        class: "lazy-img"
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp1 = mergeProps({
+        alt: "image",
+        class: "lazy-img"
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp2 = mergeProps({
+        alt: "image",
+        class: "lazy-img"
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp3 = mergeProps({
+        alt: "image",
+        class: "lazy-img"
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}</div><div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp4 = mergeProps({
+        alt: "image",
+        class: "lazy-img"
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image5)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}</div><div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp5 = mergeProps({
+        alt: "image",
+        class: "lazy-img"
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s3.image6)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</div><img src="/assets/images/shape/shape_10.svg" alt="" class="lazy-img shapes shape_01"></div></div></div></div></section>`);
+    };
+  }
+};
 const _sfc_setup$E = _sfc_main$E.setup;
 _sfc_main$E.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Index.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/FeatureSection2.vue");
   return _sfc_setup$E ? _sfc_setup$E(props, ctx) : void 0;
 };
-const __vite_glob_0_227 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const __vite_glob_0_235 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: _sfc_main$E
 }, Symbol.toStringTag, { value: "Module" }));
@@ -29113,6 +29157,7 @@ const _sfc_main$C = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "category-section-one position-relative" }, _attrs))}><div class="container"><div class="row justify-content-between align-items-center"><div class="col-lg-8"><div class="title-three"><h2 class="fw-600 color-blue">${ssrInterpolate(_ctx.trans("Explore the marketplace."))}</h2></div></div><div class="col-lg-4"><div class="d-flex justify-content-lg-end">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/jobs",
@@ -29138,10 +29183,10 @@ const _sfc_main$C = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<div class="icon d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="icon d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "shape",
                 class: "lazy-img category-section-img"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, category.preview)))}${_scopeId}></div><div class="title fw-500"${_scopeId}>${ssrInterpolate(category.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(category.jobs_count)} ${ssrInterpolate(_ctx.trans("Jobs"))}</div>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, category.preview)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title fw-500"${_scopeId}>${ssrInterpolate(category.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(category.jobs_count)} ${ssrInterpolate(_ctx.trans("Jobs"))}</div>`);
             } else {
               return [
                 createVNode("div", { class: "icon d-flex align-items-center justify-content-center" }, [
@@ -29251,20 +29296,21 @@ const _sfc_main$A = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-three position-relative pt-225 xl-pt-200 lg-pt-150 md-pt-100" }, _attrs))}><div class="container"><div class="row"><div class="col-lg-5 order-lg-last ms-auto"><div class="wow fadeInRight"><div class="title-two"><div class="sub-title">${ssrInterpolate(__props.home.cta_s1.top_title)}</div><h2 class="fw-600 color-blue">${ssrInterpolate(__props.home.cta_s1.title)}</h2></div><div class="accordion accordion-style-one color-two mt-40" id="accordionOne"><!--[-->`);
       ssrRenderList(((_a2 = __props.home.cta_s1) == null ? void 0 : _a2.features) ?? [], (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `heading${index}`)}><button class="accordion-button" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapse${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapse${index}`)}>${ssrInterpolate(item.title)}</button></div><div${ssrRenderAttr("id", `collapse${index}`)} class="accordion-collapse collapse"${ssrRenderAttr("aria-labelledby", `heading${index}`)} data-bs-parent="#accordionOne"><div class="accordion-body"><p>${ssrInterpolate(item.body)}</p></div></div></div>`);
       });
-      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-five mt-45 lg-mt-20">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-6 order-lg-first"><div class="img-box position-relative rounded-circle d-flex align-items-center justify-content-center wow fadeInLeft"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></div><a${ssrRenderAttr("href", __props.home.cta_s1.btn_link)} class="btn-five mt-45 lg-mt-20">${ssrInterpolate(__props.home.cta_s1.btn_text)}</a></div></div><div class="col-lg-6 order-lg-first"><div class="img-box position-relative rounded-circle d-flex align-items-center justify-content-center wow fadeInLeft"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s1.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_25.svg")))}></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_25.svg")))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div></div></div></section>`);
     };
   }
 };
@@ -29314,28 +29360,29 @@ const _sfc_main$y = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2;
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-four position-relative mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper"><div class="row align-items-center"><div class="col-lg-5"><div class="wow fadeInLeft"><div class="title-one"><h2 class="text-white">${ssrInterpolate(__props.home.cta_s4.title)}</h2></div><p class="mb-45 lg-mb-30 mt-20 text-white">${ssrInterpolate(__props.home.cta_s4.subtitle)}</p><a${ssrRenderAttr("href", ((_a2 = __props.home.cta_s4) == null ? void 0 : _a2.btn_link) ?? "/")} class="btn-five">${ssrInterpolate(__props.home.cta_s4.btn_text)}</a></div></div><div class="col-lg-6 text-lg-end md-mt-40 text-center"><div class="big-circle d-inline-block position-relative wow fadeInRight"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5, _temp6;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-four position-relative mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="container"><div class="bg-wrapper"><div class="row align-items-center"><div class="col-lg-5"><div class="wow fadeInLeft"><div class="title-one"><h2 class="text-white">${ssrInterpolate(__props.home.cta_s4.title)}</h2></div><p class="mb-45 lg-mb-30 mt-20 text-white">${ssrInterpolate(__props.home.cta_s4.subtitle)}</p><a${ssrRenderAttr("href", ((_a2 = __props.home.cta_s4) == null ? void 0 : _a2.btn_link) ?? "/")} class="btn-five">${ssrInterpolate(__props.home.cta_s4.btn_text)}</a></div></div><div class="col-lg-6 text-lg-end md-mt-40 text-center"><div class="big-circle d-inline-block position-relative wow fadeInRight"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/bg_shape_02.png")))}><div class="logo rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/bg_shape_02.png")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="logo rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image1)))}></div><div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image1)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div><div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image2)))}></div><div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image2)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image3)))}></div><div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image3)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}</div><div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image4)))}></div><div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image4)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}</div><div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image5)))}></div><div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image5)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</div><div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp6 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image6)))}></div><div class="brand text-md text-start text-white"><span>${ssrInterpolate(__props.home.cta_s4.circle_text1)}</span>${ssrInterpolate(__props.home.cta_s4.circle_text2)}</div></div></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s4.image6)))}>${"textContent" in _temp6 ? ssrInterpolate(_temp6.textContent) : _temp6.innerHTML ?? ""}</div><div class="brand text-md text-start text-white"><span>${ssrInterpolate(__props.home.cta_s4.circle_text1)}</span>${ssrInterpolate(__props.home.cta_s4.circle_text2)}</div></div></div></div></div></div></section>`);
     };
   }
 };
@@ -29366,25 +29413,26 @@ const _sfc_main$x = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-three position-relative pt-120 md-pt-80 xs-pt-40 lg-pb-20 pb-80" }, _attrs))}><div class="img-box"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5;
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-three position-relative pt-120 md-pt-80 xs-pt-40 lg-pb-20 pb-80" }, _attrs))}><div class="img-box"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image4 ?? "/assets/images/assets/ils_01.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image4 ?? "/assets/images/assets/ils_01.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image5 ?? "/assets/images/assets/ils_01_02.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image5 ?? "/assets/images/assets/ils_01_02.svg")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_02 wow fadeInLeft"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image6 ?? "/assets/images/assets/ils_01_01.svg")))}></div><div class="container"><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-7"><div class="mb-5 slogan fw-500">${ssrInterpolate(__props.home.hero.top_title)}</div><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="text-lg mt-35 md-mt-30 mb-30 md-mb-20 pe-xl-5">${ssrInterpolate(__props.home.hero.subtitle)}</p><a${ssrRenderAttr("href", __props.home.hero.btn_link)} class="btn-five">${ssrInterpolate(__props.home.hero.btn_text)}</a><div class="flex-wrap d-flex align-items-center mt-70 lg-mt-50 md-mt-40"><div class="partner-title">${ssrInterpolate(_ctx.trans("Trusted by"))}:</div><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image6 ?? "/assets/images/assets/ils_01_01.svg")))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div class="container"><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-7"><div class="mb-5 slogan fw-500">${ssrInterpolate(__props.home.hero.top_title)}</div><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="text-lg mt-35 md-mt-30 mb-30 md-mb-20 pe-xl-5">${ssrInterpolate(__props.home.hero.subtitle)}</p><a${ssrRenderAttr("href", __props.home.hero.btn_link)} class="btn-five">${ssrInterpolate(__props.home.hero.btn_text)}</a><div class="flex-wrap d-flex align-items-center mt-70 lg-mt-50 md-mt-40"><div class="partner-title">${ssrInterpolate(_ctx.trans("Trusted by"))}:</div><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img me-4 ms-2"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img me-4"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image3)))}></div></div></div></div></div></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image3)))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}</div></div></div></div></div></div>`);
     };
   }
 };
@@ -29482,19 +29530,20 @@ const _sfc_main$v = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "feedback-section-three position-relative mt-170 xl-mt-150 lg-mt-100" }, _attrs))}><div class="position-relative container"><div class="row"><div class="col-xl-6 col-lg-7 col-md-8 m-auto"><div class="title-two text-center"><img${ssrRenderAttrs(mergeProps({
+      let _temp0, _temp1;
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "feedback-section-three position-relative mt-170 xl-mt-150 lg-mt-100" }, _attrs))}><div class="position-relative container"><div class="row"><div class="col-xl-6 col-lg-7 col-md-8 m-auto"><div class="title-two text-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "img",
         class: "lazy-img mb-10 me-auto ms-auto"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_22.svg")))}><h2 class="fw-600 color-blue">${ssrInterpolate(_ctx.trans("Check what these clients have to say."))}</h2></div></div></div><div id="feedBack_carousel" class="carousel slide mt-55 lg-mt-30" data-bs-ride="carousel"><div class="row"><div class="col-xxl-9 col-lg-8 col-md-10 m-auto"><div class="carousel-inner text-center"><!--[-->`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_22.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<h2 class="fw-600 color-blue">${ssrInterpolate(_ctx.trans("Check what these clients have to say."))}</h2></div></div></div><div id="feedBack_carousel" class="carousel slide mt-55 lg-mt-30" data-bs-ride="carousel"><div class="row"><div class="col-xxl-9 col-lg-8 col-md-10 m-auto"><div class="carousel-inner text-center"><!--[-->`);
       ssrRenderList(feedbacks.value, (item, index) => {
         _push(`<div class="${ssrRenderClass([{ active: index == 0 }, "carousel-item"])}"><p>“${ssrInterpolate(item.review)}”</p><div class="d-inline-block position-relative name fw-500 text-dark text-lg">${ssrInterpolate(item.author)}, <span class="fw-normal opacity-50">${ssrInterpolate(item.author_designation)}</span></div></div>`);
       });
       _push(`<!--]--></div></div></div><button class="carousel-control-prev carousel-btn" type="button" data-bs-target="#feedBack_carousel" data-bs-slide="prev"><i class="bi bi-chevron-left"></i><span class="visually-hidden">${ssrInterpolate(_ctx.trans("Previous"))}</span></button><button class="carousel-control-next carousel-btn" type="button" data-bs-target="#feedBack_carousel" data-bs-slide="next"><i class="bi bi-chevron-right"></i><span class="visually-hidden">${ssrInterpolate(_ctx.trans("Next"))}</span></button><div class="carousel-indicators"><!--[-->`);
       ssrRenderList(feedbacks.value, (item, index) => {
-        _push(`<button type="button" data-bs-target="#feedBack_carousel"${ssrRenderAttr("data-bs-slide-to", index)} class="${ssrRenderClass({ active: index == 0 })}"${ssrRenderAttr("aria-current", index == 0 ? "true" : "")}${ssrRenderAttr("aria-label", `Slide ${index + 1}`)}><img${ssrRenderAttrs(mergeProps({
+        _push(`<button type="button" data-bs-target="#feedBack_carousel"${ssrRenderAttr("data-bs-slide-to", index)} class="${ssrRenderClass({ active: index == 0 })}"${ssrRenderAttr("aria-current", index == 0 ? "true" : "")}${ssrRenderAttr("aria-label", `Slide ${index + 1}`)}><img${ssrRenderAttrs(_temp1 = mergeProps({
           alt: "logo",
           class: "w-100 h-100 rounded-circle"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.company_logo)))}></button>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.company_logo)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</button>`);
       });
       _push(`<!--]--></div></div></div></section>`);
     };
@@ -29608,6 +29657,7 @@ const _sfc_main$s = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-two position-relative pt-180 xl-pt-150 lg-pt-100 pb-180 xl-pb-150 lg-pb-120" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="wow fadeInRight"><div class="title-one"><div class="sub-title">${ssrInterpolate(_ctx.trans("TOP BRAND"))}</div><h2>${ssrInterpolate(_ctx.trans("Collaboration with Top Brands."))}</h2></div><p class="lg-mt-20 lg-mb-30 mb-40 mt-40 text-lg">${ssrInterpolate(_ctx.trans(`We collaborate with a number of top tier companies on imagining the future of work,
               have a look.`))}</p>`);
       _push(ssrRenderComponent(_component_Link, {
@@ -29628,10 +29678,10 @@ const _sfc_main$s = {
       }, _parent));
       _push(`</div></div><div class="col-lg-7 order-lg-first"><div class="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft"><!--[-->`);
       ssrRenderList(brands.value, (item, index) => {
-        _push(`<div class="inner-circle rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(mergeProps({
+        _push(`<div class="inner-circle rounded-circle d-flex align-items-center justify-content-center"><img${ssrRenderAttrs(_temp0 = mergeProps({
           alt: "image",
           class: "lazy-img"
-        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}></div>`);
+        }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.preview)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div>`);
       });
       _push(`<!--]--></div></div></div></div></section>`);
     };
@@ -29669,6 +29719,7 @@ const _sfc_main$r = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "expert-section-one position-relative mt-180 xl-mt-150 lg-mt-100" }, _attrs))}><div class="position-relative container"><div class="row"><div class="col-md-7"><div class="title-one text-md-start mb-65 md-mb-50 text-center"><h2>${ssrInterpolate(_ctx.trans("Find the best"))} <span class="position-relative">${ssrInterpolate(_ctx.trans("talented"))} <img src="/assets/images/shape/shape_04.svg" alt="" class="lazy-img shapes shape"></span> ${ssrInterpolate(_ctx.trans("expert in "))} ${ssrInterpolate(_ctx.$page.props.app_name)}. </h2></div></div></div><div class="">`);
       _push(ssrRenderComponent(unref(Swiper), {
         "slides-per-view": 1,
@@ -29693,10 +29744,10 @@ const _sfc_main$r = {
                     }, {
                       default: withCtx((_3, _push4, _parent4, _scopeId3) => {
                         if (_push4) {
-                          _push4(`<img${ssrRenderAttrs(mergeProps({
+                          _push4(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                             alt: "",
                             class: "expertSectionImg m-auto"
-                          }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.avatar)))}${_scopeId3}>`);
+                          }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.avatar)))}${_scopeId3}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
                         } else {
                           return [
                             withDirectives(createVNode("img", {
@@ -29861,6 +29912,7 @@ const _sfc_main$p = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3, _temp4, _temp5, _temp6, _temp7, _temp8, _temp9;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "hero-banner-two position-relative" }, _attrs))}><div class="container"><div class="position-relative pt-225 xl-pt-200 lg-pt-150 lg-pb-60 pb-80"><div class="row"><div class="col-lg-6 col-md-8"><h1>${ssrInterpolate(__props.home.hero.title)}</h1><p class="text-md mt-35 mb-50 lg-mb-30 pe-xxl-5">${ssrInterpolate(__props.home.hero.subtitle)}</p></div></div><div class="position-relative"><div class="row"><div class="col-lg-6 col-md-8"><div class="job-search-two position-relative me-xxl-5"><form class="d-flex align-items-center justify-content-between"><input type="text"${ssrRenderAttr("value", unref(form).keyword)} placeholder="Search job, title etc...."><button type="submit" class="btn-five h-100">${ssrInterpolate(_ctx.trans("Search"))}</button></form><ul class="filter-tags d-flex style-none mt-25 flex-wrap"><li class="fw-500 text-dark me-2">${ssrInterpolate(_ctx.trans("Popular"))}:</li><!--[-->`);
       ssrRenderList(popularCategories.value, (item, index) => {
         _push(`<li class="me-2">`);
@@ -29880,43 +29932,43 @@ const _sfc_main$p = {
         }, _parent));
         _push(`</li>`);
       });
-      _push(`<!--]--></ul></div></div></div></div></div></div><div class="img-box"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></ul></div></div></div></div></div></div><div class="img-box"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_02 wow fadeInLeft"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image3)))}></div><div class="rating-box position-relative"><div class="d-sm-flex justify-content-end"><div class="me-sm-5 pe-xxl-4"><div class="d-flex align-items-center"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div><div class="rating-box position-relative"><div class="d-sm-flex justify-content-end"><div class="me-sm-5 pe-xxl-4"><div class="d-flex align-items-center"><img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img me-lg-4 me-2"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image4)))}><div><div class="fw-500 text-dark text-lg">${ssrInterpolate(__props.home.hero.footer_item1)}</div><span>${ssrInterpolate(_ctx.trans("Individual Freelancer"))}</span></div></div></div><div><div class="fw-500 text-dark mb-10 text-lg">${ssrInterpolate(__props.home.hero.footer_item2)}</div><ul class="d-flex align-items-center style-none rating"><!--[-->`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.hero.image4)))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}<div><div class="fw-500 text-dark text-lg">${ssrInterpolate(__props.home.hero.footer_item1)}</div><span>${ssrInterpolate(_ctx.trans("Individual Freelancer"))}</span></div></div></div><div><div class="fw-500 text-dark mb-10 text-lg">${ssrInterpolate(__props.home.hero.footer_item2)}</div><ul class="d-flex align-items-center style-none rating"><!--[-->`);
       ssrRenderList(5, (item) => {
         _push(`<li><i class="${ssrRenderClass(
           item > parseInt(__props.home.hero.footer_item3 ?? 0) ? "bi bi-star" : "bi bi-star-fill"
         )}"></i></li>`);
       });
-      _push(`<!--]--><li>${ssrInterpolate(__props.home.hero.footer_item4)}</li></ul></div></div></div><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--><li>${ssrInterpolate(__props.home.hero.footer_item4)}</li></ul></div></div></div><img${ssrRenderAttrs(_temp4 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_15.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_15.svg")))}>${"textContent" in _temp4 ? ssrInterpolate(_temp4.textContent) : _temp4.innerHTML ?? ""}<img${ssrRenderAttrs(_temp5 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_16.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_16.svg")))}>${"textContent" in _temp5 ? ssrInterpolate(_temp5.textContent) : _temp5.innerHTML ?? ""}<img${ssrRenderAttrs(_temp6 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_03"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_17.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_17.svg")))}>${"textContent" in _temp6 ? ssrInterpolate(_temp6.textContent) : _temp6.innerHTML ?? ""}<img${ssrRenderAttrs(_temp7 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_04"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_18.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_18.svg")))}>${"textContent" in _temp7 ? ssrInterpolate(_temp7.textContent) : _temp7.innerHTML ?? ""}<img${ssrRenderAttrs(_temp8 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_05"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_19.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_19.svg")))}>${"textContent" in _temp8 ? ssrInterpolate(_temp8.textContent) : _temp8.innerHTML ?? ""}<img${ssrRenderAttrs(_temp9 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_06"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_20.svg")))}></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_20.svg")))}>${"textContent" in _temp9 ? ssrInterpolate(_temp9.textContent) : _temp9.innerHTML ?? ""}</div>`);
     };
   }
 };
@@ -29970,6 +30022,7 @@ const _sfc_main$n = {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100 md-pt-80" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last"><div class="ps-lg-4 wow fadeInRight"><div class="title-one"><h2 class="fw-600">${ssrInterpolate((_a2 = __props.home.cta_s1) == null ? void 0 : _a2.title)}</h2></div><p class="md-mt-20 md-mb-20 text-md mb-40 mt-40">${ssrInterpolate((_b2 = __props.home.cta_s1) == null ? void 0 : _b2.subtitle)}</p>`);
       if ((_d = (_c = __props.home.cta_s1) == null ? void 0 : _c.features) == null ? void 0 : _d.length) {
         _push(`<ul class="list-style-one style-none"><!--[-->`);
@@ -29996,16 +30049,16 @@ const _sfc_main$n = {
         }),
         _: 1
       }, _parent));
-      _push(`</div></div><div class="col-lg-7 col-md-8 order-lg-first m-auto"><div class="img-data position-relative me-xl-5 md-mt-20"><div class="row align-items-center gx-xl-5"><div class="col-6"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div><div class="col-lg-7 col-md-8 order-lg-first m-auto"><div class="img-data position-relative me-xl-5 md-mt-20"><div class="row align-items-center gx-xl-5"><div class="col-6"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img mt-35 md-mt-20 wow fadeInLeft"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_g = __props.home.cta_s1) == null ? void 0 : _g.image1)))}></div><div class="col-6"><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_g = __props.home.cta_s1) == null ? void 0 : _g.image1)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="col-6"><img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img mt-35 md-mt-20 wow fadeInDown"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_h = __props.home.cta_s1) == null ? void 0 : _h.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_h = __props.home.cta_s1) == null ? void 0 : _h.image2)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img mt-35 md-mt-20 wow fadeInUp"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_i = __props.home.cta_s1) == null ? void 0 : _i.image3)))}></div></div><img src="/assets/images/shape/shape_06.svg" alt="image" class="lazy-img shapes shape_02"><img src="/assets/images/shape/shape_21.svg" alt="image" class="lazy-img shapes shape_03"><a class="fancybox rounded-circle video-icon tran3s text-center" data-fancybox=""${ssrRenderAttr("href", `https://www.youtube.com/embed/${(_j = __props.home.cta_s1) == null ? void 0 : _j.video_id}`)}><i class="bi bi-play-fill"></i></a></div></div></div><div class="border-bottom pb-50 lg-pb-20 mt-90 lg-mt-30"><div class="row"><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center"><h2 class="main-count fw-500">${ssrInterpolate((_k = __props.home.cta_s1) == null ? void 0 : _k.item1)}</h2><p>${ssrInterpolate(unref(trans)("Completed Jobs"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.2s"><h2 class="main-count fw-500">${ssrInterpolate((_l = __props.home.cta_s1) == null ? void 0 : _l.item2)}</h2><p>${ssrInterpolate(unref(trans)("Businesses WorldWide"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.35s"><h2 class="main-count fw-500">${ssrInterpolate((_m = __props.home.cta_s1) == null ? void 0 : _m.item3)}</h2><p>${ssrInterpolate(unref(trans)("Lives Transformed"))}</p></div></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_i = __props.home.cta_s1) == null ? void 0 : _i.image3)))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div><img src="/assets/images/shape/shape_06.svg" alt="image" class="lazy-img shapes shape_02"><img src="/assets/images/shape/shape_21.svg" alt="image" class="lazy-img shapes shape_03"><a class="fancybox rounded-circle video-icon tran3s text-center" data-fancybox=""${ssrRenderAttr("href", `https://www.youtube.com/embed/${(_j = __props.home.cta_s1) == null ? void 0 : _j.video_id}`)}><i class="bi bi-play-fill"></i></a></div></div></div><div class="border-bottom pb-50 lg-pb-20 mt-90 lg-mt-30"><div class="row"><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center"><h2 class="main-count fw-500">${ssrInterpolate((_k = __props.home.cta_s1) == null ? void 0 : _k.item1)}</h2><p>${ssrInterpolate(unref(trans)("Completed Jobs"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.2s"><h2 class="main-count fw-500">${ssrInterpolate((_l = __props.home.cta_s1) == null ? void 0 : _l.item2)}</h2><p>${ssrInterpolate(unref(trans)("Businesses WorldWide"))}</p></div></div><div class="col-sm-4"><div class="counter-block-one mt-25 wow fadeInUp text-center" data-wow-delay="0.35s"><h2 class="main-count fw-500">${ssrInterpolate((_m = __props.home.cta_s1) == null ? void 0 : _m.item3)}</h2><p>${ssrInterpolate(unref(trans)("Lives Transformed"))}</p></div></div></div></div></div></section>`);
     };
   }
 };
@@ -30028,6 +30081,7 @@ const _sfc_main$m = {
       var _a2, _b2, _c, _d;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "text-feature-three position-relative pt-225 lg-pt-150 md-pt-100" }, _attrs))}><div class="container"><div class="row align-items-center"><div class="col-lg-5 order-lg-last ms-auto"><div class="wow fadeInRight ms-xxl-5"><div class="title-one"><div class="sub-title">${ssrInterpolate((_a2 = __props.home.cta_s2) == null ? void 0 : _a2.top_title)}</div><h2 class="fw-600">${ssrInterpolate((_b2 = __props.home.cta_s2) == null ? void 0 : _b2.title)}</h2></div><div class="mt-40 accordion accordion-style-one" id="accordionOne"><!--[-->`);
       ssrRenderList(((_c = __props.home.cta_s2) == null ? void 0 : _c.features) ?? [], (item, index) => {
         _push(`<div class="accordion-item"><div class="accordion-header"${ssrRenderAttr("id", `heading${index}`)}><button class="${ssrRenderClass([{ collapsed: index != 0 }, "accordion-button"])}" type="button" data-bs-toggle="collapse"${ssrRenderAttr("data-bs-target", `#collapse${index}`)} aria-expanded="false"${ssrRenderAttr("aria-controls", `collapse${index}`)}>${ssrInterpolate(item.title)}</button></div><div${ssrRenderAttr("id", `collapse${index}`)} class="${ssrRenderClass([{ show: index == 0 }, "accordion-collapse collapse"])}"${ssrRenderAttr("aria-labelledby", `heading${index}`)} data-bs-parent="#accordionOne"><div class="accordion-body"><p>${ssrInterpolate(item.body)}</p></div></div></div>`);
@@ -30049,16 +30103,16 @@ const _sfc_main$m = {
         }),
         _: 1
       }, _parent));
-      _push(`</div></div><div class="col-lg-6 order-lg-first"><div class="img-box position-relative d-flex align-items-center justify-content-center wow fadeInLeft"><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div><div class="col-lg-6 order-lg-first"><div class="img-box position-relative d-flex align-items-center justify-content-center wow fadeInLeft"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "image",
         class: "lazy-img"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image2)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "image",
         class: "lazy-img shapes screen_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, __props.home.cta_s2.image1)))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<img${ssrRenderAttrs(_temp2 = mergeProps({
         alt: "image",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_25.svg")))}></div></div></div></div></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_25.svg")))}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div></div></div></section>`);
     };
   }
 };
@@ -30091,6 +30145,7 @@ const _sfc_main$l = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1, _temp2, _temp3;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "category-section-two position-relative pt-150 lg-pt-100 pb-140 lg-pb-80" }, _attrs))}><div class="container"><div class="row justify-content-between"><div class="col-md-6 col-sm-8"><div class="title-one text-sm-start text-center"><h2 class="fw-600">${ssrInterpolate(_ctx.trans("Most demanding job categories."))}</h2></div></div><div class="col-md-5 col-sm-4"><div class="d-none d-sm-flex justify-content-sm-end mt-25">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/jobs",
@@ -30121,10 +30176,10 @@ const _sfc_main$l = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`<div class="icon tran3s d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+              _push2(`<div class="icon tran3s d-flex align-items-center justify-content-center"${_scopeId}><img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "shape",
                 class: "lazy-img category-section-img"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, category.preview)))}${_scopeId}></div><div class="title tran3s fw-500 text-lg"${_scopeId}>${ssrInterpolate(category.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(category.jobs_count)} ${ssrInterpolate(_ctx.trans("Jobs"))}</div>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, category.preview)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</div><div class="title tran3s fw-500 text-lg"${_scopeId}>${ssrInterpolate(category.title)}</div><div class="total-job"${_scopeId}>${ssrInterpolate(category.jobs_count)} ${ssrInterpolate(_ctx.trans("Jobs"))}</div>`);
             } else {
               return [
                 createVNode("div", { class: "icon tran3s d-flex align-items-center justify-content-center" }, [
@@ -30151,13 +30206,13 @@ const _sfc_main$l = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<div class="title text-white"${_scopeId}>${ssrInterpolate(totalJobsCount.value)} +</div><div class="text-lg text-white"${_scopeId}>${ssrInterpolate(_ctx.trans("Job already posted"))}</div><div class="d-flex align-items-center justify-content-end mt-50"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+            _push2(`<div class="title text-white"${_scopeId}>${ssrInterpolate(totalJobsCount.value)} +</div><div class="text-lg text-white"${_scopeId}>${ssrInterpolate(_ctx.trans("Job already posted"))}</div><div class="d-flex align-items-center justify-content-end mt-50"${_scopeId}><img${ssrRenderAttrs(_temp1 = mergeProps({
               alt: "image",
               class: "lazy-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_22.svg")))}${_scopeId}><div class="icon tran3s d-flex align-items-center justify-content-center ms-5"${_scopeId}><img${ssrRenderAttrs(mergeProps({
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_22.svg")))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}<div class="icon tran3s d-flex align-items-center justify-content-center ms-5"${_scopeId}><img${ssrRenderAttrs(_temp2 = mergeProps({
               alt: "image",
               class: "lazy-img"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_19.svg")))}${_scopeId}></div></div>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/icon/icon_19.svg")))}${_scopeId}>${"textContent" in _temp2 ? ssrInterpolate(_temp2.textContent) : _temp2.innerHTML ?? ""}</div></div>`);
           } else {
             return [
               createVNode("div", { class: "title text-white" }, toDisplayString(totalJobsCount.value) + " +", 1),
@@ -30183,10 +30238,10 @@ const _sfc_main$l = {
         }),
         _: 1
       }, _parent));
-      _push(`</div></div></div><div class="d-sm-none mt-50 text-center"><a href="#" class="btn-six border-0">${ssrInterpolate(_ctx.trans("All Categories "))} <img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div></div><div class="d-sm-none mt-50 text-center"><a href="#" class="btn-six border-0">${ssrInterpolate(_ctx.trans("All Categories "))} <img${ssrRenderAttrs(_temp3 = mergeProps({
         alt: "image",
         class: "lazy-img shapes"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_23.svg")))}></a></div></div><img src="/assets/images/shape/shape_24.svg" alt="image" class="lazy-img shapes shape_01"></section>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_23.svg")))}>${"textContent" in _temp3 ? ssrInterpolate(_temp3.textContent) : _temp3.innerHTML ?? ""}</a></div></div><img src="/assets/images/shape/shape_24.svg" alt="image" class="lazy-img shapes shape_01"></section>`);
     };
   }
 };
@@ -30221,6 +30276,7 @@ const _sfc_main$k = {
     return (_ctx, _push, _parent, _attrs) => {
       var _a2, _b2, _c, _d;
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "feedback-section-two position-relative pt-65 lg-pt-20 mt-180 xl-mt-150 md-mt-30" }, _attrs))}><div class="container position-relative"><div class="row"><div class="col-lg-4"><div class="title-one mt-50"><div class="sub-title">${ssrInterpolate((_a2 = __props.home.feedback_section) == null ? void 0 : _a2.top_title)}</div><h2 class="fw-600">${ssrInterpolate((_b2 = __props.home.feedback_section) == null ? void 0 : _b2.title)}</h2></div><div class="mb-5 fw-500 rating-title lg-mt-40 mt-80">${ssrInterpolate((_c = __props.home.feedback_section) == null ? void 0 : _c.bottom_title)}</div><p>${ssrInterpolate((_d = __props.home.feedback_section) == null ? void 0 : _d.bottom_sub_title)}</p></div><div class="pb-40 col-lg-8">`);
       _push(ssrRenderComponent(unref(Swiper), {
         "slides-per-view": 2,
@@ -30240,10 +30296,10 @@ const _sfc_main$k = {
                     ssrRenderList(5, (sl) => {
                       _push3(`<li${_scopeId2}><a href="#"${_scopeId2}><i class="${ssrRenderClass(sl <= item.ratting_point ? "bi bi-star-fill" : "bi bi-star")}"${_scopeId2}></i></a></li>`);
                     });
-                    _push3(`<!--]--></ul><blockquote class="mt-40 lg-mt-20 mb-50 lg-mb-30 text-md text-dark"${_scopeId2}> “${ssrInterpolate(item.review)}” </blockquote><div class="block-footer d-flex align-items-center justify-content-between pt-35 lg-pt-20"${_scopeId2}><div class="d-flex align-items-center"${_scopeId2}><img${ssrRenderAttrs(mergeProps({
+                    _push3(`<!--]--></ul><blockquote class="mt-40 lg-mt-20 mb-50 lg-mb-30 text-md text-dark"${_scopeId2}> “${ssrInterpolate(item.review)}” </blockquote><div class="block-footer d-flex align-items-center justify-content-between pt-35 lg-pt-20"${_scopeId2}><div class="d-flex align-items-center"${_scopeId2}><img${ssrRenderAttrs(_temp0 = mergeProps({
                       alt: "image",
                       class: "author-img rounded-circle"
-                    }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.company_logo)))}${_scopeId2}><div class="ms-3"${_scopeId2}><div class="name fw-500 text-dark"${_scopeId2}>${ssrInterpolate(item.author)}</div><span class="opacity-50"${_scopeId2}>${ssrInterpolate(item.author_designation)}</span></div></div><img src="/assets/images/shape/shape_26.svg" alt="image" class="quote-icon"${_scopeId2}></div></div>`);
+                    }, ssrGetDirectiveProps(_ctx, _directive_lazy, item.company_logo)))}${_scopeId2}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="ms-3"${_scopeId2}><div class="name fw-500 text-dark"${_scopeId2}>${ssrInterpolate(item.author)}</div><span class="opacity-50"${_scopeId2}>${ssrInterpolate(item.author_designation)}</span></div></div><img src="/assets/images/shape/shape_26.svg" alt="image" class="quote-icon"${_scopeId2}></div></div>`);
                   } else {
                     return [
                       createVNode("div", { class: "feedback-block-two" }, [
@@ -30364,6 +30420,7 @@ const _sfc_main$j = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<section${ssrRenderAttrs(mergeProps({ class: "blog-section-two pt-180 xl-pt-150 lg-pt-100 pb-150 xl-pb-130 lg-pb-80" }, _attrs))}><div class="container"><div class="position-relative"><div class="title-one mb-30 lg-mb-10 text-center"><h2 class="fw-600">${ssrInterpolate(_ctx.trans("Our Blog"))}</h2></div><div class="row gx-xxl-5"><!--[-->`);
       ssrRenderList(blogs.value, (blog, index) => {
         _push(`<div class="col-lg-4 col-md-6"><article class="blog-meta-one mt-35 wow fadeInUp"><figure class="post-img m0">`);
@@ -30374,10 +30431,10 @@ const _sfc_main$j = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a2, _b2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "image",
                 class: "lazy-img w-100 tran4s"
-              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>`);
+              }, ssrGetDirectiveProps(_ctx, _directive_lazy, (_a2 = blog.preview) == null ? void 0 : _a2.value)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -30615,6 +30672,7 @@ const _sfc_main$f = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       ssrRenderList(__props.items, (job) => {
         var _a2, _b2, _c, _d, _e, _f;
@@ -30626,14 +30684,14 @@ const _sfc_main$f = {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a3, _b3, _c2, _d2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "avatar",
                 class: "m-auto lazy-img"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 ((_a3 = job.user) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${job.user.name}` : `${(_b3 = job.user) == null ? void 0 : _b3.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -30719,17 +30777,18 @@ const _sfc_main$e = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<div${ssrRenderAttrs(mergeProps({
         class: ["inner-banner-one position-relative", innerBannerColor.value]
       }, _attrs))}><div class="container"><div class="position-relative"><div class="row"><div class="col-xl-6 m-auto text-center"><div class="title-two"><h2>${ssrInterpolate(_ctx.trans("Job Listing"))}</h2></div><p class="mt-30 lg-mt-20 mb-35 lg-mb-20 text-lg">${ssrInterpolate(_ctx.trans("We delivered blazing fast & striking work solution"))}</p></div></div><div class="position-relative"><div class="row"><div class="col-xl-9 col-lg-8 m-auto"><div class="job-search-one position-relative">`);
       _push(ssrRenderComponent(_sfc_main$14, null, null, _parent));
-      _push(`</div></div></div></div></div></div><img${ssrRenderAttrs(mergeProps({
+      _push(`</div></div></div></div></div></div><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "shape",
         class: "lazy-img shapes shape_01"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_02.svg")))}><img${ssrRenderAttrs(mergeProps({
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_02.svg")))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<img${ssrRenderAttrs(_temp1 = mergeProps({
         alt: "shape",
         class: "lazy-img shapes shape_02"
-      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_03.svg")))}></div>`);
+      }, ssrGetDirectiveProps(_ctx, _directive_lazy, "/assets/images/shape/shape_03.svg")))}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}</div>`);
     };
   }
 };
@@ -30756,8 +30815,8 @@ const _sfc_main$d = {
     "maxSalary"
   ],
   setup(__props) {
-    const props = __props;
     const filter = useJobFiltersStore();
+    const props = __props;
     onMounted(() => {
       filter.updateInitialState(props);
     });
@@ -31177,6 +31236,7 @@ const _sfc_main$8 = /* @__PURE__ */ Object.assign(__default__$6, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$1Z, {
@@ -31217,18 +31277,18 @@ const _sfc_main$8 = /* @__PURE__ */ Object.assign(__default__$6, {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div><div class="post-block border-style mt-30"><div class="d-flex align-items-center"><div class="text-center text-white block-numb fw-500 rounded-circle me-2">2</div><h4 class="block-title">${ssrInterpolate(unref(trans)("Job Description"))}</h4></div><div class="mt-30">${__props.job.description}</div></div><div class="post-block border-style mt-30"><div class="d-flex align-items-center"><div class="text-center text-white block-numb fw-500 rounded-circle me-2">3</div><h4 class="block-title">${ssrInterpolate(unref(trans)("Required Skills"))}:</h4></div><ul class="list-type-two style-none mb-15"><!--[-->`);
+      _push(`</div><div class="post-block border-style mt-30"><div class="d-flex align-items-center"><div class="text-center text-white block-numb fw-500 rounded-circle me-2">2</div><h4 class="block-title">${ssrInterpolate(unref(trans)("Job Description"))}</h4></div><div class="mt-30">${__props.job.description ?? ""}</div></div><div class="post-block border-style mt-30"><div class="d-flex align-items-center"><div class="text-center text-white block-numb fw-500 rounded-circle me-2">3</div><h4 class="block-title">${ssrInterpolate(unref(trans)("Required Skills"))}:</h4></div><ul class="list-type-two style-none mb-15"><!--[-->`);
       ssrRenderList(__props.job.tags, (tag) => {
         _push(`<li>${ssrInterpolate(tag.title)}</li>`);
       });
-      _push(`<!--]--></ul></div></div></div><div class="col-xxl-3 col-xl-4"><div class="job-company-info ms-xl-5 ms-xxl-0 lg-mt-50"><img${ssrRenderAttrs(mergeProps({
+      _push(`<!--]--></ul></div></div></div><div class="col-xxl-3 col-xl-4"><div class="job-company-info ms-xl-5 ms-xxl-0 lg-mt-50"><img${ssrRenderAttrs(_temp0 = mergeProps({
         alt: "avatar",
         class: "m-auto lazy-img logo"
       }, ssrGetDirectiveProps(
         _ctx,
         _directive_lazy,
         ((_a2 = __props.job.user) == null ? void 0 : _a2.avatar) == null ? `https://ui-avatars.com/api/?name=${__props.job.user.name}` : `${(_b2 = __props.job.user) == null ? void 0 : _b2.avatar}`
-      )))}><div class="mb-20 text-center text-md text-dark mt-15">`);
+      )))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}<div class="mb-20 text-center text-md text-dark mt-15">`);
       _push(ssrRenderComponent(_component_Link, {
         href: _ctx.route("companies.show", __props.job.user.username)
       }, {
@@ -31360,8 +31420,8 @@ const _sfc_main$7 = {
     "maxSalary"
   ],
   setup(__props) {
-    const props = __props;
     const filter = useJobFiltersStore();
+    const props = __props;
     onMounted(() => {
       filter.updateInitialState(props);
     });
@@ -31550,6 +31610,7 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign(__default__$4, {
       const _component_Seo = resolveComponent("Seo");
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<!--[-->`);
       _push(ssrRenderComponent(_component_Seo, { metaData: __props.seo }, null, _parent));
       _push(ssrRenderComponent(_sfc_main$e, null, null, _parent));
@@ -31574,14 +31635,14 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign(__default__$4, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             var _a3, _b3, _c2, _d2;
             if (_push2) {
-              _push2(`<img${ssrRenderAttrs(mergeProps({
+              _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({
                 alt: "avatar",
                 class: "m-auto lazy-img"
               }, ssrGetDirectiveProps(
                 _ctx,
                 _directive_lazy,
                 ((_a3 = job.user) == null ? void 0 : _a3.avatar) == null ? `https://ui-avatars.com/api/?name=${job.user.name}` : `${(_b3 = job.user) == null ? void 0 : _b3.avatar}`
-              )))}${_scopeId}>`);
+              )))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
             } else {
               return [
                 withDirectives(createVNode("img", {
@@ -31626,7 +31687,7 @@ const _sfc_main$5 = /* @__PURE__ */ Object.assign(__default__$4, {
         } else {
           _push(`<li>${ssrInterpolate((_d = (_c = job.country) == null ? void 0 : _c[0]) == null ? void 0 : _d.name)},${ssrInterpolate((_f = (_e = job.state) == null ? void 0 : _e[0]) == null ? void 0 : _f.name)}</li>`);
         }
-        _push(`</ul></div></div><div>${unref(textExcerpt)(job.short_description, 200)}</div><div class="mt-auto d-sm-flex align-items-center justify-content-between"><div class="d-flex align-items-center"><img src="/assets/images/icon/icon_51.svg" alt=""><span class="fw-500 client-status">${ssrInterpolate(_ctx.trans("Verified Client"))} .</span>`);
+        _push(`</ul></div></div><div>${unref(textExcerpt)(job.short_description, 200) ?? ""}</div><div class="mt-auto d-sm-flex align-items-center justify-content-between"><div class="d-flex align-items-center"><img src="/assets/images/icon/icon_51.svg" alt=""><span class="fw-500 client-status">${ssrInterpolate(_ctx.trans("Verified Client"))} .</span>`);
         _push(ssrRenderComponent(_component_Link, {
           href: _ctx.route("jobs.show", job.slug),
           class: "job-duration fw-500"
@@ -31710,8 +31771,8 @@ const _sfc_main$4 = {
     "maxSalary"
   ],
   setup(__props) {
-    const props = __props;
     const filter = useJobFiltersStore();
+    const props = __props;
     onMounted(() => {
       filter.updateInitialState(props);
     });
@@ -31968,8 +32029,8 @@ const _sfc_main$1 = /* @__PURE__ */ Object.assign(__default__$1, {
   __ssrInlineRender: true,
   props: ["job", "jobs", "alreadyApplied", "seo"],
   setup(__props) {
-    const props = __props;
     const themeLoader = useThemeLoaderStore();
+    const props = __props;
     const { authUser: authUser2, formatNumber } = sharedComposable();
     const socials = computed(() => {
       var _a2;
@@ -32026,7 +32087,7 @@ const _sfc_main$1 = /* @__PURE__ */ Object.assign(__default__$1, {
       } else {
         _push(`<div class="text-center bg-white bg-wrapper"><img src="/assets/images/icon/icon_54.svg" alt="" class="m-auto lazy-img icon"><span>${ssrInterpolate(unref(trans)("Location"))}</span><div>${ssrInterpolate((_b2 = (_a2 = __props.job.country) == null ? void 0 : _a2[0]) == null ? void 0 : _b2.name)}, ${ssrInterpolate((_d = (_c = __props.job.state) == null ? void 0 : _c[0]) == null ? void 0 : _d.name)}</div></div>`);
       }
-      _push(`<div class="text-center bg-white bg-wrapper"><img src="/assets/images/icon/icon_55.svg" alt="" class="m-auto lazy-img icon"><span>${ssrInterpolate(unref(trans)("Job Type"))}</span><div>${ssrInterpolate(__props.job.type)}</div></div><div class="text-center bg-white bg-wrapper"><img src="/assets/images/icon/icon_56.svg" alt="" class="m-auto lazy-img icon"><span>${ssrInterpolate(unref(trans)("Experience"))}</span><div>${ssrInterpolate(__props.job.experience)}</div></div></ul><div class="post-block mt-50 lg-mt-40"><h4 class="block-title">${ssrInterpolate(unref(trans)("Overview"))}</h4><p>${ssrInterpolate(__props.job.short_description)}</p></div><div class="post-block lg-mt-40 mt-60"><h4 class="block-title">${ssrInterpolate(unref(trans)("Job Description"))}</h4><div class="mt-30">${__props.job.description}</div></div><div class="post-block mt-55 lg-mt-40"><h4 class="block-title">${ssrInterpolate(unref(trans)("Required Skills"))}:</h4><ul class="list-type-two style-none mb-15"><!--[-->`);
+      _push(`<div class="text-center bg-white bg-wrapper"><img src="/assets/images/icon/icon_55.svg" alt="" class="m-auto lazy-img icon"><span>${ssrInterpolate(unref(trans)("Job Type"))}</span><div>${ssrInterpolate(__props.job.type)}</div></div><div class="text-center bg-white bg-wrapper"><img src="/assets/images/icon/icon_56.svg" alt="" class="m-auto lazy-img icon"><span>${ssrInterpolate(unref(trans)("Experience"))}</span><div>${ssrInterpolate(__props.job.experience)}</div></div></ul><div class="post-block mt-50 lg-mt-40"><h4 class="block-title">${ssrInterpolate(unref(trans)("Overview"))}</h4><p>${ssrInterpolate(__props.job.short_description)}</p></div><div class="post-block lg-mt-40 mt-60"><h4 class="block-title">${ssrInterpolate(unref(trans)("Job Description"))}</h4><div class="mt-30">${__props.job.description ?? ""}</div></div><div class="post-block mt-55 lg-mt-40"><h4 class="block-title">${ssrInterpolate(unref(trans)("Required Skills"))}:</h4><ul class="list-type-two style-none mb-15"><!--[-->`);
       ssrRenderList(__props.job.tags, (tag) => {
         _push(`<li>${ssrInterpolate(tag.title)}</li>`);
       });
@@ -32180,3 +32241,4 @@ export {
   notify as n,
   sharedComposable as s
 };
+//# sourceMappingURL=ssr.js.map

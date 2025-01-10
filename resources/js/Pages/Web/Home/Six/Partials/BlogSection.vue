@@ -12,6 +12,33 @@ onMounted(async () => {
   homeApiService.get('blogs').then((res) => {
     blogs.value = res
     loading.value = false
+  }).then(() => {
+    $('.blog-slider').slick({
+      dots: false,
+      arrows: true,
+      lazyLoad: 'ondemand',
+      prevArrow: $('.prev_blog'),
+      nextArrow: $('.next_blog'),
+      centerPadding: '0px',
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    })
   })
 })
 </script>
@@ -28,19 +55,19 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div class="row gx-xxl-5">
-          <div v-for="(item, index) in blogs" :key="index" class="col-lg-4 col-md-6">
+        <div class="row blog-slider">
+          <div v-for="(item, index) in blogs" :key="index" class="item">
             <article class="blog-meta-one mt-35 xs-mt-20 wow fadeInUp">
               <figure class="post-img m0">
-                <Link :href="route('blogs.show', item)" class="w-100 d-block"
-                  ><img v-lazy="item.preview?.value" alt="" class="w-100 tran4s" />
+                <Link :href="route('blogs.show', item)" class="w-100 d-block">
+                  <img v-lazy="item.preview?.value" alt="" class="w-100 tran4s" />
                 </Link>
               </figure>
               <div class="post-data mt-30 lg-mt-20">
                 <div>
-                  <Link :href="route('blogs.show', item)" class="date">{{
-                    item.created_at_diff
-                  }}</Link>
+                  <Link :href="route('blogs.show', item)" class="date">
+                    {{ item.created_at_diff }}
+                  </Link>
                 </div>
                 <Link :href="route('blogs.show', item)" class="mb-5 mt-10">
                   <h4 class="tran3s blog-title">{{ item.title }}</h4>
@@ -51,9 +78,13 @@ onMounted(async () => {
                 </Link>
               </div>
             </article>
-            <!-- /.blog-meta-one -->
           </div>
         </div>
+
+        <ul class="slider-arrows slick-arrow-one d-flex justify-content-center style-none sm-mt-30">
+          <li class="prev_blog slick-arrow"><i class="bi bi-arrow-left"></i></li>
+          <li class="next_blog slick-arrow"><i class="bi bi-arrow-right"></i></li>
+        </ul>
 
         <div class="explore-btn sm-mt-50 text-center">
           <Link href="/blogs" class="btn-six">{{ trans('Explore More') }}</Link>
@@ -62,3 +93,44 @@ onMounted(async () => {
     </div>
   </section>
 </template>
+
+<style scoped>
+/* Carousel Navigation Styles */
+.slick-arrow {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  line-height: 50px;
+  text-align: center;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.slick-arrow:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Blog Item Styles */
+.item {
+  padding: 0 15px;
+}
+
+/* Ensure proper spacing between slides */
+.blog-slider {
+  margin: 0 -15px;
+}
+
+/* Maintain aspect ratio for images */
+.post-img {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.post-img img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+</style>

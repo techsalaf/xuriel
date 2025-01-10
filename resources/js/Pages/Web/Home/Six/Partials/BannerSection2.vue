@@ -3,7 +3,7 @@ defineProps(['home'])
 </script>
 
 <template>
-  <section class="fancy-banner-three mt-150 lg-mt-100">
+  <section class="fancy-banner-three mt-150 lg-mt-10">
     <div
       class="bg-wrapper pt-85 lg-pt-50 lg-pb-50 position-relative wow fadeInUp pb-80"
       :style="{ backgroundImage: `url(${home.cta_s1.image1})` }"

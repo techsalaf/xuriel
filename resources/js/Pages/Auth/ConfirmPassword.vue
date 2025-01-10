@@ -19,7 +19,7 @@ const submit = () => {
 <template>
   <Head title="Confirm Password" />
   <div
-    class="position-relative p-70px"
+    class=""
     :class="{ 'inner-banner-one': ($page.props.theme ?? 'Two') == 'One' }"
   ></div>
 

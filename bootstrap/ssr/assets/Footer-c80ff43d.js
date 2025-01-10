@@ -1,5 +1,5 @@
-import { resolveComponent, resolveDirective, mergeProps, withCtx, withDirectives, createVNode, unref, createTextVNode, toDisplayString, useSSRContext } from "vue";
-import { ssrRenderAttrs, ssrRenderComponent, ssrGetDirectiveProps, ssrInterpolate, ssrRenderList, ssrRenderAttr, ssrRenderClass } from "vue/server-renderer";
+import { resolveComponent, resolveDirective, mergeProps, unref, withCtx, createTextVNode, toDisplayString, useSSRContext } from "vue";
+import { ssrRenderAttrs, ssrGetDirectiveProps, ssrInterpolate, ssrRenderList, ssrRenderComponent, ssrRenderAttr, ssrRenderClass } from "vue/server-renderer";
 import { s as sharedComposable } from "../ssr.js";
 import { f as footerData, _ as _sfc_main$1 } from "./LanguageSwitch-225c4b5c.js";
 import "@inertiajs/vue3";
@@ -34,25 +34,8 @@ const _sfc_main = {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "footer-one" }, _attrs))}><div class="container"><div class="inner-wrapper"><div class="row justify-content-between"><div class="col-lg-2 col-md-3 footer-intro mb-15"><div class="logo mb-15">`);
-      _push(ssrRenderComponent(_component_Link, {
-        href: "/",
-        class: "d-flex align-items-center"
-      }, {
-        default: withCtx((_, _push2, _parent2, _scopeId) => {
-          if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>`);
-          } else {
-            return [
-              withDirectives(createVNode("img", { alt: "logo" }, null, 512), [
-                [_directive_lazy, _ctx.$page.props.primaryData.deep_logo]
-              ])
-            ];
-          }
-        }),
-        _: 1
-      }, _parent));
-      _push(`</div><img src="/assets/images/shape/shape_28.svg" alt="shape" class="lazy-img mt-50 sm-mt-30 sm-mb-20"></div><div class="col-lg-2 col-md-3 col-sm-4 mb-20"><h5 class="footer-title">${ssrInterpolate(((_a = unref(footerLeft)) == null ? void 0 : _a.name) ? unref(footerLeft).name : _ctx.trans("Services​"))}</h5>`);
+      let _temp0;
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "footer-one" }, _attrs))}><div class="container"><div class="inner-wrapper"><div class="row justify-content-between"><div class="col-lg-2 col-md-3 footer-intro mb-15"><div class="logo mb-15"><a href="/" class="d-flex align-items-center"><img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}</a></div><img src="/assets/images/shape/shape_28.svg" alt="shape" class="lazy-img mt-50 sm-mt-30 sm-mb-20"></div><div class="col-lg-2 col-md-3 col-sm-4 mb-20"><h5 class="footer-title">${ssrInterpolate(((_a = unref(footerLeft)) == null ? void 0 : _a.name) ? unref(footerLeft).name : _ctx.trans("Services​"))}</h5>`);
       if (unref(footerLeft) && ((_b = unref(footerLeft)) == null ? void 0 : _b.data)) {
         _push(`<ul class="footer-nav-link style-none"><!--[-->`);
         ssrRenderList(JSON.parse((_c = unref(footerLeft)) == null ? void 0 : _c.data), (item) => {
@@ -82,7 +65,7 @@ const _sfc_main = {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div><div class="col-lg-2 col-md-3 col-sm-4 mb-20"><h5 class="footer-title">${ssrInterpolate(((_d = unref(footerLeft)) == null ? void 0 : _d.name) ? unref(footerLeft).name : _ctx.trans("Company"))}</h5>`);
+      _push(`</div><div class="col-lg-2 col-md-3 col-sm-4 mb-20"><h5 class="footer-title">${ssrInterpolate(((_d = unref(footerLeft)) == null ? void 0 : _d.name) ? unref(footerLeft).name : _ctx.trans("Services​"))}</h5>`);
       if (unref(footerCenter) && ((_e = unref(footerCenter)) == null ? void 0 : _e.data)) {
         _push(`<ul class="footer-nav-link style-none"><!--[-->`);
         ssrRenderList(JSON.parse((_f = unref(footerCenter)) == null ? void 0 : _f.data), (item) => {
@@ -161,7 +144,7 @@ const _sfc_main = {
       } else {
         _push(`<!---->`);
       }
-      _push(`</div></div></div><div class="bottom-footer bg-white"><div class="container"><div class="row align-items-center"><div class="col-lg-4 order-lg-3 mb-15"><ul class="style-none d-flex order-lg-last justify-content-center justify-content-lg-end social-icon"><!--[-->`);
+      _push(`</div></div></div><div class="bottom-footer"><div class="container"><div class="row align-items-center"><div class="col-lg-4 order-lg-3 mb-15"><ul class="style-none d-flex order-lg-last justify-content-center justify-content-lg-end social-icon"><!--[-->`);
       ssrRenderList(unref(socials), (social, key) => {
         _push(`<li${ssrRenderAttr("href", social)}><a${ssrRenderAttr("href", social)} target="_blank"><i class="${ssrRenderClass([`bi-${key}`, "bi"])}"></i></a></li>`);
       });
@@ -211,9 +194,10 @@ const _sfc_main = {
 const _sfc_setup = _sfc_main.setup;
 _sfc_main.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Layouts/Default/Three/Footer.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Layouts/Default/Seven/Footer.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
 export {
   _sfc_main as default
 };
+//# sourceMappingURL=Footer-c80ff43d.js.map

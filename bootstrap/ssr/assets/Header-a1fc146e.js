@@ -1,4 +1,4 @@
-import { resolveComponent, resolveDirective, mergeProps, unref, withCtx, withDirectives, createVNode, createTextVNode, toDisplayString, useSSRContext } from "vue";
+import { resolveComponent, resolveDirective, mergeProps, withCtx, withDirectives, createVNode, unref, createTextVNode, toDisplayString, useSSRContext } from "vue";
 import { ssrRenderAttrs, ssrRenderComponent, ssrGetDirectiveProps, ssrInterpolate, ssrRenderAttr } from "vue/server-renderer";
 import { _ as _sfc_main$1 } from "./NavMenu-d37d2a65.js";
 import { s as sharedComposable } from "../ssr.js";
@@ -28,77 +28,33 @@ const _sfc_main = {
   __name: "Header",
   __ssrInlineRender: true,
   setup(__props) {
-    const { authUser, currentRouteGroup } = sharedComposable();
+    const { authUser } = sharedComposable();
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
-      _push(`<header${ssrRenderAttrs(mergeProps({
-        class: ["theme-main-menu menu-overlay sticky-menu", { "header-bg-color": !unref(currentRouteGroup)("Web/Home/") }]
-      }, _attrs))}><div class="inner-content position-relative"><div class="top-header"><div class="d-flex align-items-center"><div class="logo order-lg-0">`);
+      let _temp0, _temp1;
+      _push(`<header${ssrRenderAttrs(mergeProps({ class: "theme-main-menu menu-overlay menu-style-two sticky-menu" }, _attrs))}><div class="inner-content position-relative"><div class="top-header"><div class="d-flex align-items-center justify-content-between"><div class="logo order-lg-0">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/",
         class: "d-flex align-items-center"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>`);
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", { alt: "logo" }, null, 512), [
-                [_directive_lazy, _ctx.$page.props.primaryData.deep_logo]
+                [_directive_lazy, _ctx.$page.props.primaryData.logo]
               ])
             ];
           }
         }),
         _: 1
       }, _parent));
-      _push(`</div><div class="right-widget ms-lg-0 order-lg-2 ms-auto"><ul class="d-flex align-items-center style-none">`);
-      if (!unref(authUser)) {
-        _push(`<li>`);
-        _push(ssrRenderComponent(_component_Link, {
-          class: "fw-500 text-dark",
-          href: _ctx.route("register")
-        }, {
-          default: withCtx((_, _push2, _parent2, _scopeId) => {
-            if (_push2) {
-              _push2(`${ssrInterpolate(_ctx.trans("Register"))}`);
-            } else {
-              return [
-                createTextVNode(toDisplayString(_ctx.trans("Register")), 1)
-              ];
-            }
-          }),
-          _: 1
-        }, _parent));
-        _push(`</li>`);
-      } else {
-        _push(`<!---->`);
-      }
-      if (unref(authUser) && unref(authUser).role == "employer") {
-        _push(`<li>`);
-        _push(ssrRenderComponent(_component_Link, {
-          class: "fw-500 text-dark",
-          href: _ctx.route("employer.jobs.create")
-        }, {
-          default: withCtx((_, _push2, _parent2, _scopeId) => {
-            if (_push2) {
-              _push2(`${ssrInterpolate(_ctx.trans("Post Job"))}`);
-            } else {
-              return [
-                createTextVNode(toDisplayString(_ctx.trans("Post Job")), 1)
-              ];
-            }
-          }),
-          _: 1
-        }, _parent));
-        _push(`</li>`);
-      } else {
-        _push(`<!---->`);
-      }
-      _push(`<li class="d-none d-md-block ms-4">`);
+      _push(`</div><div class="right-widget ms-lg-0 order-lg-2 ms-auto"><ul class="d-flex align-items-center style-none"><li>`);
       if (!unref(authUser)) {
         _push(ssrRenderComponent(_component_Link, {
-          class: "btn-five",
+          class: "fw-500 login-btn-three tran3s",
           href: _ctx.route("login")
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
@@ -115,11 +71,11 @@ const _sfc_main = {
       } else {
         _push(`<!--[-->`);
         if (unref(authUser).role == "admin") {
-          _push(`<a${ssrRenderAttr("href", _ctx.route("admin.dashboard"))} class="btn-five">${ssrInterpolate(_ctx.trans("Dashboard"))}</a>`);
+          _push(`<a${ssrRenderAttr("href", _ctx.route("admin.dashboard"))} class="fw-500 login-btn-three tran3s">${ssrInterpolate(_ctx.trans("Dashboard"))}</a>`);
         } else if (unref(authUser).role == "user") {
           _push(ssrRenderComponent(_component_Link, {
             href: _ctx.route("user.dashboard"),
-            class: "btn-five"
+            class: "fw-500 login-btn-three tran3s"
           }, {
             default: withCtx((_, _push2, _parent2, _scopeId) => {
               if (_push2) {
@@ -135,7 +91,7 @@ const _sfc_main = {
         } else if (unref(authUser).role == "employer") {
           _push(ssrRenderComponent(_component_Link, {
             href: _ctx.route("employer.dashboard"),
-            class: "btn-five"
+            class: "fw-500 login-btn-three tran3s"
           }, {
             default: withCtx((_, _push2, _parent2, _scopeId) => {
               if (_push2) {
@@ -153,24 +109,64 @@ const _sfc_main = {
         }
         _push(`<!--]-->`);
       }
-      _push(`</li></ul></div><nav class="navbar navbar-expand-lg p0 me-lg-auto ms-lg-5 order-lg-1 ms-3"><button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span></span></button><div class="navbar-collapse collapse" id="navbarNav"><ul class="navbar-nav"><li class="d-block d-lg-none"><div class="logo">`);
+      _push(`</li>`);
+      if (unref(authUser) && unref(authUser).role == "employer") {
+        _push(`<li class="d-none d-md-block ms-3">`);
+        _push(ssrRenderComponent(_component_Link, {
+          href: _ctx.route("employer.jobs.create"),
+          class: "btn-five"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(`${ssrInterpolate(_ctx.trans("Post Job"))}`);
+            } else {
+              return [
+                createTextVNode(toDisplayString(_ctx.trans("Post Job")), 1)
+              ];
+            }
+          }),
+          _: 1
+        }, _parent));
+        _push(`</li>`);
+      } else if (!unref(authUser)) {
+        _push(`<li class="d-none d-md-block ms-3">`);
+        _push(ssrRenderComponent(_component_Link, {
+          href: _ctx.route("register"),
+          class: "btn-five"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(`${ssrInterpolate(_ctx.trans("Register"))}`);
+            } else {
+              return [
+                createTextVNode(toDisplayString(_ctx.trans("Register")), 1)
+              ];
+            }
+          }),
+          _: 1
+        }, _parent));
+        _push(`</li>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</ul></div><nav class="navbar navbar-expand-lg p0 ms-lg-5 order-lg-1 ms-3"><button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span></span></button><div class="navbar-collapse collapse" id="navbarNav"><ul class="navbar-nav"><li class="d-block d-lg-none"><div class="logo">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/",
         class: "d-block"
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({
+            _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
               alt: "logo",
               width: "100"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", {
                 alt: "logo",
                 width: "100"
               }, null, 512), [
-                [_directive_lazy, _ctx.$page.props.primaryData.deep_logo]
+                [_directive_lazy, _ctx.$page.props.primaryData.logo]
               ])
             ];
           }
@@ -203,10 +199,10 @@ const _sfc_main = {
         }, {
           default: withCtx((_, _push2, _parent2, _scopeId) => {
             if (_push2) {
-              _push2(`${ssrInterpolate(_ctx.trans("Register"))}`);
+              _push2(`${ssrInterpolate(_ctx.trans("Dashboard"))}`);
             } else {
               return [
-                createTextVNode(toDisplayString(_ctx.trans("Register")), 1)
+                createTextVNode(toDisplayString(_ctx.trans("Dashboard")), 1)
               ];
             }
           }),
@@ -220,9 +216,10 @@ const _sfc_main = {
 const _sfc_setup = _sfc_main.setup;
 _sfc_main.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
-  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Layouts/Default/Five/Header.vue");
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Layouts/Default/Six/Header.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
 export {
   _sfc_main as default
 };
+//# sourceMappingURL=Header-a1fc146e.js.map

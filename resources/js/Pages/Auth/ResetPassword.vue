@@ -34,7 +34,7 @@ const submit = () => {
   <Head title="Reset Password" />
 
   <div
-    class="position-relative p-70px"
+    class=""
     :class="{ 'inner-banner-one': ($page.props.theme ?? 'Two') == 'One' }"
   ></div>
 

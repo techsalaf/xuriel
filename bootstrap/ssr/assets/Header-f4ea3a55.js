@@ -39,6 +39,7 @@ const _sfc_main = {
     });
     return (_ctx, _push, _parent, _attrs) => {
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<header${ssrRenderAttrs(mergeProps({ class: "theme-main-menu menu-overlay menu-style-one sticky-menu" }, _attrs))}><div class="inner-content position-relative"><div class="top-header"><div class="d-flex align-items-center"><div class="logo order-lg-0">`);
       _push(ssrRenderComponent(unref(Link), {
         href: "/",
@@ -46,7 +47,7 @@ const _sfc_main = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}${_scopeId}>`);
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", { alt: "logo" }, null, 512), [
@@ -138,10 +139,10 @@ const _sfc_main = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({
+            _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
               alt: "logo",
               width: "100"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}${_scopeId}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.logo)))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", {
@@ -259,3 +260,4 @@ _sfc_main.setup = (props, ctx) => {
 export {
   _sfc_main as default
 };
+//# sourceMappingURL=Header-f4ea3a55.js.map

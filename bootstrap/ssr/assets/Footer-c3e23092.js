@@ -34,6 +34,7 @@ const _sfc_main = {
       var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0;
       _push(`<div${ssrRenderAttrs(mergeProps({ class: "footer-one" }, _attrs))}><div class="container"><div class="inner-wrapper"><div class="row justify-content-between"><div class="col-lg-2 col-md-3 footer-intro mb-15"><div class="logo mb-15">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/",
@@ -41,7 +42,7 @@ const _sfc_main = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>`);
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", { alt: "logo" }, null, 512), [
@@ -255,3 +256,4 @@ _sfc_main.setup = (props, ctx) => {
 export {
   _sfc_main as default
 };
+//# sourceMappingURL=Footer-c3e23092.js.map

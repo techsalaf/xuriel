@@ -24,7 +24,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
   <Head title="Email Verification" />
 
   <div
-    class="position-relative p-70px"
+    class=""
     :class="{ 'inner-banner-one': ($page.props.theme ?? 'Two') == 'One' }"
   ></div>
 

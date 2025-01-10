@@ -1,5 +1,5 @@
 import { ref, onMounted, resolveComponent, resolveDirective, withCtx, mergeProps, withDirectives, createVNode, unref, createTextVNode, toDisplayString, useSSRContext } from "vue";
-import { ssrRenderComponent, ssrRenderAttrs, ssrGetDirectiveProps, ssrRenderAttr, ssrInterpolate, ssrRenderList } from "vue/server-renderer";
+import { ssrRenderComponent, ssrRenderAttrs, ssrGetDirectiveProps, ssrInterpolate, ssrRenderAttr, ssrRenderList } from "vue/server-renderer";
 import { _ as _sfc_main$2 } from "./NavMenu-d37d2a65.js";
 import { s as sharedComposable, h as homeApiService, _ as _sfc_main$1, a as _sfc_main$3 } from "../ssr.js";
 import { useForm } from "@inertiajs/vue3";
@@ -45,6 +45,7 @@ const _sfc_main = {
     return (_ctx, _push, _parent, _attrs) => {
       const _component_Link = resolveComponent("Link");
       const _directive_lazy = resolveDirective("lazy");
+      let _temp0, _temp1;
       _push(`<!--[--><header class="theme-main-menu sticky-menu"><div class="inner-content position-relative"><div class="top-header"><div class="d-flex align-items-center justify-content-between"><div class="logo order-lg-0">`);
       _push(ssrRenderComponent(_component_Link, {
         href: "/",
@@ -52,7 +53,7 @@ const _sfc_main = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>`);
+            _push2(`<img${ssrRenderAttrs(_temp0 = mergeProps({ alt: "logo" }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>${"textContent" in _temp0 ? ssrInterpolate(_temp0.textContent) : _temp0.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", { alt: "logo" }, null, 512), [
@@ -177,10 +178,10 @@ const _sfc_main = {
       }, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
-            _push2(`<img${ssrRenderAttrs(mergeProps({
+            _push2(`<img${ssrRenderAttrs(_temp1 = mergeProps({
               alt: "logo",
               width: "100"
-            }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>`);
+            }, ssrGetDirectiveProps(_ctx, _directive_lazy, _ctx.$page.props.primaryData.deep_logo)))}${_scopeId}>${"textContent" in _temp1 ? ssrInterpolate(_temp1.textContent) : _temp1.innerHTML ?? ""}`);
           } else {
             return [
               withDirectives(createVNode("img", {
@@ -277,3 +278,4 @@ _sfc_main.setup = (props, ctx) => {
 export {
   _sfc_main as default
 };
+//# sourceMappingURL=Header-7e299b41.js.map

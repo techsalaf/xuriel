@@ -84,3 +84,4 @@ export {
   _sfc_main as _,
   footerData as f
 };
+//# sourceMappingURL=LanguageSwitch-225c4b5c.js.map

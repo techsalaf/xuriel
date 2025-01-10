@@ -25,7 +25,7 @@ const { footerCenter, footerRight, footerLeft, year, socials, email, NEWSLETTER_
             />
           </div>
           <div class="col-lg-2 col-md-3 col-sm-4 mb-20">
-            <h5 class="footer-title text-white">
+            <h5 class="footer-title">
               {{ footerLeft?.name ? footerLeft.name : trans('Services​') }}
             </h5>
             <ul class="footer-nav-link style-none" v-if="footerLeft && footerLeft?.data">
@@ -37,7 +37,7 @@ const { footerCenter, footerRight, footerLeft, year, socials, email, NEWSLETTER_
             </ul>
           </div>
           <div class="col-lg-2 col-md-3 col-sm-4 mb-20">
-            <h5 class="footer-title text-white">
+            <h5 class="footer-title">
               {{ footerCenter?.name ? footerCenter.name : trans('Services​') }}
             </h5>
             <ul class="footer-nav-link style-none" v-if="footerCenter && footerCenter?.data">
@@ -49,7 +49,7 @@ const { footerCenter, footerRight, footerLeft, year, socials, email, NEWSLETTER_
             </ul>
           </div>
           <div class="col-lg-2 col-md-3 col-sm-4 mb-20">
-            <h5 class="footer-title text-white">
+            <h5 class="footer-title">
               {{ footerRight?.name ? footerRight.name : 'Support' }}
             </h5>
             <ul class="footer-nav-link style-none" v-if="footerRight && footerRight?.data">
@@ -61,22 +61,22 @@ const { footerCenter, footerRight, footerLeft, year, socials, email, NEWSLETTER_
             </ul>
           </div>
           <div
-            class="col-lg-4 footer-newsletter mb-20 text-white"
+            class="col-lg-4 footer-newsletter mb-20"
             v-if="NEWSLETTER_API || Object.entries($page.props.languages)?.length > 1"
           >
             <template v-if="NEWSLETTER_API">
-              <h5 class="footer-title text-white">{{ trans('Newsletter') }}</h5>
-              <p>{{ trans('Join & get important new regularly') }}</p>
+              <h5 class="footer-title">{{ trans('Newsletter') }}</h5>
+              <p style="color:#1d4398">{{ trans('Join & get important new regularly') }}</p>
               <form @submit.prevent="subscribe" class="d-flex">
                 <input v-model="email" type="email" placeholder="Enter your email*" />
                 <button type="submit">{{ trans('Send') }}</button>
               </form>
-              <p class="note text-white">
+              <p class="note">
                 {{ trans('We only send interesting and relevant emails.') }}
               </p>
             </template>
             <template v-if="Object.entries($page.props.languages)?.length > 1">
-              <h5 class="footer-title fs-6 mb-2 mt-2 text-white">{{ trans('Language') }}</h5>
+              <h5 class="footer-title fs-6 mb-2 mt-2">{{ trans('Language') }}</h5>
               <LanguageSwitch />
             </template>
           </div>
@@ -114,7 +114,7 @@ const { footerCenter, footerRight, footerLeft, year, socials, email, NEWSLETTER_
             </ul>
           </div>
           <div class="col-lg-4 order-lg-2">
-            <p class="mb-15 text-center text-white opacity-50">
+            <p class="mb-15 text-center opacity-50">
               {{ trans('Copyright') }} @{{ year }} {{ $page.props.app_name || '' }}.
             </p>
           </div>

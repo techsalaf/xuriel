@@ -48,7 +48,7 @@ const submit = () => {
 <template>
   <Seo :metaData="seo" />
   <div
-    class="position-relative p-70px"
+    class=""
     :class="{ 'inner-banner-one': ($page.props.theme ?? 'Two') == 'One' }"
   ></div>
 

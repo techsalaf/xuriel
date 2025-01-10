@@ -9,7 +9,7 @@ import BannerSection2 from '@/Pages/Web/Home/Six/Partials/BannerSection2.vue'
 import FeatureSection from '@/Pages/Web/Home/Six/Partials/FeatureSection.vue'
 import FeedbackSection from '@/Pages/Web/Home/Six/Partials/FeedbackSection.vue'
 import BlogSection from '@/Pages/Web/Home/Six/Partials/BlogSection.vue'
-import FeatureSection2 from '@/Pages/Web/Home/Six/Partials/FeatureSection2.vue'
+// import FeatureSection2 from '@/Pages/Web/Home/Six/Partials/FeatureSection2.vue'
 import JobIntroSection from '@/Pages/Web/Home/Six/Partials/JobIntroSection.vue'
 
 defineOptions({ layout: DefaultLayout })
@@ -21,7 +21,6 @@ defineProps(['home', 'seo'])
   <Seo :metaData="seo" />
 
   <BannerSection :home="home" />
-  <BrandSection />
   <CategorySection />
   <CategorySection2 />
   <JobListSection />
@@ -29,6 +28,7 @@ defineProps(['home', 'seo'])
   <FeatureSection :home="home" />
   <FeedbackSection :home="home" />
   <BlogSection />
-  <FeatureSection2 :home="home" />
+  <!-- <FeatureSection2 :home="home" /> -->
+  <BrandSection />
   <JobIntroSection :home="home"  />
 </template>

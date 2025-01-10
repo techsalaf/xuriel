@@ -23,7 +23,7 @@ const submit = () => {
 <template>
   <Head title="Forgot Password" />
   <div
-    class="position-relative p-70px"
+    class=""
     :class="{ 'inner-banner-one': ($page.props.theme ?? 'Two') == 'One' }"
   ></div>
   <section class="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80">

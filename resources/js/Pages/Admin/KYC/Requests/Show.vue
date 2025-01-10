@@ -35,28 +35,30 @@ const submitForm = (route, request, status) => {
       <div class="grid grid-cols-3 gap-3">
         <div class="col-span-1 rounded bg-white p-5 shadow dark:bg-dark-800">
           <table class="table shadow-none">
-            <tr>
-              <td colspan="3">
-                <img :src="kycRequest.user?.avatar" alt="" class="card-img" />
-              </td>
-            </tr>
-            <tr>
-              <th>{{ trans('Name') }}</th>
-              <td>:</td>
-              <td>
-                {{ kycRequest.user?.name }}
-              </td>
-            </tr>
-            <tr>
-              <th>{{ trans('Email') }}</th>
-              <td>:</td>
-              <td>{{ kycRequest.user?.email }}</td>
-            </tr>
-            <tr>
-              <th>{{ trans('Phone') }}</th>
-              <td>:</td>
-              <td>{{ kycRequest.user?.phone ?? '-' }}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td colspan="3">
+                  <img :src="kycRequest.user?.avatar" alt="" class="card-img" />
+                </td>
+              </tr>
+              <tr>
+                <th>{{ trans('Name') }}</th>
+                <td>:</td>
+                <td>
+                  {{ kycRequest.user?.name }}
+                </td>
+              </tr>
+              <tr>
+                <th>{{ trans('Email') }}</th>
+                <td>:</td>
+                <td>{{ kycRequest.user?.email }}</td>
+              </tr>
+              <tr>
+                <th>{{ trans('Phone') }}</th>
+                <td>:</td>
+                <td>{{ kycRequest.user?.phone ?? '-' }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div class="col-span-2 rounded bg-white p-5 shadow dark:bg-dark-800">
@@ -80,17 +82,13 @@ const submitForm = (route, request, status) => {
                 <th>{{ trans('Current Status') }}</th>
                 <td>
                   <span v-if="kycRequest.status == 0" class="badge badge-warning">
-                    {{ trans('Pending') }}</span
-                  >
+                    {{ trans('Pending') }}</span>
                   <span v-else-if="kycRequest.status == 1" class="badge badge-primary">
-                    {{ trans('Approved') }}</span
-                  >
+                    {{ trans('Approved') }}</span>
                   <span v-else-if="kycRequest.status == 2" class="badge badge-danger">
-                    {{ trans('Rejected') }}</span
-                  >
+                    {{ trans('Rejected') }}</span>
                   <span v-else-if="kycRequest.status == 3" class="badge badge-dark">
-                    {{ trans('Re-Submitted') }}</span
-                  >
+                    {{ trans('Re-Submitted') }}</span>
                 </td>
               </tr>
               <tr>
@@ -114,13 +112,8 @@ const submitForm = (route, request, status) => {
             <tr v-for="item in kycRequest.data" :key="item">
               <th>{{ item.label }}</th>
               <td>
-                <a
-                  target="_blank"
-                  class="btn btn-success"
-                  :href="item.value"
-                  v-if="item.type == 'file'"
-                  >{{ trans('View') }}</a
-                >
+                <a target="_blank" class="btn btn-success" :href="item.value" v-if="item.type == 'file'">{{
+                  trans('View') }}</a>
                 <p v-else>{{ item.value }}</p>
               </td>
             </tr>
@@ -130,27 +123,20 @@ const submitForm = (route, request, status) => {
 
       <div class="card p-5">
         <div class="mt-5 flex justify-center gap-3">
-          <button
-            v-if="kycRequest.status !== 1"
-            class="btn btn-primary"
-            @click="submitForm(route('admin.kyc-requests.store'), kycRequest.id, 'approve')"
-          >
+          <button v-if="kycRequest.status !== 1" class="btn btn-primary"
+            @click="submitForm(route('admin.kyc-requests.store'), kycRequest.id, 'approve')">
             <i class="fas fa-check-circle"></i>
             {{ trans('Approve documents') }}
           </button>
 
-          <button
-            class="btn btn-secondary"
-            @click="submitForm(route('admin.kyc-requests.store'), kycRequest.id, 'approve_all')"
-          >
+          <button class="btn btn-secondary"
+            @click="submitForm(route('admin.kyc-requests.store'), kycRequest.id, 'approve_all')">
             <i class="fas fa-check-circle"></i>
             {{ trans('Approve with profile') }}
           </button>
 
-          <button
-            class="btn btn-danger"
-            @click="submitForm(route('admin.kyc-requests.store'), kycRequest.id, 'reject')"
-          >
+          <button class="btn btn-danger"
+            @click="submitForm(route('admin.kyc-requests.store'), kycRequest.id, 'reject')">
             <i class="fas fa-times-circle"></i>
             {{ trans('Reject') }}
           </button>
