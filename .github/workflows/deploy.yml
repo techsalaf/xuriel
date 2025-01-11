@@ -43,9 +43,6 @@ jobs:
 
         script: |
           cd /home/xurislrm/public_html
-          # Ensure the directory exists
+          rm -rf public/build
           mkdir -p public/build
-          # Clear old build files if necessary
-          rm -rf public/build/*
-          # Copy the new build from the repository to the server
-          scp -r ./public/build/* user@host:/home/xurislrm/public_html/public/build
+          scp -r ./public/build user@host:/home/xurislrm/public_html/public/build
