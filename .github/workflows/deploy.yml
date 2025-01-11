@@ -1,4 +1,4 @@
-name: Push Changes to GitHub and Deploy to Production
+name: Build and Deploy to Production
 
 on:
   push:
@@ -6,15 +6,33 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the repository code
+    # Step 1: Checkout our repository code
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    # Step 2: Deploy to the production server via SSH
+    # Step 2: Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: npm install
+
+    # Step 4: Force clear the cache
+    - name: Clear Cache
+      run: npm cache clean --force
+
+    # Step 5: Build the project
+    - name: Build the Project
+      run: npm run build
+
+    # Step 6: Deploy the build to the server via SSH
     - name: Deploy via SSH
       uses: appleboy/ssh-action@v0.1.8
       with:
@@ -22,11 +40,11 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 21098
+
         script: |
           cd /home/xurislrm/public_html
-          # Ensure the directory exists
-          mkdir -p public/build
-          # Clear old build files if necessary
-          rm -rf public/build/*
-          # Copy the new build from the repository to the server
-          scp -r ./public/build/* user@host:/home/xurislrm/public_html/public/build
+          mkdir -p public/build-temp
+          scp -r ./public/build user@host:/home/xurislrm/public_html/public/build-temp
+          mv public/build public/build-backup
+          mv public/build-temp public/build
+          rm -rf public/build-backup
