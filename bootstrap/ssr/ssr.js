@@ -6894,10 +6894,6 @@ const _sfc_main$42 = /* @__PURE__ */ Object.assign(__default__$26, {
       if (number == null || !isFinite(number)) {
         throw new TypeError("number is not valid");
       }
-      if (!decimals) {
-        var len = number.toString().split(".").length;
-        decimals = len > 1 ? len : 0;
-      }
       if (!dec_point) {
         dec_point = ".";
       }
@@ -8789,14 +8785,12 @@ const menu = reactive({
       }
       if (item.children && item.children.length > 0) {
         const found = this.findItemById(item.children, id);
-        if (found)
-          return found;
+        if (found) return found;
       }
     }
     return null;
   }
 });
-const NestedDraggable_vue_vue_type_style_index_0_scoped_dbe2f1f5_lang = "";
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -9969,7 +9963,6 @@ const tabs = {
     }
   }
 };
-const Index_vue_vue_type_style_index_0_scoped_067cb7a0_lang = "";
 const __default__$1I = defineComponent({ layout: _sfc_main$4_ });
 const _sfc_main$3u = /* @__PURE__ */ Object.assign(__default__$1I, {
   __name: "Index",
@@ -11391,13 +11384,20 @@ const __vite_glob_0_103 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$3c
 }, Symbol.toStringTag, { value: "Module" }));
-const __variableDynamicImportRuntimeHelper = (glob, path) => {
+const __variableDynamicImportRuntimeHelper = (glob, path, segs) => {
   const v = glob[path];
   if (v) {
     return typeof v === "function" ? v() : Promise.resolve(v);
   }
   return new Promise((_, reject) => {
-    (typeof queueMicrotask === "function" ? queueMicrotask : setTimeout)(reject.bind(null, new Error("Unknown variable dynamic import: " + path)));
+    (typeof queueMicrotask === "function" ? queueMicrotask : setTimeout)(
+      reject.bind(
+        null,
+        new Error(
+          "Unknown variable dynamic import: " + path + (path.split("/").length !== segs ? ". Note that variables only represent file names one level deep." : "")
+        )
+      )
+    );
   });
 };
 const useThemeLoaderStore = defineStore({
@@ -11445,16 +11445,15 @@ const _sfc_main$3a = {
     const setComponent = () => {
       themeLoader.$patch({ theme: usePage().props.theme });
       themeLoader.loadedComponents[themeLoader.theme] = {
-        header: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Header.vue": () => import("./assets/Header-478998af.js"), "./Default/Four/Header.vue": () => import("./assets/Header-cf28e7a7.js"), "./Default/One/Header.vue": () => import("./assets/Header-f4ea3a55.js"), "./Default/Seven/Header.vue": () => import("./assets/Header-36db10a9.js"), "./Default/Six/Header.vue": () => import("./assets/Header-a1fc146e.js"), "./Default/Three/Header.vue": () => import("./assets/Header-7e299b41.js"), "./Default/Two/Header.vue": () => import("./assets/Header-f1662814.js") }), `./Default/${themeLoader.theme}/Header.vue`)),
-        footer: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Footer.vue": () => import("./assets/Footer-ee2ba89b.js"), "./Default/Four/Footer.vue": () => import("./assets/Footer-f7c600b7.js"), "./Default/One/Footer.vue": () => import("./assets/Footer-c3e23092.js"), "./Default/Seven/Footer.vue": () => import("./assets/Footer-c80ff43d.js"), "./Default/Six/Footer.vue": () => import("./assets/Footer-27e963fd.js"), "./Default/Three/Footer.vue": () => import("./assets/Footer-5ecb7dfc.js"), "./Default/Two/Footer.vue": () => import("./assets/Footer-d4fd7ccf.js") }), `./Default/${themeLoader.theme}/Footer.vue`))
+        header: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Header.vue": () => import("./assets/Header-BmogK0Nn.js"), "./Default/Four/Header.vue": () => import("./assets/Header-Cygrcrij.js"), "./Default/One/Header.vue": () => import("./assets/Header-BH3TCfpn.js"), "./Default/Seven/Header.vue": () => import("./assets/Header-CDigUKrz.js"), "./Default/Six/Header.vue": () => import("./assets/Header-Bfl2Ozyz.js"), "./Default/Three/Header.vue": () => import("./assets/Header-C2JOXwIH.js"), "./Default/Two/Header.vue": () => import("./assets/Header-Coo9PXwi.js") }), `./Default/${themeLoader.theme}/Header.vue`, 4)),
+        footer: defineAsyncComponent(() => __variableDynamicImportRuntimeHelper(/* @__PURE__ */ Object.assign({ "./Default/Five/Footer.vue": () => import("./assets/Footer-CtDMpZTh.js"), "./Default/Four/Footer.vue": () => import("./assets/Footer-BsF0ATFo.js"), "./Default/One/Footer.vue": () => import("./assets/Footer-DPAKpXIE.js"), "./Default/Seven/Footer.vue": () => import("./assets/Footer-CkyB9kPB.js"), "./Default/Six/Footer.vue": () => import("./assets/Footer-LB6tgVPy.js"), "./Default/Three/Footer.vue": () => import("./assets/Footer-DNbLptrU.js"), "./Default/Two/Footer.vue": () => import("./assets/Footer-D22IfWOz.js") }), `./Default/${themeLoader.theme}/Footer.vue`, 4))
       };
     };
     onMounted(() => setComponent());
     watch(
       () => usePage().url,
       () => {
-        if (route().current("home"))
-          setComponent();
+        if (route().current("home")) setComponent();
       }
     );
     const loadDynamicThemes = () => themeLoader.loadedComponents[themeLoader.theme];
@@ -12666,8 +12665,7 @@ const _sfc_main$2Z = /* @__PURE__ */ Object.assign(__default__$1i, {
         return;
       }
       transformPrompt();
-      if (hasError.value)
-        return;
+      if (hasError.value) return;
       isProcessing.value = true;
       axios$1.post(route("api-ai-generate", pickBy2(form))).then(async (res) => {
         generatedResponse.value = res.data;
@@ -15832,8 +15830,7 @@ const _sfc_main$2F = {
       });
     };
     onBeforeUnmount(() => {
-      if (observer)
-        observer.disconnect();
+      if (observer) observer.disconnect();
     });
     const isMessageRead = (conversation) => {
       var _a2, _b2, _c;
@@ -15940,7 +15937,6 @@ _sfc_main$2F.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Layouts/Employer/MessageSidebar.vue");
   return _sfc_setup$2F ? _sfc_setup$2F(props, ctx) : void 0;
 };
-const style = "";
 const _sfc_main$2E = {
   __name: "EmployerMessage",
   __ssrInlineRender: true,
@@ -16105,8 +16101,7 @@ const _sfc_main$2C = /* @__PURE__ */ Object.assign(__default__$11, {
     });
     onBeforeUnmount(() => {
       message.$patch({ activeUuid: null });
-      if (observer)
-        observer.disconnect();
+      if (observer) observer.disconnect();
     });
     const fetchMoreConversations = async () => {
       replyPage.value++;
@@ -17942,8 +17937,7 @@ const _sfc_main$2m = /* @__PURE__ */ Object.assign(__default__$S, {
         return;
       }
       transformPrompt();
-      if (hasError.value)
-        return;
+      if (hasError.value) return;
       isProcessing.value = true;
       axios$1.post(route("api-ai-generate", pickBy2(form))).then(async (res) => {
         generatedResponse.value = res.data;
@@ -18718,8 +18712,7 @@ const _sfc_main$2f = {
       });
     };
     onBeforeUnmount(() => {
-      if (observer)
-        observer.disconnect();
+      if (observer) observer.disconnect();
     });
     const isMessageRead = (conversation) => {
       var _a2, _b2, _c;
@@ -18958,8 +18951,7 @@ const _sfc_main$2c = /* @__PURE__ */ Object.assign(__default__$K, {
     });
     onBeforeUnmount(() => {
       message.$patch({ activeUuid: null });
-      if (observer)
-        observer.disconnect();
+      if (observer) observer.disconnect();
     });
     const fetchMoreConversations = async () => {
       replyPage.value++;
@@ -19638,8 +19630,7 @@ const _sfc_main$28 = /* @__PURE__ */ Object.assign(__default__$H, {
       form.overview = (_c = props.meta) == null ? void 0 : _c.overview;
       form.date_of_birth = (_d = props.meta) == null ? void 0 : _d.date_of_birth;
       form.country_id = (_e = props.meta) == null ? void 0 : _e.country_id;
-      if (form.country_id)
-        fetchStates();
+      if (form.country_id) fetchStates();
       form.state_id = props.meta.state_id;
       form.address = ((_f = props.candidate) == null ? void 0 : _f.address) ?? "";
       form.service_id = ((_g = props.meta) == null ? void 0 : _g.service_id) ?? "";
@@ -20609,8 +20600,6 @@ const __vite_glob_0_213 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$20
 }, Symbol.toStringTag, { value: "Module" }));
-const swiper_min = "";
-const navigation_min = "";
 const _sfc_main$1$ = {
   __name: "FeedbackSection",
   __ssrInlineRender: true,
@@ -28229,7 +28218,6 @@ const __vite_glob_0_216 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$Q
 }, Symbol.toStringTag, { value: "Module" }));
-const BannerSection_vue_vue_type_style_index_0_scoped_3b450e03_lang = "";
 const _sfc_main$P = {
   __name: "BannerSection",
   __ssrInlineRender: true,
@@ -28349,7 +28337,6 @@ const __vite_glob_0_231 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$O
 }, Symbol.toStringTag, { value: "Module" }));
-const CategorySection_vue_vue_type_style_index_0_scoped_7055dcab_lang = "";
 const AUTOPLAY_DELAY = 3e3;
 const _sfc_main$N = {
   __name: "CategorySection",
@@ -28473,7 +28460,6 @@ const __vite_glob_0_232 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: CategorySection
 }, Symbol.toStringTag, { value: "Module" }));
-const CategorySection2_vue_vue_type_style_index_0_scoped_ac9f64b1_lang = "";
 const _sfc_main$M = {
   __name: "CategorySection2",
   __ssrInlineRender: true,
@@ -28757,7 +28743,6 @@ const __vite_glob_0_236 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$I
 }, Symbol.toStringTag, { value: "Module" }));
-const BlogSection_vue_vue_type_style_index_0_scoped_4a2e42cb_lang = "";
 const _sfc_main$H = {
   __name: "BlogSection",
   __ssrInlineRender: true,
@@ -32211,7 +32196,6 @@ window.Echo = new Echo$1({
   forceTLS: true,
   disableStats: true
 });
-const _default = "";
 const appName = ((_b = window.document.getElementsByTagName("title")[0]) == null ? void 0 : _b.innerText) || "Laravel";
 createInertiaApp({
   title: (title) => `${title} - ${appName}`,
