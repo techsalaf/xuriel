@@ -39,10 +39,8 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 21098
-
         script: |
           cd /home/xurislrm/public_html
           rm -rf public/build
           mkdir -p public/build
-          scp -P 21098 -r ./public/build user@${{ secrets.SSH_HOST }}:/home/xurislrm/public_html/public/build
+          scp -r ./public/build user@host:/home/xurislrm/public_html/public/build
