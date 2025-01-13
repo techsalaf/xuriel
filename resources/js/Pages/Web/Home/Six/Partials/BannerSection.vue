@@ -125,7 +125,7 @@ const goToSlide = (index) => {
   line-height: 1.2;
   color: #1d4ed8;
   margin-bottom: 1.5rem;
-  font-family: 'gordita';
+  font-family: 'Roboto', sans-serif;
 }
 
 .hero-subtitle {
