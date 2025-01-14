@@ -133,4 +133,3 @@ _sfc_main.setup = (props, ctx) => {
 export {
   _sfc_main as _
 };
-//# sourceMappingURL=NavMenu-AXg5FPgK.js.map

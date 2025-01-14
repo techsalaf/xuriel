@@ -103,9 +103,9 @@ const goToSlide = (index) => {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 6rem; /* Padding for larger screens (desktop) */
 }
 
 .hero-grid {
@@ -120,7 +120,7 @@ const goToSlide = (index) => {
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 4rem; /* Default font size for large screens */
   font-weight: 500;
   line-height: 1.2;
   color: #1d4ed8;
@@ -258,6 +258,22 @@ const goToSlide = (index) => {
 }
 
 /* Responsive Styles */
+
+/* For screens between 1300px and 1500px */
+@media (min-width: 1300px) and (max-width: 1500px) {
+  .hero-title {
+    font-size: 3.5rem; /* Adjusted font size for this screen range */
+  }
+}
+
+/* For screens between 1025px and 1330px */
+@media (min-width: 1025px) and (max-width: 1300px) {
+  .hero-title {
+    font-size: 2.5rem; /* Adjusted font size for this screen range */
+  }
+}
+
+/* For screens between 768px and 1024px (tablets) */
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -270,7 +286,7 @@ const goToSlide = (index) => {
   }
 
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Slightly smaller font size for tablet screens */
   }
 
   .hero-subtitle {
@@ -278,13 +294,25 @@ const goToSlide = (index) => {
   }
 }
 
+/* For tablets and smaller screens (below 991px) */
+@media (max-width: 991px) {
+  .container {
+    padding: 0 2rem; /* Reduced padding for medium screens */
+  }
+}
+
+/* For screens smaller than 768px (mobile devices) */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1rem; /* Even smaller padding for mobile */
+  }
+
   .hero-section {
     padding: 2rem 0;
   }
 
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.5rem; /* Further reduce font size for mobile */
   }
 
   .cta-button {
@@ -293,9 +321,14 @@ const goToSlide = (index) => {
   }
 }
 
+/* For very small mobile screens (below 480px) */
 @media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem; /* Minimal padding for very narrow mobile screens */
+  }
+
   .hero-title {
-    font-size: 1.75rem;
+    font-size: 2rem; /* Minimal font size for very small screens */
   }
 
   .hero-subtitle {

@@ -17,10 +17,10 @@ onMounted(async () => {
   <section class="how-it-works position-relative bg-color pt-110 lg-pt-80 pb-110 lg-pb-70">
     <div class="container">
       <div class="title-one mb-65 lg-mb-40 text-center">
-        <h2 class="text-white">
-          {{ trans('How it’s') }}
+        <h2 class="">
+          {{ trans('Our Core') }}
           <span class="position-relative"
-            >{{ trans('work?') }}
+            >{{ trans('Values') }}
             <img src="/assets/images/shape/shape_07.svg" alt="" class="lazy-img shapes shape"
           /></span>
         </h2>
@@ -42,7 +42,7 @@ onMounted(async () => {
             >
               <img v-lazy="item.preview" alt="preview" class="m-h-40px" />
             </div>
-            <div class="title fw-500 text-white">{{ item.title }}</div>
+            <div class="title fw-500">{{ item.title }}</div>
             <p :title="item.full_text">{{ item.text }}</p>
           </div>
           <!-- /.card-style-two -->

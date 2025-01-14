@@ -260,4 +260,3 @@ _sfc_main.setup = (props, ctx) => {
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=Header-BH3TCfpn.js.map

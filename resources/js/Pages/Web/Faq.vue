@@ -125,7 +125,7 @@ const filterFaq = computed(() => {
 
       <div class="border-bottom pb-150 lg-pb-50 lg-mt-40 wow fadeInUp mt-60 text-center">
         <div class="title-three mb-30">
-          <h2 class="fw-normal">{{ trans('Don’t get your answer?') }}</h2>
+          <h2 class="fw-normal">{{ trans('Can’t find your right plan?') }}</h2>
         </div>
         <Link href="/contact-us" class="btn-one">{{ trans('Contact Us') }}</Link>
       </div>

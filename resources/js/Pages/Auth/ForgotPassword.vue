@@ -51,7 +51,7 @@ const submit = () => {
                 required
                 autofocus
                 autocomplete="email"
-                :placeholder="trans('enter your email here')"
+                :placeholder="trans('Enter your email here')"
               />
               <InputFieldError :message="form.errors.email" />
             </div>

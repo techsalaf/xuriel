@@ -23,13 +23,13 @@ const form = useForm({
 
 const submit = () => {
   if (props.recaptchaSiteKey && !form.recaptcha) {
-    return notify.danger(trans('reCaptcha field is required'))
+    return notify.danger(trans('ReCaptcha field is required'))
   }
 
   form.post(route('send.mail'), {
     preserveScroll: true,
     onSuccess: () => {
-      notify.success(trans('Messages has been send successfully'))
+      notify.success(trans('Message has been sent successfully'))
       form.reset()
       setTimeout(() => {
         window.location.reload()

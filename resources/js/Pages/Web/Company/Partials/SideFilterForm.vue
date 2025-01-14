@@ -192,7 +192,7 @@ onMounted(() => {
         <!-- /.filter-block -->
         <button
           @click.prevent="filter.submit"
-          class="btn-ten fw-500 w-100 tran3s mt-30 text-center text-white"
+          class="btn-ten fw-500 w-100 tran3s mt-30 text-center"
         >
           {{ trans('Apply Filter') }}
         </button>

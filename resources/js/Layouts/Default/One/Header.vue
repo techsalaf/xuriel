@@ -31,7 +31,7 @@ onMounted(async () => {
             <ul class="d-flex align-items-center style-none">
               <li v-if="!authUser" class="d-none d-md-block">
                 <Link :href="route('register')" class="job-post-btn tran3s">
-                {{ trans('Register') }}
+                {{ trans('Signup') }}
                 </Link>
               </li>
               <li v-if="authUser && authUser.role == 'employer'" class="d-none d-md-block">

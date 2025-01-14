@@ -88,7 +88,7 @@ onMounted(() => {
                   <input type="checkbox" name="remember" id="remember" />
                   <label for="remember">{{ trans('Keep me logged in') }}</label>
                 </div>
-                <Link :href="route('password.request')">{{ trans('Forget Password?') }}</Link>
+                <Link :href="route('password.request')">{{ trans('Forgot Password?') }}</Link>
               </div>
               <!-- /.agreement-checkbox -->
             </div>

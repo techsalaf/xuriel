@@ -7,9 +7,9 @@
         <div class="row align-items-center">
           <div class="col-lg-7">
             <div class="text-center text-lg-start">
-              <h2>{{ trans("Most complete job portal.") }}</h2>
+              <h2>{{ trans("Streamlined Operations and Talent Development.") }}</h2>
               <p class="text-md m0 md-pb-20">
-                {{ trans("Signup and start find your job or talents.") }}
+                {{ trans("Sign up and start looking for jobs or talents!") }}
               </p>
             </div>
           </div>
@@ -19,12 +19,12 @@
             >
               <li class="me-2">
                 <Link href="/jobs" class="btn-three">{{
-                  trans("Looking for job?")
+                  trans("Explore Opportunities?")
                 }}</Link>
               </li>
               <li class="ms-2">
                 <Link href="/employer/jobs/create" class="btn-four">{{
-                  trans("Post a job")
+                  trans("Find Talents")
                 }}</Link>
               </li>
             </ul>

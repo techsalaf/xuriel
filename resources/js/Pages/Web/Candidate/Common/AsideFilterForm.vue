@@ -262,7 +262,7 @@ const inputRangePercentage = computed(() => {
             </div>
           </div>
         </div>
-        <button type="submit" class="btn-ten fw-500 w-100 tran3s mt-30 text-center text-white">
+        <button type="submit" class="btn-ten fw-500 w-100 tran3s mt-30 text-center">
           {{ trans('Apply Filter') }}
         </button>
 

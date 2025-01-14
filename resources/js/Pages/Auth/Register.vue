@@ -118,7 +118,7 @@ const submit = () => {
                     <div>
                       <input v-model="form.terms" type="checkbox" id="remember" />
                       <label for="remember">
-                        {{ trans('By hitting the "Register" button, you agree to the') }}
+                        {{ trans('By hitting the "Signup" button, you agree to the') }}
                         <Link href="/page/terms-and-conditions">{{
                           trans('Terms conditions')
                         }}</Link>
@@ -134,7 +134,7 @@ const submit = () => {
                   <SpinnerBtn
                     classes="btn-eleven fw-500 d-flex align-items-center justify-content-center"
                     :processing="form.processing"
-                    btn-text="Register"
+                    btn-text="Signup"
                   />
                 </div>
               </div>
@@ -170,7 +170,7 @@ const submit = () => {
           </div>
 
           <p class="mt-10 text-center">
-            {{ trans('have an account?') }}
+            {{ trans('Have an account?') }}
             <Link :href="route('login')" class="fw-500">{{ trans('Sign In') }}</Link>
           </p>
         </div>

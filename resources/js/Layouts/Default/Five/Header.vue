@@ -21,7 +21,7 @@ const { authUser, currentRouteGroup } = sharedComposable()
             <ul class="d-flex align-items-center style-none">
               <li v-if="!authUser">
                 <Link class="fw-500 text-dark" :href="route('register')">
-                  {{ trans('Register') }}
+                  {{ trans('Signup') }}
                 </Link>
               </li>
               <li v-if="authUser && authUser.role == 'employer'">
@@ -85,10 +85,10 @@ const { authUser, currentRouteGroup } = sharedComposable()
                 <NavMenu />
                 <li class="d-md-none mt-5">
                   <Link v-if="!authUser" :href="route('login')" class="btn-five w-100">{{
-                    trans('Register')
+                    trans('Signup')
                   }}</Link>
                   <Link v-else :href="route('login')" class="btn-five w-100">{{
-                    trans('Register')
+                    trans('Signup')
                   }}</Link>
                 </li>
               </ul>

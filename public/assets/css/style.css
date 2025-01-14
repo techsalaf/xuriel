@@ -473,7 +473,7 @@ hr {
 
 .title-one h2.main-font {
     font-family: 'Roboto', sans-serif;
-    font-size: 45px;
+    font-size: 55px;
     color: #1d4ed8;
     line-height: 1.333em
 }
@@ -518,7 +518,7 @@ hr {
 
 .title-two h2.main-font {
     font-family: 'Roboto', sans-serif;
-    font-size: 45px
+    font-size: 55px
 }
 
 .title-two .sub-title {
@@ -546,7 +546,7 @@ hr {
 
 .title-four h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: 45px;
+    font-size: 55px;
     color: #1d4ed8;
     margin: 0
 }
@@ -2512,7 +2512,7 @@ iframe {
 }
 
 .theme-main-menu.menu-overlay {
-    padding: 5px 20px;
+    padding: 10px 6rem;
     top: 0;
     right: 0;
     left: 0;
@@ -2523,10 +2523,10 @@ iframe {
     position: fixed;
     left: 0;
     right: 0;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background: #fff;
-    box-shadow: 0 13px 35px -12px rgba(35, 35, 35, .1)
+    box-shadow: 0 13px 35px -12px rgba(35, 35, 35, .1);
 }
 
 .theme-main-menu .category-dropdown .item {

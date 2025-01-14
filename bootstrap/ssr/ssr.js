@@ -28248,15 +28248,15 @@ const _sfc_main$P = {
       }, 5e3);
     };
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<section${ssrRenderAttrs(mergeProps({ class: "hero-section" }, _attrs))} data-v-3b450e03><div class="container" data-v-3b450e03><div class="hero-grid" data-v-3b450e03><div class="hero-content" data-v-3b450e03><h1 class="hero-title" data-v-3b450e03>${ssrInterpolate(__props.home.hero.title)}</h1><p class="hero-subtitle" data-v-3b450e03>${ssrInterpolate(__props.home.hero.subtitle)}</p><div class="cta-wrapper" data-v-3b450e03><a href="/jobs" class="cta-button" data-v-3b450e03> Explore Jobs <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-3b450e03><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" data-v-3b450e03></path></svg></a></div></div><div class="slider-wrapper" data-v-3b450e03><div class="slider-container" data-v-3b450e03><div class="slider" data-v-3b450e03><!--[-->`);
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "hero-section" }, _attrs))} data-v-229096ea><div class="container" data-v-229096ea><div class="hero-grid" data-v-229096ea><div class="hero-content" data-v-229096ea><h1 class="hero-title" data-v-229096ea>${ssrInterpolate(__props.home.hero.title)}</h1><p class="hero-subtitle" data-v-229096ea>${ssrInterpolate(__props.home.hero.subtitle)}</p><div class="cta-wrapper" data-v-229096ea><a href="/jobs" class="cta-button" data-v-229096ea> Explore Jobs <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-v-229096ea><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" data-v-229096ea></path></svg></a></div></div><div class="slider-wrapper" data-v-229096ea><div class="slider-container" data-v-229096ea><div class="slider" data-v-229096ea><!--[-->`);
       ssrRenderList(slides.value, (slide, index) => {
-        _push(`<div style="${ssrRenderStyle(currentSlide.value === index ? null : { display: "none" })}" class="${ssrRenderClass([{ active: currentSlide.value === index }, "slide"])}" data-v-3b450e03><img${ssrRenderAttr("src", slide)}${ssrRenderAttr("alt", `Hero image ${index + 1}`)} data-v-3b450e03></div>`);
+        _push(`<div style="${ssrRenderStyle(currentSlide.value === index ? null : { display: "none" })}" class="${ssrRenderClass([{ active: currentSlide.value === index }, "slide"])}" data-v-229096ea><img${ssrRenderAttr("src", slide)}${ssrRenderAttr("alt", `Hero image ${index + 1}`)} data-v-229096ea></div>`);
       });
-      _push(`<!--]--></div><div class="slider-nav" data-v-3b450e03><!--[-->`);
+      _push(`<!--]--></div><div class="slider-nav" data-v-229096ea><!--[-->`);
       ssrRenderList(slides.value, (_, index) => {
-        _push(`<button class="${ssrRenderClass([{ active: currentSlide.value === index }, "nav-dot"])}" data-v-3b450e03><span class="sr-only" data-v-3b450e03>Slide ${ssrInterpolate(index + 1)}</span></button>`);
+        _push(`<button class="${ssrRenderClass([{ active: currentSlide.value === index }, "nav-dot"])}" data-v-229096ea><span class="sr-only" data-v-229096ea>Slide ${ssrInterpolate(index + 1)}</span></button>`);
       });
-      _push(`<!--]--></div></div><div class="decoration decoration-1" data-v-3b450e03></div><div class="decoration decoration-2" data-v-3b450e03></div></div></div></div></section>`);
+      _push(`<!--]--></div></div><div class="decoration decoration-1" data-v-229096ea></div><div class="decoration decoration-2" data-v-229096ea></div></div></div></div></section>`);
     };
   }
 };
@@ -28266,7 +28266,7 @@ _sfc_main$P.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/Pages/Web/Home/Six/Partials/BannerSection.vue");
   return _sfc_setup$P ? _sfc_setup$P(props, ctx) : void 0;
 };
-const BannerSection = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-3b450e03"]]);
+const BannerSection = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-229096ea"]]);
 const __vite_glob_0_228 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: BannerSection
@@ -32225,4 +32225,3 @@ export {
   notify as n,
   sharedComposable as s
 };
-//# sourceMappingURL=ssr.js.map

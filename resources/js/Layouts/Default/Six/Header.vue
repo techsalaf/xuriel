@@ -41,7 +41,7 @@ const { authUser } = sharedComposable()
               </li>
               <li v-else-if="!authUser" class="d-none d-md-block ms-3">
                 <Link :href="route('register')" class="btn-five">
-                {{ trans('Register') }}
+                {{ trans('Signup') }}
                 </Link>
               </li>
             </ul>
@@ -65,7 +65,7 @@ const { authUser } = sharedComposable()
 
                 <li class="d-md-none mt-5">
                   <Link v-if="!authUser" :href="route('login')" class="btn-five w-100">{{
-                    trans('Register')
+                    trans('Signup')
                   }}</Link>
                   <Link v-else :href="route('login')" class="btn-five w-100">{{
                     trans('Dashboard')

@@ -53,7 +53,7 @@ const { authUser, logout } = sharedComposable()
                 <Link v-if="!authUser" :href="route('login')">{{ trans('Login') }}</Link>
               </li>
               <li>
-                <Link v-if="!authUser" :href="route('register')">{{ trans('Register') }}</Link>
+                <Link v-if="!authUser" :href="route('register')">{{ trans('Signup') }}</Link>
               </li>
             </ul>
           </div>
